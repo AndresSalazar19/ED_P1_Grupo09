@@ -4,19 +4,23 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
 /**
  * FXML Controller class
  *
  * @author asala
  */
-public class InicioController  {
+public class AñadirVehiculoController implements Initializable {
 
-  @FXML
-    private void añadirVehiculo() throws IOException {
-        App.setRoot("añadirVehiculo");
-    }
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
     
 }

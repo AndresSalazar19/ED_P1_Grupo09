@@ -4,7 +4,9 @@
  */
 package modelo;
 
-import java.util.List;
+
+import tda.List;
+import tda.CircularDoublyLinkedList;
 import javafx.scene.image.Image;
 /**
  *
@@ -16,7 +18,7 @@ abstract class Vehiculo {
     protected String ciudadv;
     protected double precio;
     protected String year;
-    protected List<Image> Imagenes;
+    protected CircularDoublyLinkedList<Image> Imagenes;
     protected List<Accidente> accidentes;
     protected String id;
     protected int capacidad;
