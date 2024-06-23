@@ -1,99 +1,172 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package tda;
-
 /**
  *
- * @author asala
+ * @author andres b
+ * @param <E>
  */
-public class ArrayList<E> implements List<E>, Comparator<E>{
-    
-    private E[] elements = null; //arreglo de elementos genericos
+
+package tda;
+
+import java.lang.reflect.Array;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ArrayList<E> implements List<E> {
+
+    private E[] elements;
     private int capacity = 100;
     private int effectiveSize;
-    
-    public ArrayList (){
-        elements = (E[])(new Object[capacity]); // SI FUNCIONA con Casting permitido con el arrayList
-        effectiveSize = 0;
+    private final Class<E> type;
+
+    public ArrayList(Class<E> type) {
+        this.type = type;
+        this.elements = createArray(type, capacity);
+        this.effectiveSize = 0;
     }
-    
-    private boolean isFull(){
+
+    // Crear array genérico
+    @SuppressWarnings("unchecked")
+    private E[] createArray(Class<E> type, int size) {
+        return (E[]) Array.newInstance(type, size);
+    }
+
+    private boolean isFull() {
         return effectiveSize == capacity;
     }
- 
+
     @Override
     public boolean addLast(E e) {
-       if (e == null) {
+        if (e == null) {
             return false;
         }
         if (isFull()) {
             addCapacity();
         }
-        elements[effectiveSize] = e;
-        effectiveSize++;
-        //elements[effectiveSize++] = e; otra forma de hacer las 2 lineas anteriores
+        elements[effectiveSize++] = e;
         return true;
     }
-   
+
+    @Override
+    public boolean addFirst(E e) {
+        if (e == null) {
+            return false;
+        }
+        if (isFull()) {
+            addCapacity();
+        }
+        System.arraycopy(elements, 0, elements, 1, effectiveSize);
+        elements[0] = e;
+        effectiveSize++;
+        return true;
+    }
+
+    @Override
+    public boolean add(int index, E element) {
+        if (element == null || index < 0 || index > effectiveSize) {
+            return false;
+        }
+        if (isFull()) {
+            addCapacity();
+        }
+        System.arraycopy(elements, index, elements, index + 1, effectiveSize - index);
+        elements[index] = element;
+        effectiveSize++;
+        return true;
+    }
+
+    @Override
+    public E get(int index) {
+        if (index < 0 || index >= effectiveSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + effectiveSize);
+        }
+        return elements[index];
+    }
+
+    @Override
+    public E remove(int index) {
+        if (index < 0 || index >= effectiveSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + effectiveSize);
+        }
+        E removedElement = elements[index];
+        System.arraycopy(elements, index + 1, elements, index, effectiveSize - index - 1);
+        elements[--effectiveSize] = null;
+        return removedElement;
+    }
+
+    @Override
+    public E set(int index, E element) {
+        if (element == null || index < 0 || index >= effectiveSize) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + effectiveSize);
+        }
+        E oldElement = elements[index];
+        elements[index] = element;
+        return oldElement;
+    }
+
     @Override
     public boolean isEmpty() {
         return effectiveSize == 0;
     }
 
-    private void addCapacity() {
-        E[] tmp = (E[]) new Object[capacity * 2];
-        for (int i = 0; i < capacity; i++){
-            tmp[i] = elements[i];
-        }
-        elements = tmp;
-        capacity = capacity * 2;
-    }
-    
-    public String toString() {
-        String s="[";
-        for (int i=0; i<effectiveSize-1; i++) {
-            s+=elements[i]+", ";
-        }
-        s+=elements[effectiveSize-1]+"]";
-        return s;
-    }
-    
-    public Iterator<E> iterator(){
-            Iterator<E> it=new Iterator<E>() {
-                int cursor = 0;
-                @Override
-                public boolean hasNext() {
-                    return cursor < effectiveSize;
-                }
-
-                @Override
-                public E next() {
-                    E e=elements[cursor];
-                    cursor++;
-                    return e;
-                }
-            };
-        return it;   
-    }
-    
     @Override
-    public E find(Comparator<E> comp, E elemento){
-        E compare=null;
-        for (E e1:this){
-            if (comp.compare(e1, elemento) == 0){
-                compare = e1;
+    public int size() {
+        return effectiveSize;
+    }
+
+    @Override
+    public boolean contains(E element) {
+        return indexOf(element) >= 0;
+    }
+
+    @Override
+    public void clear() {
+        for (int i = 0; i < effectiveSize; i++) {
+            elements[i] = null;
+        }
+        effectiveSize = 0;
+    }
+
+    @Override
+    public int indexOf(E element) {
+        if (element == null) {
+            return -1;
+        }
+        for (int i = 0; i < effectiveSize; i++) {
+            if (elements[i].equals(element)) {
+                return i;
             }
         }
-        return compare;
+        return -1;
     }
-    
+
     @Override
-    public List<E> findAll(Comparator<E> comp, E elemento){
-        List<E> intersection = new ArrayList<>();
-        for (E e1:this){
-            if (comp.compare(e1, elemento)==0){
+    public int lastIndexOf(E element) {
+        if (element == null) {
+            return -1;
+        }
+        for (int i = effectiveSize - 1; i >= 0; i--) {
+            if (elements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public E find(Comparator<E> comp, E elemento) {
+        for (E e1 : this) {
+            if (comp.compare(e1, elemento) == 0) {
+                return e1;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<E> findAll(Comparator<E> comp, E elemento) {
+        List<E> intersection = new ArrayList<>(type);
+        for (E e1 : this) {
+            if (comp.compare(e1, elemento) == 0) {
                 intersection.addLast(e1);
             }
         }
@@ -101,7 +174,42 @@ public class ArrayList<E> implements List<E>, Comparator<E>{
     }
 
     @Override
-    public int compare(E e1, E e2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            int cursor = 0;
+
+            @Override
+            public boolean hasNext() {
+                return cursor < effectiveSize;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return elements[cursor++];
+            }
+        };
+    }
+
+    private void addCapacity() {
+        E[] tmp = createArray(type, capacity * 2);
+        System.arraycopy(elements, 0, tmp, 0, capacity);
+        elements = tmp;
+        capacity *= 2;
+    }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < effectiveSize - 1; i++) {
+            sb.append(elements[i]).append(", ");
+        }
+        sb.append(elements[effectiveSize - 1]).append("]");
+        return sb.toString();
     }
 }
