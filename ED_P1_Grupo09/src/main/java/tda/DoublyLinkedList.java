@@ -4,6 +4,7 @@
  */
 package tda;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -245,6 +246,7 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
         return lastIndex;
     }
 
+    @Override
     public E find(Comparator<E> comp, E elemento) {
         for (E e1 : this) {
             if (comp.compare(e1, elemento) == 0) {
@@ -254,6 +256,7 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
         return null;
     }
 
+    @Override
     public List<E> findAll(Comparator<E> comp, E elemento) {
         List<E> intersection = new DoublyLinkedList<>();
         for (E e1 : this) {
@@ -311,13 +314,4 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
         return s.toString();
     }
 
-    @Override
-    public E find(java.util.Comparator<E> comp, E elemento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<E> findAll(java.util.Comparator<E> comp, E elemento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
