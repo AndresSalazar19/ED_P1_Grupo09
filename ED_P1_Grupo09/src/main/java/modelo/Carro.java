@@ -4,14 +4,22 @@
  */
 package modelo;
 
+import java.util.List;
+import javafx.scene.image.Image;
+
 /**
  *
  * @author Ayman El Salous Mnz
  */
-public class Carro {
+public class Carro extends Vehiculo {
     private String tipocarro;
 
-    public Carro(String tipocarro) {
+    public Carro( String kilometraje, String modelo, String ciudadv, double precio, String year,
+                 List<Image> imagenes, List<Accidente> accidentes, String id, int capacidad,
+                 Detalles_vehiExt detallesExt, Detalles_vehiInt detallesInt, List<Proceso> lista,
+                 Usuario vendedor,String tipocarro) {
+        super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
+              detallesExt, detallesInt, lista);
         this.tipocarro = tipocarro;
     }
 
