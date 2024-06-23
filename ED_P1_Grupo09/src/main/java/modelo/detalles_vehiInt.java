@@ -8,7 +8,7 @@ package modelo;
  *
  * @author asala
  */
-public class detalles_vehiInt {
+public class Detalles_vehiInt {
     private String traccion;
     private String transmission;
     private TipoCombustible combustible;
@@ -16,7 +16,7 @@ public class detalles_vehiInt {
     private boolean climatizado;
     private String tipoMotor;
 
-    public detalles_vehiInt(String traccion, String transmission, TipoCombustible combustible, String placade, boolean climatizado, String tipoMotor) {
+    public Detalles_vehiInt(String traccion, String transmission, TipoCombustible combustible, String placade, boolean climatizado, String tipoMotor) {
         this.traccion = traccion;
         this.transmission = transmission;
         this.combustible = combustible;

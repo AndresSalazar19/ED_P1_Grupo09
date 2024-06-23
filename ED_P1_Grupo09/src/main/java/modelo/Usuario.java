@@ -4,6 +4,10 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author asala
@@ -14,13 +18,12 @@ public class Usuario {
     String telefono;
     LinkedList<Vehiculo> vehiculosFavoritos;
     List<Vehiculo> publicadosPorUsuario;
-    List<Contacto> contactos;
     
     public Usuario(String nombre, String email, String telefono){
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
-        this.vehiculosFavoritos = new ArrayList<>();
+        this.vehiculosFavoritos = new LinkedList<>();
         this.publicadosPorUsuario = new ArrayList<>();
     }
 
@@ -64,13 +67,7 @@ public class Usuario {
         this.publicadosPorUsuario = publicadosPorUsuario;
     }
 
-    public List<Contacto> getContactos() {
-        return contactos;
-    }
 
-    public void setContactos(List<Contacto> contactos) {
-        this.contactos = contactos;
-    }
     
     public void agregarVehiculoAFavoritos(Vehiculo vehiculo){
         vehiculosFavoritos.addFirst(vehiculo);  //Similitud a una pila usando LinkedList
@@ -80,11 +77,4 @@ public class Usuario {
        
     }
     
-    public void agregarContacto(){
-        
-    }
-    
-    public void mostrarContacto(){
-        
-    }
 }

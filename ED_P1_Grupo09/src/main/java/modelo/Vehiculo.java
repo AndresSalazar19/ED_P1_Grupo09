@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.List;
 import javafx.scene.image.Image;
 /**
  *
@@ -13,20 +14,20 @@ abstract class Vehiculo {
     protected String kilometraje;
     protected String modelo;
     protected String ciudadv;
-    protected Double precio;
+    protected double precio;
     protected String year;
     protected List<Image> Imagenes;
-    protected List<accidentes> accidentes;
+    protected List<Accidente> accidentes;
     protected String id;
     protected int capacidad;
-    protected detalles_vehiExt detalles_Ext;
-    protected detalles_VehiInt detalles_Int;
-    protected List<Procesos> lista;
+    protected Detalles_vehiExt detalles_Ext;
+    protected Detalles_vehiInt detalles_Int;
+    protected List<Proceso> lista;
     protected Usuario vendedor;
 
     
 
-    public Vehiculo(String kilometraje, String modelo, String ciudadv, Double precio, String year, List<Image> Imagenes, List<accidentes> accidentes, String id, int capacidad, detalles_vehiExt detalles_Ext, detalles_VehiInt detalles_Int, List<Procesos> lista) {
+    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, List<Image> Imagenes, List<Accidente> accidentes, String id, int capacidad, Detalles_vehiExt detalles_Ext, Detalles_vehiInt detalles_Int, List<Proceso> lista) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.ciudadv = ciudadv;
@@ -65,11 +66,11 @@ abstract class Vehiculo {
         this.ciudadv = ciudadv;
     }
 
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -89,11 +90,11 @@ abstract class Vehiculo {
         this.Imagenes = Imagenes;
     }
 
-    public List<accidentes> getAccidentes() {
+    public List<Accidente> getAccidentes() {
         return accidentes;
     }
 
-    public void setAccidentes(List<accidentes> accidentes) {
+    public void setAccidentes(List<Accidente> accidentes) {
         this.accidentes = accidentes;
     }
 
@@ -113,27 +114,27 @@ abstract class Vehiculo {
         this.capacidad = capacidad;
     }
 
-    public detalles_vehiExt getDetalles_Ext() {
+    public Detalles_vehiExt getDetalles_Ext() {
         return detalles_Ext;
     }
 
-    public void setDetalles_Ext(detalles_vehiExt detalles_Ext) {
+    public void setDetalles_Ext(Detalles_vehiExt detalles_Ext) {
         this.detalles_Ext = detalles_Ext;
     }
 
-    public detalles_VehiInt getDetalles_Int() {
+    public Detalles_vehiInt getDetalles_Int() {
         return detalles_Int;
     }
 
-    public void setDetalles_Int(detalles_VehiInt detalles_Int) {
+    public void setDetalles_Int(Detalles_vehiInt detalles_Int) {
         this.detalles_Int = detalles_Int;
     }
 
-    public List<Procesos> getLista() {
+    public List<Proceso> getLista() {
         return lista;
     }
 
-    public void setLista(List<Procesos> lista) {
+    public void setLista(List<Proceso> lista) {
         this.lista = lista;
     }
     public Usuario getVendedor() {

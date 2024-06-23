@@ -12,17 +12,17 @@ import java.util.List;
  * @author asala
  */
 public class AplicacionVehiculo {
-    private List<detalles_vehiExt> vehiculos;
+    private List<Detalles_vehiExt> vehiculos;
 
     public AplicacionVehiculo() {
         this.vehiculos = new ArrayList<>();
     }
 
-    public void agregarVehiculo(detalles_vehiExt vehiculo) {
+    public void agregarVehiculo(Detalles_vehiExt vehiculo) {
         this.vehiculos.add(vehiculo);
     }
 
-    public void editarVehiculo(int index, detalles_vehiExt vehiculo) {
+    public void editarVehiculo(int index, Detalles_vehiExt vehiculo) {
         if (index >= 0 && index < vehiculos.size()) {
             vehiculos.set(index, vehiculo);
         }
@@ -34,27 +34,27 @@ public class AplicacionVehiculo {
         }
     }
 
-    public List<detalles_vehiExt> ordenarPorPrecio() {
+    public List<Detalles_vehiExt> ordenarPorPrecio() {
         // Implementación para ordenar por precio
         return null;
     }
 
-    public List<detalles_vehiExt> ordenarPorKilometraje() {
+    public List<Detalles_vehiExt> ordenarPorKilometraje() {
         // Implementación para ordenar por kilometraje
         return null;
     }
 
-    public List<detalles_vehiExt> filtrarPorMarcaModelo(String marca, String modelo) {
+    public List<Detalles_vehiExt> filtrarPorMarcaModelo(String marca, String modelo) {
         // Implementación para filtrar por marca y modelo
         return null;
     }
 
-    public List<detalles_vehiExt> filtrarPorRangoPrecio(double minPrecio, double maxPrecio) {
+    public List<Detalles_vehiExt> filtrarPorRangoPrecio(double minPrecio, double maxPrecio) {
         // Implementación para filtrar por rango de precio
         return null;
     }
 
-    public List<detalles_vehiExt> filtrarPorRangoKilometraje(int minKilometraje, int maxKilometraje) {
+    public List<Detalles_vehiExt> filtrarPorRangoKilometraje(int minKilometraje, int maxKilometraje) {
         // Implementación para filtrar por rango de kilometraje
         return null;
     }

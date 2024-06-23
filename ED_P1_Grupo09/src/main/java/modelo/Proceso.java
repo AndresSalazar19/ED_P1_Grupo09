@@ -8,11 +8,11 @@ package modelo;
  *
  * @author asala
  */
-public class Procesos {
+public class Proceso {
      private String descripcion;
     private String tipo_proceso;
 
-    public Procesos(String descripcion, String tipo_proceso) {
+    public Proceso(String descripcion, String tipo_proceso) {
         this.descripcion = descripcion;
         this.tipo_proceso = tipo_proceso;
     }

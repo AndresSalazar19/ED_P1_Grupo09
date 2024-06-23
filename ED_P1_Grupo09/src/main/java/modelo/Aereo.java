@@ -4,6 +4,9 @@
  */
 package modelo;
 
+import java.util.List;
+import javafx.scene.image.Image;
+
 /**
  *
  * @author LENOVO
@@ -14,11 +17,11 @@ public class Aereo extends Vehiculo {
     private int rangoVuelo;
     
     public Aereo(String kilometraje, String modelo, String ciudadv, double precio, String year,
-                 List<Image> imagenes, List<Accidentes> accidentes, String id, int capacidad,
-                 Detalles_vehiExt detallesExt, Detalles_vehiInt detallesInt, List<Procesos> lista,
+                 List<Image> imagenes, List<Accidente> accidentes, String id, int capacidad,
+                 Detalles_vehiExt detallesExt, Detalles_vehiInt detallesInt, List<Proceso> lista,
                  Usuario vendedor, String tipoAeronave, double pesoMaximoDespegue, int rangoVuelo) {
         super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
-              detallesExt, detallesInt, lista, vendedor);
+              detallesExt, detallesInt, lista);
         this.tipoAeronave = tipoAeronave;
         this.pesoMaximoDespegue = pesoMaximoDespegue;
         this.rangoVuelo = rangoVuelo;
