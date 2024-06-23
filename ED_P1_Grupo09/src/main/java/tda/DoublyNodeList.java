@@ -11,7 +11,7 @@ package tda;
  */
 
 public class DoublyNodeList<E> {
-      private E content;
+    private E content;
     private DoublyNodeList<E> next;
     private DoublyNodeList<E> previous;
     
