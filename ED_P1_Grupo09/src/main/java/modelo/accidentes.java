@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
+import java.util.List;
 
 /**
  *
@@ -50,11 +51,11 @@ public class accidentes {
         this.accifecha = accifecha;
     }
 
-    public <any> getLista() {
+    public List<accidentes> getLista() {
         return lista;
     }
 
-    public void setLista(<any> lista) {
+    public void setLista(List<accidentes> lista) {
         this.lista = lista;
     }
    
