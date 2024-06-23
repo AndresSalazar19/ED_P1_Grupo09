@@ -4,9 +4,8 @@
  */
 package modelo;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import tda.*;
+
 
 /**
  *
@@ -17,14 +16,14 @@ public class Usuario {
     String email;
     String telefono;
     LinkedList<Vehiculo> vehiculosFavoritos;
-    List<Vehiculo> publicadosPorUsuario;
+    LinkedList<Vehiculo> misVehiculos;
     
     public Usuario(String nombre, String email, String telefono){
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.vehiculosFavoritos = new LinkedList<>();
-        this.publicadosPorUsuario = new ArrayList<>();
+        this.misVehiculos = new LinkedList<>();
     }
 
     public String getNombre() {
@@ -59,12 +58,12 @@ public class Usuario {
         this.vehiculosFavoritos = vehiculosFavoritos;
     }
 
-    public List<Vehiculo> getPublicadosPorUsuario() {
-        return publicadosPorUsuario;
+    public List<Vehiculo> getmisVehiculos() {
+        return misVehiculos;
     }
 
-    public void setPublicadosPorUsuario(List<Vehiculo> publicadosPorUsuario) {
-        this.publicadosPorUsuario = publicadosPorUsuario;
+    public void setmisVehiculos(LinkedList<Vehiculo> misVehiculos) {
+        this.misVehiculos = misVehiculos;
     }
 
 

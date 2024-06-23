@@ -9,7 +9,7 @@ package modelo;
  * @author asala
  */
 public class Proceso {
-     private String descripcion;
+    private String descripcion;
     private String tipo_proceso;
 
     public Proceso(String descripcion, String tipo_proceso) {

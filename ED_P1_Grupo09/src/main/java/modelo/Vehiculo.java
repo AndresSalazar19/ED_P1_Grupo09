@@ -5,8 +5,8 @@
 package modelo;
 
 
-import tda.List;
-import tda.CircularDoublyLinkedList;
+
+import tda.*;
 import javafx.scene.image.Image;
 /**
  *
@@ -19,17 +19,17 @@ abstract class Vehiculo {
     protected double precio;
     protected String year;
     protected CircularDoublyLinkedList<Image> Imagenes;
-    protected List<Accidente> accidentes;
+    protected LinkedList<Accidente> accidentes;
     protected String id;
     protected int capacidad;
     protected DetallesVehiExt detalles_Ext;
     protected DetallesVehiInt detalles_Int;
-    protected List<Proceso> lista;
+    protected LinkedList<Proceso> lista;
     protected Usuario vendedor;
 
     
 
-    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, List<Image> Imagenes, List<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, List<Proceso> lista) {
+    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, LinkedList<Proceso> lista) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.ciudadv = ciudadv;
@@ -88,7 +88,7 @@ abstract class Vehiculo {
         return Imagenes;
     }
 
-    public void setImagenes(List<Image> Imagenes) {
+    public void setImagenes(CircularDoublyLinkedList<Image> Imagenes) {
         this.Imagenes = Imagenes;
     }
 
@@ -96,7 +96,7 @@ abstract class Vehiculo {
         return accidentes;
     }
 
-    public void setAccidentes(List<Accidente> accidentes) {
+    public void setAccidentes(LinkedList<Accidente> accidentes) {
         this.accidentes = accidentes;
     }
 
@@ -136,7 +136,7 @@ abstract class Vehiculo {
         return lista;
     }
 
-    public void setLista(List<Proceso> lista) {
+    public void setLista(LinkedList<Proceso> lista) {
         this.lista = lista;
     }
     public Usuario getVendedor() {

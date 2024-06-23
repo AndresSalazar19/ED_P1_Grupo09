@@ -9,5 +9,11 @@ package modelo;
  * @author LENOVO
  */
 public enum TipoCombustible {
-    
+    GASOLINA,
+    DIESEL,
+    SUPER,
+    ELECTRICO,
+    HIBRIDO,
+    OTRO
 }
+
