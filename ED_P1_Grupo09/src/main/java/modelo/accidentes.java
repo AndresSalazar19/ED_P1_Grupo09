@@ -51,11 +51,11 @@ public class accidentes {
         this.accifecha = accifecha;
     }
 
-    public List<accidentes> getLista() {
+    public List<Procesos> getLista() {
         return lista;
     }
 
-    public void setLista(List<accidentes> lista) {
+    public void setLista(List<Procesos> lista) {
         this.lista = lista;
     }
    
