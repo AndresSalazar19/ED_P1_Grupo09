@@ -16,7 +16,7 @@ public class Acuatico extends Vehiculo{
 
     public Acuatico(String kilometraje, String modelo, String ciudadv, double precio, String year,
                  List<Image> imagenes, List<Accidente> accidentes, String id, int capacidad,
-                 Detalles_vehiExt detallesExt, Detalles_vehiInt detallesInt, List<Proceso> lista,
+                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, List<Proceso> lista,
                  Usuario vendedor,String tipoacua) {
         super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
               detallesExt, detallesInt, lista);

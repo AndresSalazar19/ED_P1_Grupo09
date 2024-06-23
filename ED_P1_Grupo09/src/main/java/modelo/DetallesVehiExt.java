@@ -8,13 +8,13 @@ package modelo;
  *
  * @author asala
  */
-public class Detalles_vehiExt {
+public class DetallesVehiExt {
     private String descripcion;
     private String marca;
     private boolean usado;
     private boolean negociable;
 
-    public Detalles_vehiExt(String descripcion, String marca, boolean usado, boolean negociable) {
+    public DetallesVehiExt(String descripcion, String marca, boolean usado, boolean negociable) {
         this.descripcion = descripcion;
         this.marca = marca;
         this.usado = usado;

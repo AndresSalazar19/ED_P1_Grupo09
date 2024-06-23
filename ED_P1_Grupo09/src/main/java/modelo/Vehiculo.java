@@ -20,14 +20,14 @@ abstract class Vehiculo {
     protected List<Accidente> accidentes;
     protected String id;
     protected int capacidad;
-    protected Detalles_vehiExt detalles_Ext;
-    protected Detalles_vehiInt detalles_Int;
+    protected DetallesVehiExt detalles_Ext;
+    protected DetallesVehiInt detalles_Int;
     protected List<Proceso> lista;
     protected Usuario vendedor;
 
     
 
-    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, List<Image> Imagenes, List<Accidente> accidentes, String id, int capacidad, Detalles_vehiExt detalles_Ext, Detalles_vehiInt detalles_Int, List<Proceso> lista) {
+    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, List<Image> Imagenes, List<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, List<Proceso> lista) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.ciudadv = ciudadv;
@@ -114,19 +114,19 @@ abstract class Vehiculo {
         this.capacidad = capacidad;
     }
 
-    public Detalles_vehiExt getDetalles_Ext() {
+    public DetallesVehiExt getDetalles_Ext() {
         return detalles_Ext;
     }
 
-    public void setDetalles_Ext(Detalles_vehiExt detalles_Ext) {
+    public void setDetalles_Ext(DetallesVehiExt detalles_Ext) {
         this.detalles_Ext = detalles_Ext;
     }
 
-    public Detalles_vehiInt getDetalles_Int() {
+    public DetallesVehiInt getDetalles_Int() {
         return detalles_Int;
     }
 
-    public void setDetalles_Int(Detalles_vehiInt detalles_Int) {
+    public void setDetalles_Int(DetallesVehiInt detalles_Int) {
         this.detalles_Int = detalles_Int;
     }
 
