@@ -65,27 +65,28 @@ public class CircularDoublyLinkedList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E element) {
-        if (element == null || index < 0 || index > size) {
-            return false;
-        }
-        if (index == 0) {
-            return addFirst(element);
-        } else if (index == size) {
-            return addLast(element);
-        } else {
-            DoublyNodeList<E> current = last.getNext();
-            for (int i = 0; i < index - 1; i++) {
-                current = current.getNext();
-            }
-            DoublyNodeList<E> newNode = new DoublyNodeList<>(element);
-            newNode.setNext(current.getNext());
-            newNode.setPrevious(current);
-            current.getNext().setPrevious(newNode);
-            current.setNext(newNode);
-            size++;
-            return true;
-        }
+    if (element == null || index < 0 || index > size) {
+        return false;
     }
+    if (index == 0) {
+        return addFirst(element);
+    } else if (index == size) {
+        return addLast(element);
+    } else {
+        DoublyNodeList<E> current = last.getNext();
+        for (int i = 0; i < index - 1; i++) {
+            current = current.getNext();
+        }
+        DoublyNodeList<E> newNode = new DoublyNodeList<>(element);
+        newNode.setNext(current.getNext());
+        newNode.setPrevious(current);
+        current.getNext().setPrevious(newNode);
+        current.setNext(newNode);
+        size++;
+        return true;
+    }
+}
+
 
     @Override
     public E get(int index) {
@@ -231,7 +232,10 @@ public class CircularDoublyLinkedList<E> implements List<E> {
             }
         };
     }
-
+    
+    public int getSize(){
+        return size;
+    }
 
     public int compare(E e1, E e2) {
         throw new UnsupportedOperationException("Not supported yet.");
