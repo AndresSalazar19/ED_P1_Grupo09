@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="CENTER" prefHeight="480" prefWidth="640" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.InicioController">
+<VBox alignment="CENTER" prefHeight="480" prefWidth="640" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.PaginaPrincipalController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -23,9 +23,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="registrarseButton" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="iniciarSesionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar sesión" GridPane.columnIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Concesionaria titulo" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <GridPane prefHeight="90.0" prefWidth="632.0">

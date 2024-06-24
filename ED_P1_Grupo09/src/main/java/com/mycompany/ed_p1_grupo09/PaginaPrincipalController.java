@@ -5,33 +5,30 @@
 package com.mycompany.ed_p1_grupo09;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import modelo.ImageLoader;
-import tda.CircularDoublyLinkedList;
+import modelo.*;
+import tda.*;
 
 /**
  * FXML Controller class
  *
  * @author asala
  */
-public class InicioController  {
-    @FXML
+
+public class PaginaPrincipalController implements Initializable {
+
+   @FXML
     private void añadirVehiculo() throws IOException {
         App.setRoot("añadirVehiculo");
     }
     
-     @FXML
-    private void iniciarSesion() throws IOException {
-        App.setRoot("iniciarSesion");
-    }
-    
-     @FXML
-    private void registrarse() throws IOException {
-        App.setRoot("registrarse");
-    }
     
     @FXML
     private HBox contenedorImagenes; // Este será el contenedor en el FXML
@@ -39,8 +36,10 @@ public class InicioController  {
     private CircularDoublyLinkedList<Image> imagenes;
     private int currentIndex;
     
-   public void initialize() {
-        // Cargar las imágenes desde una carpeta
+    
+        @Override
+    public void initialize(URL url, ResourceBundle rb) {
+         // Cargar las imágenes desde una carpeta
         imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes");
 
         if (!imagenes.isEmpty()) {
@@ -49,6 +48,7 @@ public class InicioController  {
         }
     }
     
+
       @FXML
     private void getPrevious() {
         if (!imagenes.isEmpty()) {
@@ -88,5 +88,8 @@ public class InicioController  {
             contenedorImagenes.getChildren().add(imageView);
         }
     }
-       
+
+
+
+
 }

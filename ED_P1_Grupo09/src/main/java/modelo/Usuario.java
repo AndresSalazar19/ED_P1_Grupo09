@@ -15,13 +15,16 @@ public class Usuario {
     String nombre;
     String email;
     String telefono;
+    String contrasena;
+    
     LinkedList<Vehiculo> vehiculosFavoritos;
     LinkedList<Vehiculo> misVehiculos;
     
-    public Usuario(String nombre, String email, String telefono){
+    public Usuario(String nombre, String email, String telefono, String contrasena){
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
+        this.contrasena = contrasena;
         this.vehiculosFavoritos = new LinkedList<>();
         this.misVehiculos = new LinkedList<>();
     }
@@ -49,7 +52,11 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
+    
+     public String getContrasena() {
+        return contrasena;
+    }
+      
     public LinkedList<Vehiculo> getVehiculosFavoritos() {
         return vehiculosFavoritos;
     }
