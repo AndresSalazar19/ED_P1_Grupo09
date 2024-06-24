@@ -14,8 +14,8 @@ import javafx.scene.image.Image;
 public class Carro extends Vehiculo {
     private String tipocarro;
 
-    public Carro( String kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, String id, int capacidad,
+    public Carro(int kilometraje, String modelo, String ciudadv, double precio, String year,
+                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,String tipocarro) {
         super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
