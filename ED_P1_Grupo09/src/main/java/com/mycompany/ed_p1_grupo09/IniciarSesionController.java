@@ -47,7 +47,7 @@ public class IniciarSesionController implements Initializable {
         
         // Lógica para validar el inicio de sesión
                 
-
+        
         boolean esValido = sistemaLogin.iniciarSesion(correo, contrasena);
         if (esValido) {
             mostrarAlerta("Éxito", "Inicio de sesión exitoso.");

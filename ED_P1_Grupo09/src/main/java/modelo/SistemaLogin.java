@@ -39,6 +39,7 @@ public class SistemaLogin {
         }
         return false;
     }
+    
 
     private void cargarUsuarios() {
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
