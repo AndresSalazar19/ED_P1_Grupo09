@@ -54,17 +54,13 @@ public class PaginaPrincipalController implements Initializable {
     private void añadirVehiculo() throws IOException {
         App.setRoot("añadirVehiculo");
     }
-     @FXML
-    private void cerrarSesion() throws IOException {
-        App.setRoot("Inicio");
-    }
     
     @FXML
-    private HBox contenedorImagenes; // Este será el contenedor en el FXML
-
-    private CircularDoublyLinkedList<Image> imagenes;
-    private int currentIndex;
+    private void cerrarSesion() throws IOException {
+        App.setRoot("verDetallesVehiculo");
+    }
     
+
     
         @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,54 +69,11 @@ public class PaginaPrincipalController implements Initializable {
         System.out.println(getCorreo());
         setCorreo();
           
-        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes");
 
-        if (!imagenes.isEmpty()) {
-            currentIndex = 0; // Empezamos desde la primera imagen
-            mostrarImagenes();
-        }
     }
     
 
-      @FXML
-    private void getPrevious() {
-        if (!imagenes.isEmpty()) {
-            currentIndex--;
-            if (currentIndex < 0) {
-                currentIndex = imagenes.getSize() - 1; // Volvemos al final de la lista circular
-            }
-            mostrarImagenes();
-        }
-    }
-     
-     @FXML
-    private void getNext() {
-        if (!imagenes.isEmpty()) {
-            currentIndex++;
-            if (currentIndex >= imagenes.getSize()) {
-                currentIndex = 0; // Volvemos al inicio de la lista circular
-            }
-            mostrarImagenes();
-        }
-    }
-     private void mostrarImagenes() {
-        contenedorImagenes.getChildren().clear(); // Limpiamos el contenedor
 
-        // Iterar sobre todas las imágenes y agregarlas al HBox
-        int size = imagenes.getSize();
-        for (int i = 0; i < size; i++) {
-            int index = (currentIndex + i) % size; // Calcular el índice ajustado circularmente
-            Image image = imagenes.get(index);
-
-            // Crear ImageView y configurar propiedades
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(200); // Ajustar el ancho de la imagen según sea necesario
-            imageView.setPreserveRatio(true); // Mantener la proporción de la imagen
-
-            // Agregar ImageView al HBox
-            contenedorImagenes.getChildren().add(imageView);
-        }
-    }
 
 
 
