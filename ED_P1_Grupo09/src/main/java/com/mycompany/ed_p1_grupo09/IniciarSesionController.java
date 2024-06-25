@@ -4,14 +4,22 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import modelo.*;
 
 /**
@@ -35,7 +43,7 @@ public class IniciarSesionController implements Initializable {
         App.setRoot("registrarse");
     }
     
-    @FXML
+ @FXML
     private void iniciarSesion() throws IOException {
         String correo = correoTextField.getText();
         String contrasena = contrasenaTextField.getText();
@@ -46,16 +54,22 @@ public class IniciarSesionController implements Initializable {
         }
         
         // Lógica para validar el inicio de sesión
-                
-        
         boolean esValido = sistemaLogin.iniciarSesion(correo, contrasena);
         if (esValido) {
             mostrarAlerta("Éxito", "Inicio de sesión exitoso.");
-            App.setRoot("paginaPrincipal"); // Cambia a la pantalla principal
+            
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/archivos/loggedArchivos.csv"))) {
+            bw.write(correo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            App.setRoot("paginaPrincipal");
+
         } else {
             mostrarAlerta("Error", "Correo o contraseña incorrectos.");
         }
     }
+    
     
     @FXML
     private void volver() throws IOException {

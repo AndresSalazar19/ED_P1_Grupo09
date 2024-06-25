@@ -4,6 +4,8 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,12 +25,39 @@ import tda.*;
  */
 
 public class PaginaPrincipalController implements Initializable {
-
-   @FXML
+    
+    @FXML
+    private Label correoLabel;
+    
+    public void setCorreo(){
+      try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
+            String linea;
+            linea = br.readLine();
+            correoLabel.setText(linea);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String getCorreo(){
+     try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
+            String linea;
+            linea = br.readLine();
+            return linea;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+     return "null";
+    }
+      
+     @FXML
     private void añadirVehiculo() throws IOException {
         App.setRoot("añadirVehiculo");
     }
-    
+     @FXML
+    private void cerrarSesion() throws IOException {
+        App.setRoot("Inicio");
+    }
     
     @FXML
     private HBox contenedorImagenes; // Este será el contenedor en el FXML
@@ -40,6 +69,10 @@ public class PaginaPrincipalController implements Initializable {
         @Override
     public void initialize(URL url, ResourceBundle rb) {
          // Cargar las imágenes desde una carpeta
+       
+        System.out.println(getCorreo());
+        setCorreo();
+          
         imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes");
 
         if (!imagenes.isEmpty()) {
