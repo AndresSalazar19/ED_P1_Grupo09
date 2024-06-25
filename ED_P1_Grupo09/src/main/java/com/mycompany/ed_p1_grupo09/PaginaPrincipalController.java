@@ -26,18 +26,14 @@ import tda.*;
 
 public class PaginaPrincipalController implements Initializable {
     
+    private List<Usuario> usuarios;
+
+        
     @FXML
     private Label correoLabel;
+    @FXML
+    private Label nombreLabel;
     
-    public void setCorreo(){
-      try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
-            String linea;
-            linea = br.readLine();
-            correoLabel.setText(linea);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
     public String getCorreo(){
      try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
@@ -49,7 +45,46 @@ public class PaginaPrincipalController implements Initializable {
         }
      return "null";
     }
-      
+    
+     private void cargarUsuarios() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/usuarioArchivos.csv"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos.length == 4) {
+                    String nombre = datos[0];
+                    String correo = datos[1];
+                    String telefono = datos[2];
+                    String contrasena = datos[3];
+                    Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
+                    usuarios.addFirst(usuario);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+     
+    public Usuario cargarUsuarioLogged(){
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
+            String correo;
+            correo = br.readLine();
+            
+            for (Usuario usuario : usuarios) {
+            if (usuario.getCorreo().equals(correo)){
+                return usuario;
+            }
+        }
+        return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+        
+ 
+    }
+    
+    
      @FXML
     private void añadirVehiculo() throws IOException {
         App.setRoot("añadirVehiculo");
@@ -66,9 +101,15 @@ public class PaginaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
          // Cargar las imágenes desde una carpeta
        
-        System.out.println(getCorreo());
-        setCorreo();
-          
+     
+        
+        usuarios = new ArrayList<>(Usuario.class);
+        cargarUsuarios();
+        
+        Usuario usuariocargado = cargarUsuarioLogged();
+        System.out.println(usuariocargado.toString());
+        nombreLabel.setText(usuariocargado.getNombre());
+        correoLabel.setText(usuariocargado.getCorreo());
 
     }
     

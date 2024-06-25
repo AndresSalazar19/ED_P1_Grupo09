@@ -13,16 +13,16 @@ import tda.*;
  */
 public class Usuario {
     String nombre;
-    String email;
+    String correo;
     String telefono;
     String contrasena;
     
     LinkedList<Vehiculo> vehiculosFavoritos;
     LinkedList<Vehiculo> misVehiculos;
     
-    public Usuario(String nombre, String email, String telefono, String contrasena){
+    public Usuario(String nombre, String correo, String telefono, String contrasena){
         this.nombre = nombre;
-        this.email = email;
+        this.correo = correo;
         this.telefono = telefono;
         this.contrasena = contrasena;
         this.vehiculosFavoritos = new LinkedList<>();
@@ -37,12 +37,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getTelefono() {
@@ -83,4 +83,19 @@ public class Usuario {
        
     }
     
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Usuario{")
+            .append("nombre='").append(nombre).append('\'')
+            .append(", correo='").append(correo).append('\'')
+            .append(", telefono='").append(telefono).append('\'')
+            .append(", contrasena='").append(contrasena).append('\'')
+            .append(", vehiculosFavoritos=").append(vehiculosFavoritos)
+            .append(", misVehiculos=").append(misVehiculos)
+            .append('}');
+        return sb.toString();
+}
+
+
 }

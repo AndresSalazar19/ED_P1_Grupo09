@@ -25,15 +25,15 @@ public class SistemaLogin {
         cargarUsuarios();
     }
 
-    public void registrarUsuario(String nombre, String email, String telefono, String contrasena) {
-        Usuario usuario = new Usuario(nombre, email, telefono, contrasena);
+    public void registrarUsuario(String nombre, String correo, String telefono, String contrasena) {
+        Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
         usuarios.addFirst(usuario);
         guardarUsuarios();
     }
 
-    public boolean iniciarSesion(String email, String contrasena) {
+    public boolean iniciarSesion(String correo, String contrasena) {
         for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getContrasena().equals(contrasena)) {
+            if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
                 return true;
             }
         }
@@ -48,10 +48,10 @@ public class SistemaLogin {
                 String[] datos = linea.split(",");
                 if (datos.length == 4) {
                     String nombre = datos[0];
-                    String email = datos[1];
+                    String correo = datos[1];
                     String telefono = datos[2];
                     String contrasena = datos[3];
-                    Usuario usuario = new Usuario(nombre, email, telefono, contrasena);
+                    Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
                     usuarios.addFirst(usuario);
                 }
             }
@@ -63,7 +63,7 @@ public class SistemaLogin {
     private void guardarUsuarios() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_USUARIOS))) {
             for (Usuario usuario : usuarios) {
-                bw.write(usuario.getNombre() + "," + usuario.getEmail() + "," + usuario.getTelefono() + "," + usuario.getContrasena());
+                bw.write(usuario.getNombre() + "," + usuario.getCorreo() + "," + usuario.getTelefono() + "," + usuario.getContrasena());
                 bw.newLine();
             }
         } catch (IOException e) {
