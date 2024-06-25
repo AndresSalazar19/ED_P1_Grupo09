@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class Moto extends Vehiculo{
     private int cilindraje;
 
-    public Moto(String kilometraje, String modelo, String ciudadv, double precio, String year,
+    public Moto(int kilometraje, String modelo, String ciudadv, double precio, String year,
                  CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, String id, int capacidad,
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,int cilindraje) {
