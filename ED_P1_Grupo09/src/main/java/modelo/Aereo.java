@@ -50,4 +50,15 @@ public class Aereo extends Vehiculo {
     public void setRangoVuelo(int rangoVuelo) {
         this.rangoVuelo = rangoVuelo;
     }    
+
+    @Override
+    public String toString() {
+        return "Aereo{" +
+                "tipoAeronave='" + tipoAeronave + '\'' +
+                ", pesoMaximoDespegue=" + pesoMaximoDespegue +
+                ", rangoVuelo=" + rangoVuelo +
+                "} " + super.toString();
+    }
+
 }
+

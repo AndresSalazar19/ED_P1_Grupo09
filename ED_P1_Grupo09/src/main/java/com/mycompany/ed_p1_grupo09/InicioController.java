@@ -6,6 +6,7 @@ package com.mycompany.ed_p1_grupo09;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import modelo.*;
 import tda.*;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -45,7 +47,7 @@ public class InicioController  {
         System.out.println(vehiculo.toString());
     }
     
-    private GridPane crearPagina(int pageIndex) {
+  private GridPane crearPagina(int pageIndex) {
     GridPane grid = new GridPane();
     int start = pageIndex * VEHICULOS_POR_PAGINA;
     int end = Math.min(start + VEHICULOS_POR_PAGINA, carros.size() + motos.size() + acuaticos.size() + aereos.size() + pesados.size());
@@ -67,7 +69,7 @@ public class InicioController  {
         } else if (vehiculo instanceof Moto) {
             image = new Image("/imagenes/im2.jpeg"); // Ejemplo de carga de imagen para moto
         } else if (vehiculo instanceof Acuatico) {
-            image = new Image("/imagenes/im3.jpeg"); // Ejemplo de carga de imagen para acuático
+            image = vehiculo.getImage(); // Ejemplo de carga de imagen para acuático
         } else if (vehiculo instanceof Aereo) {
             image = new Image("/imagenes/im1.jpeg"); // Ejemplo de carga de imagen para aéreo
         } else if (vehiculo instanceof Pesado) {
@@ -82,7 +84,20 @@ public class InicioController  {
         imageView.setFitHeight(100);
         imageView.setOnMouseClicked(event -> mostrarDetalles(vehiculo));
 
-        grid.add(imageView, i % 4, i / 4); // 4 columnas por fila
+        // Crear etiquetas con los detalles del vehículo
+        Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
+        Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
+        Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
+        Label negociableLabel = new Label("Es negociable: " + true);
+        Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudadv());
+
+        VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
+        vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
+
+        VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
+        imageWithDetails.getChildren().addAll(imageView, vbox);
+
+        grid.add(imageWithDetails, i % 4, i / 4); // 4 columnas por fila
     }
 
     return grid;
@@ -94,7 +109,6 @@ public class InicioController  {
         VehiculoManager vehiculoManager = new VehiculoManager();
         
         carros = vehiculoManager.cargarCarros();
-        System.out.println(carros.size());
         motos = vehiculoManager.cargarMotos();
         acuaticos = vehiculoManager.cargarAcuaticos();
         aereos = vehiculoManager.cargarAereos();

@@ -31,4 +31,18 @@ public class Moto extends Vehiculo{
         this.cilindraje = cilindraje;
     }
     
+    @Override
+    public String toString() {
+        return "Moto{" +
+                "id=" + getId() +
+                ", kilometraje='" + getKilometraje() + '\'' +
+                ", modelo='" + getModelo() + '\'' +
+                ", ciudadv='" + getCiudadv() + '\'' +
+                ", precio=" + getPrecio() +
+                ", year='" + getYear() + '\'' +
+                ", cilindraje=" + cilindraje +
+                '}';
+    }
+
+
 }

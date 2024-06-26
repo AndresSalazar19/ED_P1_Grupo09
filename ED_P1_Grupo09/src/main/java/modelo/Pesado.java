@@ -42,4 +42,19 @@ public class Pesado extends Vehiculo {
     public void setPesoMin(double pesoMin) {
         this.pesoMin = pesoMin;
     }
+    
+    @Override
+    public String toString() {
+        return "Pesado{" +
+                "id=" + getId() +
+                ", kilometraje='" + getKilometraje() + '\'' +
+                ", modelo='" + getModelo() + '\'' +
+                ", ciudadv='" + getCiudadv() + '\'' +
+                ", precio=" + getPrecio() +
+                ", year='" + getYear() + '\'' +
+                ", pesoMax=" + pesoMax +
+                ", pesoMin=" + pesoMin +
+                '}';
+    }
+
 }

@@ -22,14 +22,14 @@ public class Vehiculo {
     protected CircularDoublyLinkedList<Image> Imagenes;
     protected LinkedList<Accidente> accidentes;
     protected int capacidad;
-    protected DetallesVehiExt detalles_Ext;
+    protected DetallesVehiExt detallesExt;
     protected DetallesVehiInt detallesInt;
     protected LinkedList<Proceso> lista;
     protected Usuario vendedor;
     protected boolean esFavorito;
     
 
-    public Vehiculo(int id, String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
+    public Vehiculo(int id, String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
         this.id = id;
         this.kilometraje = kilometraje;
         this.modelo = modelo;
@@ -39,7 +39,7 @@ public class Vehiculo {
         this.Imagenes = Imagenes;
         this.accidentes = accidentes;
         this.capacidad = capacidad;
-        this.detalles_Ext = detalles_Ext;
+        this.detallesExt = detallesExt;
         this.detallesInt = detallesInt;
         this.lista = lista;
     }
@@ -118,11 +118,11 @@ public class Vehiculo {
     }
 
     public DetallesVehiExt getDetallesExt() {
-        return detalles_Ext;
+        return detallesExt;
     }
 
     public void setDetallesExt(DetallesVehiExt detalles_Ext) {
-        this.detalles_Ext = detalles_Ext;
+        this.detallesExt = detalles_Ext;
     }
 
     public DetallesVehiInt getDetallesInt() {
@@ -148,4 +148,9 @@ public class Vehiculo {
         this.vendedor = vendedor;
     }
     
+
+   public Image getImage(){
+        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(id));
+        return imagenes.get(0);
+   }
 }

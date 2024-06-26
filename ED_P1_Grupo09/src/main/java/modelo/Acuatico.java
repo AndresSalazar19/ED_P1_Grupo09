@@ -32,4 +32,26 @@ public class Acuatico extends Vehiculo{
         this.tipoacua = tipoacua;
     }
     
+
+    
+    @Override
+    public String toString() {
+        return "Acuatico{" +
+                "tipoacua='" + tipoacua + '\'' +
+                ", id=" + id +
+                ", kilometraje='" + kilometraje + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", ciudadv='" + ciudadv + '\'' +
+                ", precio=" + precio +
+                ", year='" + year + '\'' +
+                ", imagenes=" + "img" +
+                ", accidentes=" + accidentes +
+                ", capacidad=" + capacidad +
+                ", detallesExt=" + detallesExt +
+                ", detallesInt=" + detallesInt +
+                ", lista=" + lista +
+                ", vendedor=" + vendedor +
+                '}';
+    }
+
 }
