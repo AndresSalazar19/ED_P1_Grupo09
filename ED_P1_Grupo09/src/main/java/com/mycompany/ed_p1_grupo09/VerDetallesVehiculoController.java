@@ -82,7 +82,7 @@ public class VerDetallesVehiculoController implements Initializable {
 
             // Crear ImageView y configurar propiedades
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(200); // Ajustar el ancho de la imagen según sea necesario
+            imageView.setFitWidth(150); // Ajustar el ancho de la imagen según sea necesario
             imageView.setPreserveRatio(true); // Mantener la proporción de la imagen
 
             // Agregar ImageView al HBox
