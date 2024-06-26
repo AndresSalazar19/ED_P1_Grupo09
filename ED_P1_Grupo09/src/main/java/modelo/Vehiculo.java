@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
  * @author Ayman El Salous Mnz
  */
 abstract class Vehiculo {
-    protected String kilometraje;
+    protected int kilometraje;
     protected String modelo;
     protected String ciudadv;
     protected double precio;
@@ -29,7 +29,7 @@ abstract class Vehiculo {
 
     
 
-    public Vehiculo(String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, LinkedList<Proceso> lista) {
+    public Vehiculo(int kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, LinkedList<Proceso> lista) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.ciudadv = ciudadv;
@@ -44,11 +44,11 @@ abstract class Vehiculo {
         this.lista = lista;
     }
 
-    public String getKilometraje() {
+    public int getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(String kilometraje) {
+    public void setKilometraje(int kilometraje) {
         this.kilometraje = kilometraje;
     }
 
