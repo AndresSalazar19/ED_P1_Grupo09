@@ -4,7 +4,7 @@
  */
 package modelo;
 
-import java.util.ArrayList;
+import java.util.PriorityQueue;
 import tda.*;
 
 /**
