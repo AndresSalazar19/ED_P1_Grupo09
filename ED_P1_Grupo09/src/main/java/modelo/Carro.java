@@ -14,11 +14,11 @@ import javafx.scene.image.Image;
 public class Carro extends Vehiculo {
     private String tipocarro;
 
-    public Carro( int kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, String id, int capacidad,
+    public Carro( int id, String kilometraje, String modelo, String ciudadv, double precio, String year,
+                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,String tipocarro) {
-        super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
+        super(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
               detallesExt, detallesInt, lista);
         this.tipocarro = tipocarro;
     }
@@ -31,5 +31,24 @@ public class Carro extends Vehiculo {
         this.tipocarro = tipocarro;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Carro{"
+                + "id=" + getId()
+                + ", kilometraje='" + getKilometraje() + '\''
+                + ", modelo='" + getModelo() + '\''
+                + ", ciudadv='" + getCiudadv() + '\''
+                + ", precio=" + getPrecio()
+                + ", year='" + getYear() + '\''
+                + ", tipocarro='" + tipocarro + '\''
+                + ", imagenes=" + getImagenes()
+                + ", accidentes=" + getAccidentes()
+                + ", capacidad=" + getCapacidad()
+                + ", detallesExt=" + getDetallesExt()
+                + ", detallesInt=" + getDetallesInt()
+                + ", lista=" + getLista()
+                + ", vendedor=" + getVendedor()
+                + '}';
+    }
+
 }

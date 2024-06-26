@@ -12,24 +12,25 @@ import javafx.scene.image.Image;
  *
  * @author Ayman El Salous Mnz
  */
-abstract class Vehiculo {
-    protected int kilometraje;
+public class Vehiculo {
+    protected int id;
+    protected String kilometraje;
     protected String modelo;
     protected String ciudadv;
     protected double precio;
     protected String year;
     protected CircularDoublyLinkedList<Image> Imagenes;
     protected LinkedList<Accidente> accidentes;
-    protected String id;
     protected int capacidad;
-    protected DetallesVehiExt detalles_Ext;
-    protected DetallesVehiInt detalles_Int;
+    protected DetallesVehiExt detallesExt;
+    protected DetallesVehiInt detallesInt;
     protected LinkedList<Proceso> lista;
     protected Usuario vendedor;
-
+    protected boolean esFavorito;
     
 
-    public Vehiculo(int kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, String id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, LinkedList<Proceso> lista) {
+    public Vehiculo(int id, String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
+        this.id = id;
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.ciudadv = ciudadv;
@@ -37,18 +38,25 @@ abstract class Vehiculo {
         this.year = year;
         this.Imagenes = Imagenes;
         this.accidentes = accidentes;
-        this.id = id;
         this.capacidad = capacidad;
-        this.detalles_Ext = detalles_Ext;
-        this.detalles_Int = detalles_Int;
+        this.detallesExt = detallesExt;
+        this.detallesInt = detallesInt;
         this.lista = lista;
     }
+    
+    public int getId() {
+        return id;
+    }
 
-    public int getKilometraje() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(int kilometraje) {
+    public void setKilometraje(String kilometraje) {
         this.kilometraje = kilometraje;
     }
 
@@ -100,13 +108,6 @@ abstract class Vehiculo {
         this.accidentes = accidentes;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public int getCapacidad() {
         return capacidad;
@@ -116,20 +117,20 @@ abstract class Vehiculo {
         this.capacidad = capacidad;
     }
 
-    public DetallesVehiExt getDetalles_Ext() {
-        return detalles_Ext;
+    public DetallesVehiExt getDetallesExt() {
+        return detallesExt;
     }
 
-    public void setDetalles_Ext(DetallesVehiExt detalles_Ext) {
-        this.detalles_Ext = detalles_Ext;
+    public void setDetallesExt(DetallesVehiExt detalles_Ext) {
+        this.detallesExt = detalles_Ext;
     }
 
-    public DetallesVehiInt getDetalles_Int() {
-        return detalles_Int;
+    public DetallesVehiInt getDetallesInt() {
+        return detallesInt;
     }
 
-    public void setDetalles_Int(DetallesVehiInt detalles_Int) {
-        this.detalles_Int = detalles_Int;
+    public void setDetallesInt(DetallesVehiInt detallesInt) {
+        this.detallesInt = detallesInt;
     }
 
     public List<Proceso> getLista() {
@@ -147,4 +148,9 @@ abstract class Vehiculo {
         this.vendedor = vendedor;
     }
     
+
+   public Image getImage(){
+        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(id));
+        return imagenes.get(0);
+   }
 }

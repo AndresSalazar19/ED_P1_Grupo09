@@ -14,11 +14,11 @@ import javafx.scene.image.Image;
 public class Acuatico extends Vehiculo{
     private String tipoacua;
 
-    public Acuatico(int kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, String id, int capacidad,
+    public Acuatico(int id, String kilometraje, String modelo, String ciudadv, double precio, String year,
+                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,String tipoacua) {
-        super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
+        super(id,kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
               detallesExt, detallesInt, lista);
         
         this.tipoacua = tipoacua;
@@ -32,4 +32,26 @@ public class Acuatico extends Vehiculo{
         this.tipoacua = tipoacua;
     }
     
+
+    
+    @Override
+    public String toString() {
+        return "Acuatico{" +
+                "tipoacua='" + tipoacua + '\'' +
+                ", id=" + id +
+                ", kilometraje='" + kilometraje + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", ciudadv='" + ciudadv + '\'' +
+                ", precio=" + precio +
+                ", year='" + year + '\'' +
+                ", imagenes=" + "img" +
+                ", accidentes=" + accidentes +
+                ", capacidad=" + capacidad +
+                ", detallesExt=" + detallesExt +
+                ", detallesInt=" + detallesInt +
+                ", lista=" + lista +
+                ", vendedor=" + vendedor +
+                '}';
+    }
+
 }
