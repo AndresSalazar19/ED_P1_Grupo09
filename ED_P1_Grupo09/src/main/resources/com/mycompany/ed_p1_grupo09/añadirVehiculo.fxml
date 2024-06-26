@@ -78,74 +78,74 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMaxLabel" />
+         <TextField fx:id="pesoMaxLabel" onAction="#getPesoMax" />
          <Label text="Peso Mínimo:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMinLabel" />
+         <TextField fx:id="pesoMinLabel" onAction="#getPesoMin" />
       </VBox>
 
       <!-- Campos específicos para MOTO -->
       <VBox fx:id="motoFields" layoutX="20.0" layoutY="250.0" visible="false">
-         <Label text="Cilindraje:">
+         <Label fx:id="CilindrajeLabel" text="Cilindraje:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="cilindrajeLabel" />
+         <TextField fx:id="cilindrajeTF" onAction="#getCilindraje" />
       </VBox>
 
       <!-- Campos específicos para CARRO -->
       <VBox fx:id="carroFields" layoutX="20.0" layoutY="250.0" visible="false">
-         <Label text="Tipo de carro:">
+         <Label fx:id="TipoCarroLabel" text="Tipo de carro:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoCarroLabel" />
+         <TextField fx:id="tipoCarroTF" onAction="#getTipoCarro" />
       </VBox>
 
       <!-- Campos específicos para ACUATICO -->
       <VBox fx:id="acuaticoFields" layoutX="20.0" layoutY="250.0" visible="false">
-         <Label text="Tipo de acuático:">
+         <Label fx:id="TipoAcuaLabel" text="Tipo de acuático:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoAcuaticoLabel" />
+         <TextField fx:id="tipoAcuaticoTF" onAction="#getTipoAcua" />
       </VBox>
 
       <!-- Campos específicos para AEREO -->
       <VBox fx:id="aereoFields" layoutX="20.0" layoutY="250.0" visible="false">
-         <Label text="Tipo de aeronave:">
+         <Label fx:id="TipoAeroLabel" text="Tipo de aeronave:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoAeronaveLabel" />
-         <Label text="Peso Máximo Despegue:">
+         <TextField fx:id="tipoAeronaveTF" onAction="#getTipoAeronave" />
+         <Label fx:id="PesoMaximoLabel" text="Peso Máximo Despegue:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMaxDespegueLabel" />
-         <Label text="Rango de Vuelo:">
+         <TextField fx:id="pesoMaxDespegueTF" onAction="#getPesoMaxDespegue" />
+         <Label fx:id="RangoVueloLabel" text="Rango de Vuelo:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="rangoVueloLabel" />
+         <TextField fx:id="rangoVueloTF" onAction="#getRangoVuelo" />
       </VBox>
 
       <!-- Botones de acción -->
-      <Button fx:id="guardarButton" layoutX="512.0" layoutY="338.0" mnemonicParsing="false" onAction="#storeVehicleDetails" text="Guardar">
+      <Button fx:id="guardarButton" layoutX="511.0" layoutY="357.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="volverButton" layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
+      <Button fx:id="volverButton" layoutX="14.0" layoutY="357.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -155,7 +155,7 @@
             <Font name="System Bold Italic" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="addProcesosButton1" layoutX="236.0" layoutY="334.0" mnemonicParsing="false" onAction="#getProcesos" prefHeight="25.0" prefWidth="121.0" text="Agregar Accidente">
+      <Button fx:id="addAccidente" layoutX="236.0" layoutY="334.0" mnemonicParsing="false" onAction="#getAgregarAccidente" prefHeight="25.0" prefWidth="121.0" text="Agregar Accidente">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
