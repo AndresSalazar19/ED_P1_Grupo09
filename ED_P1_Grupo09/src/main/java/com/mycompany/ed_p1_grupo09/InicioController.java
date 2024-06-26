@@ -4,6 +4,8 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,104 +23,150 @@ import javafx.scene.layout.VBox;
  *
  * @author asala
  */
-public class InicioController  {
+public class InicioController {
     private static final int VEHICULOS_POR_PAGINA = 8;
-    
+
     private List<Carro> carros;
     private List<Moto> motos;
     private List<Acuatico> acuaticos;
     private List<Aereo> aereos;
     private List<Pesado> pesados;
-    
+
+    private ArrayList<Vehiculo> vehiculosFiltrados = new ArrayList<>(Vehiculo.class);
+
     @FXML
     private Pagination pagination;
-       
-     @FXML
+
+    @FXML
     private void iniciarSesion() throws IOException {
         App.setRoot("iniciarSesion");
     }
-    
-     @FXML
+
+    @FXML
     private void registrarse() throws IOException {
         App.setRoot("registrarse");
     }
-    
-    private void mostrarDetalles(Vehiculo vehiculo){
-        System.out.println(vehiculo.toString());
+
+    @FXML
+    private void mostrarTodos() {
+        filtrarVehiculos(null);
     }
-    
-  private GridPane crearPagina(int pageIndex) {
-    GridPane grid = new GridPane();
-    int start = pageIndex * VEHICULOS_POR_PAGINA;
-    int end = Math.min(start + VEHICULOS_POR_PAGINA, carros.size() + motos.size() + acuaticos.size() + aereos.size() + pesados.size());
 
-    ArrayList<Vehiculo> vehiculos = new ArrayList<>(Vehiculo.class);
-    vehiculos.addAll(carros);
-    vehiculos.addAll(motos);
-    vehiculos.addAll(acuaticos);
-    vehiculos.addAll(aereos);
-    vehiculos.addAll(pesados);
+    @FXML
+    private void mostrarCarros() {
+        filtrarVehiculos(Carro.class);
+    }
 
-    for (int i = start; i < end; i++) {
-        Vehiculo vehiculo = vehiculos.get(i);
+    @FXML
+    private void mostrarMotos() {
+        filtrarVehiculos(Moto.class);
+    }
 
-        // Lógica para cargar la imagen según el tipo de vehículo
-        Image image;
-        if (vehiculo instanceof Carro) {
-            image = new Image("/imagenes/im1.jpeg"); // Ejemplo de carga de imagen para carro
-        } else if (vehiculo instanceof Moto) {
-            image = new Image("/imagenes/im2.jpeg"); // Ejemplo de carga de imagen para moto
-        } else if (vehiculo instanceof Acuatico) {
-            image = vehiculo.getImage(); // Ejemplo de carga de imagen para acuático
-        } else if (vehiculo instanceof Aereo) {
-            image = new Image("/imagenes/im1.jpeg"); // Ejemplo de carga de imagen para aéreo
-        } else if (vehiculo instanceof Pesado) {
-            image = new Image("/imagenes/im1.jpeg"); // Ejemplo de carga de imagen para pesado
-        } else {
-            // Manejar otros tipos de vehículos si es necesario
-            image = new Image("/imagenes/im1.jpeg"); // Imagen por defecto o manejo alternativo
+    @FXML
+    private void mostrarPesados() {
+        filtrarVehiculos(Pesado.class);
+    }
+
+    @FXML
+    private void mostrarAcuaticos() {
+        filtrarVehiculos(Acuatico.class);
+    }
+
+    @FXML
+    private void mostrarAereos() {
+        filtrarVehiculos(Aereo.class);
+    }
+
+    private void filtrarVehiculos(Class<? extends Vehiculo> tipo) {
+        vehiculosFiltrados.clear();
+
+        if (tipo == null) {
+            vehiculosFiltrados.addAll(carros);
+            vehiculosFiltrados.addAll(motos);
+            vehiculosFiltrados.addAll(acuaticos);
+            vehiculosFiltrados.addAll(aereos);
+            vehiculosFiltrados.addAll(pesados);
+        } else if (tipo == Carro.class) {
+            vehiculosFiltrados.addAll(carros);
+        } else if (tipo == Moto.class) {
+            vehiculosFiltrados.addAll(motos);
+        } else if (tipo == Pesado.class) {
+            vehiculosFiltrados.addAll(pesados);
+        } else if (tipo == Acuatico.class) {
+            vehiculosFiltrados.addAll(acuaticos);
+        } else if (tipo == Aereo.class) {
+            vehiculosFiltrados.addAll(aereos);
         }
 
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
-        imageView.setOnMouseClicked(event -> mostrarDetalles(vehiculo));
-
-        // Crear etiquetas con los detalles del vehículo
-        Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
-        Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
-        Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
-        Label negociableLabel = new Label("Es negociable: " + true);
-        Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudadv());
-
-        VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
-        vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
-
-        VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
-        imageWithDetails.getChildren().addAll(imageView, vbox);
-
-        grid.add(imageWithDetails, i % 4, i / 4); // 4 columnas por fila
+        // Actualizar la paginación
+        pagination.setPageCount((int) Math.ceil(vehiculosFiltrados.size() / (double) VEHICULOS_POR_PAGINA));
+        pagination.setPageFactory(this::crearPagina);
     }
 
-    return grid;
-}
+    private GridPane crearPagina(int pageIndex) {
+        GridPane grid = new GridPane();
+        int start = pageIndex * VEHICULOS_POR_PAGINA;
+        int end = Math.min(start + VEHICULOS_POR_PAGINA, vehiculosFiltrados.size());
 
-     
-   public void initialize() throws IOException {
-       
+        for (int i = start; i < end; i++) {
+            Vehiculo vehiculo = vehiculosFiltrados.get(i);
+
+            // Lógica para cargar la imagen según el tipo de vehículo
+            Image image = vehiculo.getImage();
+
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            imageView.setOnMouseClicked(event -> {
+                try {
+                    mostrarDetalles(vehiculo);
+                } catch (IOException e) {
+                    System.err.println("Error al mostrar detalles: " + e.getMessage());
+                }
+            });
+
+            // Crear etiquetas con los detalles del vehículo
+            Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
+            Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
+            Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
+            Label negociableLabel = new Label("Es negociable: " + true);
+            Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudadv());
+
+            VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
+            vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
+
+            VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
+            imageWithDetails.getChildren().addAll(imageView, vbox);
+
+            grid.add(imageWithDetails, i % 4, i / 4); // 4 columnas por fila
+        }
+
+        return grid;
+    }
+
+    private void mostrarDetalles(Vehiculo vehiculo) throws IOException {
+        String filePath = "src/main/java/archivos/vehiculoLoggedArchivos.csv";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            bw.write(String.valueOf(vehiculo.getId()));
+        } catch (IOException e) {
+            System.err.println("Error al escribir en archivo: " + e.getMessage());
+            throw e;
+        } finally {
+            App.setRoot("verDetallesVehiculo");
+        }
+    }
+
+    @FXML
+    private void initialize() throws IOException {
         VehiculoManager vehiculoManager = new VehiculoManager();
-        
+
         carros = vehiculoManager.cargarCarros();
         motos = vehiculoManager.cargarMotos();
         acuaticos = vehiculoManager.cargarAcuaticos();
         aereos = vehiculoManager.cargarAereos();
         pesados = vehiculoManager.cargarPesados();
 
-            
-        // Cargar las imágenes desde una carpeta
-        pagination.setPageCount((int) Math.ceil(10 / (double) VEHICULOS_POR_PAGINA));
-        pagination.setPageFactory(this::crearPagina);
-        
+        // Inicialmente, mostrar todos los vehículos
+        filtrarVehiculos(null);
     }
-       
 }

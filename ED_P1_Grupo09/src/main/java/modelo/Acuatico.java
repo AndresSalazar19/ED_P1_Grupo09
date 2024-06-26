@@ -37,8 +37,8 @@ public class Acuatico extends Vehiculo{
     @Override
     public String toString() {
         return "Acuatico{" +
-                "tipoacua='" + tipoacua + '\'' +
-                ", id=" + id +
+                "id='" + id + '\'' +
+                ", tipoacua=" + tipoacua +
                 ", kilometraje='" + kilometraje + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", ciudadv='" + ciudadv + '\'' +

@@ -13,8 +13,18 @@
          <children>
             <Button fx:id="iniciarSesionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="14.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar sesión" />
             <Button fx:id="registrarseButton" layoutX="491.0" layoutY="12.0" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
-            <Text layoutX="43.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Concesionaria titulo" />
+            <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Concesionaria titulo" />
             <Pagination fx:id="pagination" layoutX="42.0" layoutY="84.0" prefHeight="272.0" prefWidth="517.0" />
+            <Pane layoutX="14.0" layoutY="55.0" prefHeight="59.0" prefWidth="589.0">
+               <children>
+                  <Button fx:id="todosButton" layoutX="42.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarTodos" text="Todo" />
+                  <Button fx:id="CarrosButton" layoutX="142.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarCarros" text="Carros" />
+                  <Button fx:id="MotosButton" layoutX="237.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarMotos" text="Motos" />
+                  <Button fx:id="pesadosButton" layoutX="333.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarPesados" text="Pesados" />
+                  <Button fx:id="AcuaticosButton" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarAcuaticos" text="Acuáticos" />
+                  <Button fx:id="AereosButton" layoutX="511.0" layoutY="17.0" mnemonicParsing="false" onAction="#mostrarAereos" text="Aéreos" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

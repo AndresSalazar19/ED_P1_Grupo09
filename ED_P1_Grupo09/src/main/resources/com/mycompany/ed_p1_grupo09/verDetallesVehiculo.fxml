@@ -5,8 +5,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -50,6 +52,15 @@
             <TextFlow prefHeight="200.0" prefWidth="200.0" />
          </children>
       </HBox>
+      <Pane prefHeight="45.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="volverButton" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="35.0" text="&lt;-">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

@@ -53,8 +53,8 @@ public class Aereo extends Vehiculo {
 
     @Override
     public String toString() {
-        return "Aereo{" +
-                "tipoAeronave='" + tipoAeronave + '\'' +
+        return  "Aereo{" + "id=" + id + 
+                " , tipoAeronave='" + tipoAeronave + '\'' +
                 ", pesoMaximoDespegue=" + pesoMaximoDespegue +
                 ", rangoVuelo=" + rangoVuelo +
                 "} " + super.toString();

@@ -4,6 +4,8 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import modelo.ImageLoader;
+import modelo.*;
 import tda.*;
 
 /**
@@ -22,8 +25,14 @@ import tda.*;
  */
 public class VerDetallesVehiculoController implements Initializable {
     
+    private List<Carro> carros;
+    private List<Moto> motos;
+    private List<Acuatico> acuaticos;
+    private List<Aereo> aereos;
+    private List<Pesado> pesados;
+    
     @FXML
-    private HBox contenedorImagenes; // Este será el contenedor en el FXML
+    private HBox contenedorImagenes; 
 
     private CircularDoublyLinkedList<Image> imagenes;
     private int currentIndex;
@@ -69,12 +78,68 @@ public class VerDetallesVehiculoController implements Initializable {
     }
     
     
+     
+       public String getIdVehiculoLogged(){
+     try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/vehiculoLoggedArchivos.csv"))) {
+            String linea;
+            linea = br.readLine();
+            return linea;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+     return "null";
+    }
+       
+      public Vehiculo getVehiculoLogged() {
+        ArrayList<Vehiculo> vehiculos = new ArrayList<>(Vehiculo.class);
+        vehiculos.addAll(carros);
+        vehiculos.addAll(motos);
+        vehiculos.addAll(pesados);
+        vehiculos.addAll(acuaticos);
+        vehiculos.addAll(aereos);
+
+        for (Vehiculo vehiculo : vehiculos) {
+            if (String.valueOf(vehiculo.getId()).equals(getIdVehiculoLogged())) {
+                return vehiculo;
+            }
+        }
+        return null;
+      }
+
     
         @Override
         public void initialize(URL url, ResourceBundle rb) {
-         // Cargar las imágenes desde una carpeta
-          
-        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes");
+        VehiculoManager vehiculoManager = new VehiculoManager();
+        
+        try {
+            carros = vehiculoManager.cargarCarros();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            motos = vehiculoManager.cargarMotos();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            acuaticos = vehiculoManager.cargarAcuaticos();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            aereos = vehiculoManager.cargarAereos();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            pesados = vehiculoManager.cargarPesados();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        Vehiculo vehiculo = getVehiculoLogged();
+        // Cargar las imágenes desde una carpeta
+        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(vehiculo.getId()));
 
         if (!imagenes.isEmpty()) {
             currentIndex = 0; // Empezamos desde la primera imagen
@@ -82,4 +147,8 @@ public class VerDetallesVehiculoController implements Initializable {
         }
     }  
     
+     @FXML
+    private void volver() throws IOException {
+        App.setRoot("inicio");
+    }   
 }
