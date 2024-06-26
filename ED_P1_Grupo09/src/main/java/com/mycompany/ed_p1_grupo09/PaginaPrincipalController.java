@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import modelo.*;
 import tda.*;
 
+
 /**
  * FXML Controller class
  *
@@ -114,7 +115,9 @@ public class PaginaPrincipalController implements Initializable {
         Usuario usuariocargado = cargarUsuarioLogged();
         System.out.println(usuariocargado.toString());
         nombreLabel.setText(usuariocargado.getNombre());
+        nombreLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
         correoLabel.setText(usuariocargado.getCorreo());
+        correoLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
 
     }
     
