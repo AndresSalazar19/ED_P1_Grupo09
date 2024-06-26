@@ -15,11 +15,11 @@ public class Pesado extends Vehiculo {
     private double pesoMax;
     private double pesoMin;
 
- public Pesado(int id, String kilometraje, String modelo, String ciudadv, double precio, String year,
+ public Pesado(int id, String kilometraje, String modelo, String ciudad, double precio, String year,
               CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
               DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
               Usuario vendedor, double pesoMax, double pesoMin) {
-    super(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
+    super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
           detallesExt, detallesInt, lista);
     this.pesoMax = pesoMax;
     this.pesoMin = pesoMin;
@@ -49,7 +49,7 @@ public class Pesado extends Vehiculo {
                 "id=" + getId() +
                 ", kilometraje='" + getKilometraje() + '\'' +
                 ", modelo='" + getModelo() + '\'' +
-                ", ciudadv='" + getCiudadv() + '\'' +
+                ", ciudad='" + getCiudad() + '\'' +
                 ", precio=" + getPrecio() +
                 ", year='" + getYear() + '\'' +
                 ", pesoMax=" + pesoMax +

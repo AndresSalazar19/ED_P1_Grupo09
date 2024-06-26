@@ -16,7 +16,7 @@ public class Vehiculo {
     protected int id;
     protected String kilometraje;
     protected String modelo;
-    protected String ciudadv;
+    protected String ciudad;
     protected double precio;
     protected String year;
     protected CircularDoublyLinkedList<Image> Imagenes;
@@ -29,11 +29,11 @@ public class Vehiculo {
     protected boolean esFavorito;
     
 
-    public Vehiculo(int id, String kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
+    public Vehiculo(int id, String kilometraje, String modelo, String ciudad, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
         this.id = id;
         this.kilometraje = kilometraje;
         this.modelo = modelo;
-        this.ciudadv = ciudadv;
+        this.ciudad = ciudad;
         this.precio = precio;
         this.year = year;
         this.Imagenes = Imagenes;
@@ -68,12 +68,12 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
-    public String getCiudadv() {
-        return ciudadv;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setCiudadv(String ciudadv) {
-        this.ciudadv = ciudadv;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public double getPrecio() {

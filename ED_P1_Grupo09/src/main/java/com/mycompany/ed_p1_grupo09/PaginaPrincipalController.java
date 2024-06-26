@@ -85,7 +85,12 @@ public class PaginaPrincipalController implements Initializable {
     }
     
     
-     @FXML
+    @FXML
+    private void misVehiculos() throws IOException {
+        App.setRoot("misVehiculos");
+    }
+    
+    @FXML
     private void añadirVehiculo() throws IOException {
         App.setRoot("añadirVehiculo");
     }
@@ -113,10 +118,4 @@ public class PaginaPrincipalController implements Initializable {
 
     }
     
-
-
-
-
-
-
 }

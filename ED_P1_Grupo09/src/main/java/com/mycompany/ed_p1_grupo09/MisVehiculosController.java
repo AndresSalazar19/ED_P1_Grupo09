@@ -7,24 +7,27 @@ package com.mycompany.ed_p1_grupo09;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import modelo.*;
-import tda.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import modelo.*;
+import tda.*;
 
 /**
  * FXML Controller class
  *
  * @author asala
  */
-public class InicioController {
-    private static final int VEHICULOS_POR_PAGINA = 8;
+public class MisVehiculosController implements Initializable {
+
+ private static final int VEHICULOS_POR_PAGINA = 8;
 
     private List<Carro> carros;
     private List<Moto> motos;
@@ -36,16 +39,6 @@ public class InicioController {
 
     @FXML
     private Pagination pagination;
-
-    @FXML
-    private void iniciarSesion() throws IOException {
-        App.setRoot("iniciarSesion");
-    }
-
-    @FXML
-    private void registrarse() throws IOException {
-        App.setRoot("registrarse");
-    }
 
     @FXML
     private void mostrarTodos() {
@@ -156,17 +149,37 @@ public class InicioController {
         }
     }
 
-    @FXML
-    private void initialize() throws IOException {
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         VehiculoManager vehiculoManager = new VehiculoManager();
+        Usuario actual = new Usuario("Melanie Salazar","msala@gaisd.com","23weqwe","dsasad");
+     try {
+         carros = vehiculoManager.cargarMisCarros(actual);
+     } catch (IOException ex) {
+         ex.printStackTrace();
+     }
+     try {
+         motos = vehiculoManager.cargarMotos();
+     } catch (IOException ex) {
+         ex.printStackTrace();
+     }
+     try {
+         acuaticos = vehiculoManager.cargarAcuaticos();
+     } catch (IOException ex) {
+         ex.printStackTrace();
+     }
+     try {
+         aereos = vehiculoManager.cargarAereos();
+     } catch (IOException ex) {
+         ex.printStackTrace();
+     }
+     try {
+         pesados = vehiculoManager.cargarPesados();
+     } catch (IOException ex) {
+         ex.printStackTrace();
+     }
 
-        carros = vehiculoManager.cargarCarros();
-        motos = vehiculoManager.cargarMotos();
-        acuaticos = vehiculoManager.cargarAcuaticos();
-        aereos = vehiculoManager.cargarAereos();
-        pesados = vehiculoManager.cargarPesados();
-
-        // Inicialmente, mostrar todos los vehículos
-        filtrarVehiculos(null);
-    }
+          // Inicialmente, mostrar todos los vehículos
+          filtrarVehiculos(null);    }
 }

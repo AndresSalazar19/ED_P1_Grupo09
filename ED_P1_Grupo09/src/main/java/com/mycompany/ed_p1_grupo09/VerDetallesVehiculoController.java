@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -30,6 +31,18 @@ public class VerDetallesVehiculoController implements Initializable {
     private List<Acuatico> acuaticos;
     private List<Aereo> aereos;
     private List<Pesado> pesados;
+    
+    @FXML
+    private Label kilometrajeLabel;
+    @FXML
+    private Label modeloLabel;
+    @FXML
+    private Label ciudadLabel;
+    @FXML
+    private Label precioLabel;
+    @FXML
+    private Label yearLabel;
+    
     
     @FXML
     private HBox contenedorImagenes; 
@@ -139,6 +152,13 @@ public class VerDetallesVehiculoController implements Initializable {
 
         Vehiculo vehiculo = getVehiculoLogged();
         // Cargar las imágenes desde una carpeta
+        kilometrajeLabel.setText(vehiculo.getKilometraje());
+        modeloLabel.setText(vehiculo.getModelo());
+        ciudadLabel.setText(vehiculo.getCiudad());
+        precioLabel.setText(String.valueOf(vehiculo.getPrecio()));
+        yearLabel.setText(String.valueOf(vehiculo.getYear()));
+
+                
         imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(vehiculo.getId()));
 
         if (!imagenes.isEmpty()) {

@@ -31,7 +31,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido" GridPane.columnIndex="1" />
             <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" GridPane.columnIndex="4" />
             <Label fx:id="correoLabel" prefHeight="17.0" prefWidth="119.0" text="correo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Mis Vehículos" GridPane.columnIndex="3" />
+            <Button fx:id="misVehiculosButton" mnemonicParsing="false" onAction="#misVehiculos" text="Mis Vehículos" GridPane.columnIndex="3" />
             <Label fx:id="nombreLabel" text="usuario" GridPane.columnIndex="2" />
          </children>
       </GridPane>

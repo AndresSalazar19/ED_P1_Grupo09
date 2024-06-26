@@ -15,6 +15,7 @@ import tda.*;
  * @author asala
  */
 public class VehiculoManager {
+    private static final String usuarioArchivos = "src/main/java/archivos/usuarioArchivos.csv";
 
     private static final String acuaticoArchivos = "src/main/java/archivos/acuaticoArchivos.csv";
     private static final String aereoArchivos = "src/main/java/archivos/aereoArchivos.csv";
@@ -52,20 +53,34 @@ public class VehiculoManager {
     return carros;
 }
 
-public static List<Moto> cargarMotos() throws IOException {
-    String fileName = motoArchivos;
-    List<Moto> motos = new ArrayList<>(Moto.class);
+       public List<Carro> cargarMisCarros(Usuario usuarioActual) throws IOException {
+       List<Carro> misCarros = new ArrayList<>(Carro.class);
+       List<Carro> listaDeCarros = cargarCarros();
+       for (Carro carro : listaDeCarros) {
+           Usuario vendedor = carro.getVendedor();
+           if (vendedor != null && vendedor.getCorreo().equals(usuarioActual.getCorreo())) {
+               misCarros.addLast(carro);
+           } else if (vendedor == null) {
+               System.err.println("Vendedor is null for car: " + carro);
+           }
+       }
+       return misCarros;
+   }
 
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            Moto moto = (Moto) crearVehiculoDesdeLinea("moto", linea.split(","));
-            motos.addLast(moto);
+    public static List<Moto> cargarMotos() throws IOException {
+        String fileName = motoArchivos;
+        List<Moto> motos = new ArrayList<>(Moto.class);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                Moto moto = (Moto) crearVehiculoDesdeLinea("moto", linea.split(","));
+                motos.addLast(moto);
+            }
         }
-    }
 
-    return motos;
-}
+        return motos;
+    }
 
 public static List<Acuatico> cargarAcuaticos() throws IOException {
     String fileName = acuaticoArchivos;
@@ -142,11 +157,30 @@ public static List<Pesado> cargarPesados() throws IOException {
         }
     }
 
+     private static Usuario cargarUsuario() {
+    try (BufferedReader br = new BufferedReader(new FileReader(usuarioArchivos))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] datos = linea.split(",");
+            if ("msala@gaisd.co".equals(datos[1])) {
+                String nombre = datos[0];
+                String correo = datos[1];
+                String telefono = datos[2];
+                String contrasena = datos[3];
+                return new Usuario(nombre, correo, telefono, contrasena);
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace(); 
+    }
+    return null;
+}
+      
     private static Vehiculo crearVehiculoDesdeLinea(String tipo, String[] linea) {
         int id = Integer.parseInt(linea[0]);
         String kilometraje = linea[1];
         String modelo = linea[2];
-        String ciudadv = linea[3];
+        String ciudad = linea[3];
         double precio = Double.parseDouble(linea[4]);
         String year = linea[5];
         CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>(); // Implementa la lógica para cargar imágenes
@@ -155,27 +189,27 @@ public static List<Pesado> cargarPesados() throws IOException {
         DetallesVehiExt detallesExt = new DetallesVehiExt(linea[7], linea[8], Boolean.parseBoolean(linea[9]), Boolean.parseBoolean(linea[10]));
         DetallesVehiInt detallesInt = new DetallesVehiInt(linea[11], linea[12], TipoCombustible.valueOf(linea[13]), linea[14], Boolean.parseBoolean(linea[15]), linea[16]);
         LinkedList<Proceso> lista = new LinkedList<>(); // Implementa la lógica para cargar procesos
-        Usuario vendedor = new Usuario("Melanie","msala@gaisd.com","we21312","contrasena"); // Implementa la lógica para cargar usuario
+        Usuario vendedor =  cargarUsuario();
 
         switch (tipo.toLowerCase()) {
             case "acuatico":
                 String tipoacua = linea[18];
-                return new Acuatico(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipoacua);
+                return new Acuatico(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipoacua);
             case "aereo":
                 String tipoAeronave = linea[18];
                 double pesoMaximoDespegue = Double.parseDouble(linea[19]);
                 int rangoVuelo = Integer.parseInt(linea[20]);
-                return new Aereo(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
+                return new Aereo(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
             case "carro":
                 String tipocarro = linea[18];
-                return new Carro(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipocarro);
+                return new Carro(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, tipocarro);
             case "moto":
                 int cilindraje = Integer.parseInt(linea[18]);
-                return new Moto(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, cilindraje);
+                return new Moto(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, cilindraje);
             case "pesado":
                 double pesoMax = Double.parseDouble(linea[18]);
                 double pesoMin = Double.parseDouble(linea[19]);
-                return new Pesado(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, pesoMax, pesoMin);
+                return new Pesado(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad, detallesExt, detallesInt, lista, vendedor, pesoMax, pesoMin);
             default:
                 throw new IllegalArgumentException("Tipo de vehículo desconocido: " + tipo);
         }
@@ -186,7 +220,7 @@ public static List<Pesado> cargarPesados() throws IOException {
         sb.append(vehiculo.getId()).append(",");
         sb.append(vehiculo.getKilometraje()).append(",");
         sb.append(vehiculo.getModelo()).append(",");
-        sb.append(vehiculo.getCiudadv()).append(",");
+        sb.append(vehiculo.getCiudad()).append(",");
         sb.append(vehiculo.getPrecio()).append(",");
         sb.append(vehiculo.getYear()).append(",");
         sb.append(vehiculo.getCapacidad()).append(",");

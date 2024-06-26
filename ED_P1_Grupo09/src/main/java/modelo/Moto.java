@@ -14,11 +14,11 @@ import javafx.scene.image.Image;
 public class Moto extends Vehiculo{
     private int cilindraje;
 
-    public Moto(int id, String kilometraje, String modelo, String ciudadv, double precio, String year,
+    public Moto(int id, String kilometraje, String modelo, String ciudad, double precio, String year,
                  CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,int cilindraje) {
-        super(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
+        super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
               detallesExt, detallesInt, lista);
         this.cilindraje = cilindraje;
     }
@@ -37,7 +37,7 @@ public class Moto extends Vehiculo{
                 "id=" + getId() +
                 ", kilometraje='" + getKilometraje() + '\'' +
                 ", modelo='" + getModelo() + '\'' +
-                ", ciudadv='" + getCiudadv() + '\'' +
+                ", ciudad='" + getCiudad() + '\'' +
                 ", precio=" + getPrecio() +
                 ", year='" + getYear() + '\'' +
                 ", cilindraje=" + cilindraje +
