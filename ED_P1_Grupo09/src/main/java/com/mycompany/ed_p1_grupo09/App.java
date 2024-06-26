@@ -23,6 +23,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("inicio"), 1000, 800);
         stage.setScene(scene);
+         stage.setTitle("Concesionaria titulo");
         stage.show();
     }
 
