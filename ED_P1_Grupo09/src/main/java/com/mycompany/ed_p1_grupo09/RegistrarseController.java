@@ -13,6 +13,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import modelo.*;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.geometry.Insets;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+
 
 /**
  * FXML Controller class
@@ -69,6 +76,12 @@ public class RegistrarseController implements Initializable {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.setBackground(new Background(new BackgroundFill(
+                Color.LIGHTBLUE,
+                CornerRadii.EMPTY,
+                Insets.EMPTY
+        )));
         alert.showAndWait();
     }
 
