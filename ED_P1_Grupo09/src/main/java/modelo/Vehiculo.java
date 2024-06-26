@@ -52,11 +52,11 @@ public class Vehiculo {
         this.id = id;
     }
 
-    public int getKilometraje() {
+    public String getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(int kilometraje) {
+    public void setKilometraje(String kilometraje) {
         this.kilometraje = kilometraje;
     }
 

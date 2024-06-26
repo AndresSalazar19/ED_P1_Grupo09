@@ -12,6 +12,7 @@ import tda.*;
  * @author asala
  */
 public class AplicacionVehiculo {
+   /*
     public DoublyLinkedList<Vehiculo> vehiculos;
     
     public AplicacionVehiculo(DoublyLinkedList<Vehiculo> vehiculos){
@@ -105,4 +106,5 @@ public class AplicacionVehiculo {
         }
         return rangoMetraje;
     }
+    */
 }
