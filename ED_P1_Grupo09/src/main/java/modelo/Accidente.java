@@ -1,7 +1,7 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import tda.*;
 
 public class Accidente {
     private String descripcion;

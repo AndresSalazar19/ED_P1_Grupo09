@@ -20,18 +20,13 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addImagenesButton" layoutX="475.0" layoutY="8.0" mnemonicParsing="false" onAction="#getAddImagenes" text="Añadir imágenes">
+            <Button fx:id="addImagenesButton" layoutX="459.0" layoutY="11.0" mnemonicParsing="false" onAction="#getAddImagenes" text="Añadir imágenes">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="addProcesosButton" layoutX="368.0" layoutY="8.0" mnemonicParsing="false" onAction="#getProcesos" prefHeight="25.0" prefWidth="87.0" text="Procesos">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <ComboBox fx:id="tipoVehiCBox" layoutX="252.0" layoutY="8.0" onAction="#selectTipoVehi" prefHeight="25.0" prefWidth="87.0" promptText="Tipo" />
-            <CheckBox fx:id="negociableCB" layoutX="140.0" layoutY="12.0" mnemonicParsing="false" onAction="#getNegociable" text="¿Negociable?" />
+            <ComboBox fx:id="tipoVehiCBox" layoutX="315.0" layoutY="8.0" onAction="#selectTipoVehi" prefHeight="25.0" prefWidth="87.0" promptText="Tipo" />
+            <CheckBox fx:id="negociableCB" layoutX="170.0" layoutY="12.0" mnemonicParsing="false" onAction="#getNegociable" text="¿Negociable?" />
          </children>
       </Pane>
       

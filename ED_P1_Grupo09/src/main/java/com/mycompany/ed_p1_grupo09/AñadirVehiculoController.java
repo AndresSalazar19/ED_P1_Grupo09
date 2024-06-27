@@ -111,11 +111,6 @@ public class AñadirVehiculoController implements Initializable {
         }
     }
 
-    @FXML
-    private void getProcesos() throws IOException {
-        guardarDetallesVehi();
-        App.setRoot("procesos");
-    }
 
     @FXML
     private void getDetInternos() throws IOException {
