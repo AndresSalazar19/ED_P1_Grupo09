@@ -35,11 +35,11 @@
             <HBox fx:id="contenedorImagenes" layoutX="60.0" layoutY="151.0" prefHeight="174.0" prefWidth="214.0" />
             <Pane layoutX="479.0" layoutY="151.0" prefHeight="218.0" prefWidth="214.0">
                <children>
-                  <Text layoutX="33.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kilometraje" />
-                  <Text layoutX="33.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo" />
-                  <Text layoutX="33.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
-                  <Text layoutX="33.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio" />
-                  <Text layoutX="38.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Año" />
+                  <Text layoutX="33.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kilometraje:" />
+                  <Text layoutX="33.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
+                  <Text layoutX="33.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:" />
+                  <Text layoutX="37.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio:" />
+                  <Text layoutX="38.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Año:" />
                   <Label fx:id="kilometrajeLabel" layoutX="136.0" layoutY="33.0" text="Label" />
                   <Label fx:id="modeloLabel" layoutX="136.0" layoutY="64.0" text="Label" />
                   <Label fx:id="ciudadLabel" layoutX="136.0" layoutY="99.0" text="Label" />
