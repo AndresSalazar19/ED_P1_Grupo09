@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 
 /**
  * FXML Controller class
@@ -115,8 +116,9 @@ public class InicioController {
             Image image = vehiculo.getImage();
 
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(100);
+            imageView.setFitWidth(120);
+            imageView.setFitHeight(120);
+            imageView.setPreserveRatio(true);
             imageView.setOnMouseClicked(event -> {
                 try {
                     mostrarDetalles(vehiculo);
@@ -127,19 +129,29 @@ public class InicioController {
 
             // Crear etiquetas con los detalles del vehículo
             Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
+            nombreLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
             Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
+            kilometrajeLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
             Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
+            precioLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
             Label negociableLabel = new Label("Es negociable: " + true);
+            negociableLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
             Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudad());
+            ciudadLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
 
             VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
+            vbox.setAlignment(Pos.CENTER);
             vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
 
             VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
+            imageWithDetails.setAlignment(Pos.CENTER);
             imageWithDetails.getChildren().addAll(imageView, vbox);
 
             grid.add(imageWithDetails, i % 4, i / 4); // 4 columnas por fila
+            grid.setHgap(15.0);// espacio entre grid
+            grid.setVgap(15.0);
         }
+        
 
         return grid;
     }

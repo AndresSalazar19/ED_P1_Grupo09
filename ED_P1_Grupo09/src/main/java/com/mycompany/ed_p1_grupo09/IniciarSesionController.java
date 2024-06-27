@@ -24,6 +24,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.*;
 import tda.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.geometry.Insets;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+
 /**
  * FXML Controller class
  *
@@ -84,6 +91,13 @@ public class IniciarSesionController implements Initializable {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        DialogPane dialogo = alert.getDialogPane();
+        dialogo.setBackground(new Background(new BackgroundFill(
+                Color.LIGHTBLUE,
+                CornerRadii.EMPTY,
+                Insets.EMPTY
+        )));
+
         alert.showAndWait();
     }
     
