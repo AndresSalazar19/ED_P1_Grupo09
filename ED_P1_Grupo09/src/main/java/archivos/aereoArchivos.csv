@@ -1,2 +1,2 @@
-9,1500 horas,Modelo Aereo 1,Sevilla,500000.0,2018,50,Descripción Aéreo 1,MarcaC,true,true,Tracción Trasera,Automática,OTRO,789GHI,false,Jet,Alejandro Martinez,Helicóptero,2000.0,500
-10,5000 horas,Modelo Aereo 2,Valencia,700000.0,2020,60,Descripción Aéreo 2,MarcaD,false,false,Tracción Delantera,Manual,ELECTRICO,012JKL,true,Propulsión,Lucia Fernandez,Avión,3000.0,800
+9,1500 horas,Modelo Aereo 1,Sevilla,500000.0,2018,50,Descripción Aéreo 1,MarcaC,true,true,Tracción Trasera,Automática,OTRO,789GHI,false,Jet,a,Helicóptero,2000.0,500
+10,5000 horas,Modelo Aereo 2,Valencia,700000.0,2020,60,Descripción Aéreo 2,MarcaD,false,false,Tracción Delantera,Manual,ELECTRICO,012JKL,true,Propulsión,a,Avión,3000.0,800

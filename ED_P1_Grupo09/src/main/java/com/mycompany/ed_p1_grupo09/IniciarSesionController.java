@@ -4,7 +4,9 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +23,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.*;
-
+import tda.*;
 /**
  * FXML Controller class
  *
@@ -37,7 +39,8 @@ public class IniciarSesionController implements Initializable {
      
     private SistemaLogin sistemaLogin;
     private Usuario usuarioLogueado;
-    
+
+
     @FXML
     private void registrarse() throws IOException {
         App.setRoot("registrarse");
@@ -89,7 +92,5 @@ public class IniciarSesionController implements Initializable {
         sistemaLogin = new SistemaLogin(); // Inicializa el sistema de login
     }    
     
-    public Usuario getUsuarioLogueado() {
-        return usuarioLogueado;
-    }
+ 
 }

@@ -53,12 +53,12 @@ public class VehiculoManager {
     return carros;
 }
 
-       public List<Carro> cargarMisCarros(Usuario usuarioActual) throws IOException {
+       public List<Carro> cargarMisCarros(Usuario usuarioLogged) throws IOException {
        List<Carro> misCarros = new ArrayList<>(Carro.class);
        List<Carro> listaDeCarros = cargarCarros();
        for (Carro carro : listaDeCarros) {
            Usuario vendedor = carro.getVendedor();
-           if (vendedor != null && vendedor.getCorreo().equals(usuarioActual.getCorreo())) {
+           if (vendedor != null && vendedor.getCorreo().equals(usuarioLogged.getCorreo())) {
                misCarros.addLast(carro);
            } else if (vendedor == null) {
                System.err.println("Vendedor is null for car: " + carro);
@@ -81,6 +81,22 @@ public class VehiculoManager {
 
         return motos;
     }
+    
+     public static List<Moto> cargarMisMotos(Usuario usuarioLogged) throws IOException {
+        List<Moto> misMotos = new ArrayList<>(Moto.class);
+        List<Moto> listaDeMotos = cargarMotos();
+        
+        for (Moto moto : listaDeMotos) {
+              Usuario vendedor = moto.getVendedor();
+              if (vendedor != null && vendedor.getCorreo().equals(usuarioLogged.getCorreo())) {
+                  misMotos.addLast(moto);
+              } else if (vendedor == null) {
+                  System.err.println("Vendedor is null for moto: " + moto);
+              }
+          }
+
+        return misMotos;
+    }
 
 public static List<Acuatico> cargarAcuaticos() throws IOException {
     String fileName = acuaticoArchivos;
@@ -97,37 +113,86 @@ public static List<Acuatico> cargarAcuaticos() throws IOException {
     return acuaticos;
 }
 
-public static List<Aereo> cargarAereos() throws IOException {
-    String fileName = aereoArchivos;
-    List<Aereo> aereos = new ArrayList<>(Aereo.class);
+    public static List<Acuatico> cargarMisAcuaticos(Usuario usuarioLogged) throws IOException {
+          List<Acuatico> misAcuaticos = new ArrayList<>(Acuatico.class);
+          List<Acuatico> listaDeAcuaticos = cargarAcuaticos();
 
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            Aereo aereo = (Aereo) crearVehiculoDesdeLinea("aereo", linea.split(","));
-            aereos.addLast(aereo);
+          for (Acuatico acuatico : listaDeAcuaticos) {
+                Usuario vendedor = acuatico.getVendedor();
+                if (vendedor != null && vendedor.getCorreo().equals(usuarioLogged.getCorreo())) {
+                    misAcuaticos.addLast(acuatico);
+                } else if (vendedor == null) {
+                    System.err.println("Vendedor is null for acuatico: " + acuatico);
+                }
+            }
+
+          return misAcuaticos;
+      }
+    
+    public static List<Aereo> cargarAereos() throws IOException {
+        String fileName = aereoArchivos;
+        List<Aereo> aereos = new ArrayList<>(Aereo.class);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                Aereo aereo = (Aereo) crearVehiculoDesdeLinea("aereo", linea.split(","));
+                aereos.addLast(aereo);
+            }
         }
+
+        return aereos;
+    }
+    
+     public static List<Aereo> cargarMisAereos(Usuario usuarioLogged) throws IOException {
+        List<Aereo> misAereos = new ArrayList<>(Aereo.class);
+        List<Aereo> listaDeAereos = cargarAereos();
+        
+        for (Aereo aereo : listaDeAereos) {
+              Usuario vendedor = aereo.getVendedor();
+              if (vendedor != null && vendedor.getCorreo().equals(usuarioLogged.getCorreo())) {
+                  misAereos.addLast(aereo);
+              } else if (vendedor == null) {
+                  System.err.println("Vendedor is null for aereo: " + aereo);
+              }
+          }
+
+        return misAereos;
+    }
+      
+    public static List<Pesado> cargarPesados() throws IOException {
+        String fileName = pesadoArchivos;
+        List<Pesado> pesados = new ArrayList<>(Pesado.class);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                Pesado pesado = (Pesado) crearVehiculoDesdeLinea("pesado", linea.split(","));
+                pesados.addLast(pesado);
+            }
+        }
+
+        return pesados;
     }
 
-    return aereos;
-}
+    
+     public static List<Pesado> cargarMisPesados(Usuario usuarioLogged) throws IOException {
+        List<Pesado> misPesados = new ArrayList<>(Pesado.class);
+        List<Pesado> listaDePesados = cargarPesados();
+        
+        for (Pesado pesado : listaDePesados) {
+              Usuario vendedor = pesado.getVendedor();
+              if (vendedor != null && vendedor.getCorreo().equals(usuarioLogged.getCorreo())) {
+                  misPesados.addLast(pesado);
+              } else if (vendedor == null) {
+                  System.err.println("Vendedor is null for pesado: " + pesado);
+              }
+          }
 
-public static List<Pesado> cargarPesados() throws IOException {
-    String fileName = pesadoArchivos;
-    List<Pesado> pesados = new ArrayList<>(Pesado.class);
-
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            Pesado pesado = (Pesado) crearVehiculoDesdeLinea("pesado", linea.split(","));
-            pesados.addLast(pesado);
-        }
+        return misPesados;
     }
-
-    return pesados;
-}
-
-
+     
+     
     public static void guardarVehiculos(String tipo, List<Vehiculo> vehiculos) throws IOException {
         String fileName = obtenerNombreArchivo(tipo);
 
@@ -157,24 +222,25 @@ public static List<Pesado> cargarPesados() throws IOException {
         }
     }
 
-     private static Usuario cargarUsuario() {
-    try (BufferedReader br = new BufferedReader(new FileReader(usuarioArchivos))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            String[] datos = linea.split(",");
-            if ("msala@gaisd.co".equals(datos[1])) {
-                String nombre = datos[0];
-                String correo = datos[1];
-                String telefono = datos[2];
-                String contrasena = datos[3];
-                return new Usuario(nombre, correo, telefono, contrasena);
+     private static Usuario cargarUsuario(String correo) {
+        try (BufferedReader br = new BufferedReader(new FileReader(usuarioArchivos))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (correo.equals(datos[1])) {
+                    String nombre = datos[0];
+                    String telefono = datos[2];
+                    String contrasena = datos[3];
+                    return new Usuario(nombre, correo, telefono, contrasena);
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace(); 
         }
-    } catch (IOException e) {
-        e.printStackTrace(); 
+        return null;
     }
-    return null;
-}
+     
+   
       
     private static Vehiculo crearVehiculoDesdeLinea(String tipo, String[] linea) {
         int id = Integer.parseInt(linea[0]);
@@ -189,8 +255,8 @@ public static List<Pesado> cargarPesados() throws IOException {
         DetallesVehiExt detallesExt = new DetallesVehiExt(linea[7], linea[8], Boolean.parseBoolean(linea[9]), Boolean.parseBoolean(linea[10]));
         DetallesVehiInt detallesInt = new DetallesVehiInt(linea[11], linea[12], TipoCombustible.valueOf(linea[13]), linea[14], Boolean.parseBoolean(linea[15]), linea[16]);
         LinkedList<Proceso> lista = new LinkedList<>(); // Implementa la lógica para cargar procesos
-        Usuario vendedor =  cargarUsuario();
-
+        Usuario vendedor =  cargarUsuario(linea[17]);
+        
         switch (tipo.toLowerCase()) {
             case "acuatico":
                 String tipoacua = linea[18];

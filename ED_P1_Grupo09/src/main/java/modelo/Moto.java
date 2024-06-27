@@ -19,7 +19,7 @@ public class Moto extends Vehiculo{
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,int cilindraje) {
         super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista);
+              detallesExt, detallesInt, lista, vendedor);
         this.cilindraje = cilindraje;
     }
 

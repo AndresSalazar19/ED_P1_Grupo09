@@ -13,8 +13,8 @@ import javafx.scene.image.Image;
  * @author Ayman El Salous Mnz
  */
 public class Vehiculo {
-    protected int id;
-    protected String kilometraje;
+    public int id;
+    public String kilometraje;
     protected String modelo;
     protected String ciudad;
     protected double precio;
@@ -25,11 +25,11 @@ public class Vehiculo {
     protected DetallesVehiExt detallesExt;
     protected DetallesVehiInt detallesInt;
     protected LinkedList<Proceso> lista;
-    protected Usuario vendedor;
-    protected boolean esFavorito;
+    public Usuario vendedor;
+
     
 
-    public Vehiculo(int id, String kilometraje, String modelo, String ciudad, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista) {
+    public Vehiculo(int id, String kilometraje, String modelo, String ciudad, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int capacidad, DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista, Usuario vendedor) {
         this.id = id;
         this.kilometraje = kilometraje;
         this.modelo = modelo;
@@ -42,6 +42,7 @@ public class Vehiculo {
         this.detallesExt = detallesExt;
         this.detallesInt = detallesInt;
         this.lista = lista;
+        this.vendedor = vendedor;
     }
     
     public int getId() {

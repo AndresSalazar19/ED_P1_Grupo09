@@ -4,7 +4,9 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -27,19 +29,25 @@ import tda.*;
  */
 public class MisVehiculosController implements Initializable {
 
- private static final int VEHICULOS_POR_PAGINA = 8;
+    private static final int VEHICULOS_POR_PAGINA = 8;
 
-    private List<Carro> carros;
-    private List<Moto> motos;
-    private List<Acuatico> acuaticos;
-    private List<Aereo> aereos;
-    private List<Pesado> pesados;
-
+    private List<Carro> carros = new ArrayList<>(Carro.class);
+    private List<Moto> motos = new ArrayList<>(Moto.class);
+    private List<Acuatico> acuaticos = new ArrayList<>(Acuatico.class);
+    private List<Aereo> aereos = new ArrayList<>(Aereo.class);
+    private List<Pesado> pesados = new ArrayList<>(Pesado.class);
+    private List<Usuario> usuarios = new ArrayList<>(Usuario.class);
+    
     private ArrayList<Vehiculo> vehiculosFiltrados = new ArrayList<>(Vehiculo.class);
 
     @FXML
     private Pagination pagination;
-
+    
+     @FXML
+    private void volver() throws IOException {
+        App.setRoot("paginaPrincipal");
+    }
+    
     @FXML
     private void mostrarTodos() {
         filtrarVehiculos(null);
@@ -91,7 +99,6 @@ public class MisVehiculosController implements Initializable {
             vehiculosFiltrados.addAll(aereos);
         }
 
-        // Actualizar la paginación
         pagination.setPageCount((int) Math.ceil(vehiculosFiltrados.size() / (double) VEHICULOS_POR_PAGINA));
         pagination.setPageFactory(this::crearPagina);
     }
@@ -104,7 +111,6 @@ public class MisVehiculosController implements Initializable {
         for (int i = start; i < end; i++) {
             Vehiculo vehiculo = vehiculosFiltrados.get(i);
 
-            // Lógica para cargar la imagen según el tipo de vehículo
             Image image = vehiculo.getImage();
 
             ImageView imageView = new ImageView(image);
@@ -118,20 +124,19 @@ public class MisVehiculosController implements Initializable {
                 }
             });
 
-            // Crear etiquetas con los detalles del vehículo
             Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
             Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
             Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
             Label negociableLabel = new Label("Es negociable: " + true);
             Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudad());
 
-            VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
+            VBox vbox = new VBox(10);
             vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
 
-            VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
+            VBox imageWithDetails = new VBox(10);
             imageWithDetails.getChildren().addAll(imageView, vbox);
 
-            grid.add(imageWithDetails, i % 4, i / 4); // 4 columnas por fila
+            grid.add(imageWithDetails, i % 4, i / 4);
         }
 
         return grid;
@@ -149,37 +154,66 @@ public class MisVehiculosController implements Initializable {
         }
     }
 
+    public Usuario getUsuarioLogueado() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/usuarioArchivos.csv"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos.length == 4) {
+                    String nombre = datos[0];
+                    String correo = datos[1];
+                    String telefono = datos[2];
+                    String contrasena = datos[3];
+                    Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
+                    usuarios.addFirst(usuario);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/loggedArchivos.csv"))) {
+            String correo = br.readLine();
+            for (Usuario usuario : usuarios) {
+                if (usuario.getCorreo().equals(correo)) {
+                    return usuario;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         VehiculoManager vehiculoManager = new VehiculoManager();
-        Usuario actual = new Usuario("Melanie Salazar","msala@gaisd.com","23weqwe","dsasad");
-     try {
-         carros = vehiculoManager.cargarMisCarros(actual);
-     } catch (IOException ex) {
-         ex.printStackTrace();
-     }
-     try {
-         motos = vehiculoManager.cargarMotos();
-     } catch (IOException ex) {
-         ex.printStackTrace();
-     }
-     try {
-         acuaticos = vehiculoManager.cargarAcuaticos();
-     } catch (IOException ex) {
-         ex.printStackTrace();
-     }
-     try {
-         aereos = vehiculoManager.cargarAereos();
-     } catch (IOException ex) {
-         ex.printStackTrace();
-     }
-     try {
-         pesados = vehiculoManager.cargarPesados();
-     } catch (IOException ex) {
-         ex.printStackTrace();
-     }
+        Usuario usuarioLogged = getUsuarioLogueado();
+        try {
+            carros = vehiculoManager.cargarMisCarros(usuarioLogged);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            motos = vehiculoManager.cargarMisMotos(usuarioLogged);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            acuaticos = vehiculoManager.cargarMisAcuaticos(usuarioLogged);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            aereos = vehiculoManager.cargarMisAereos(usuarioLogged);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            pesados = vehiculoManager.cargarMisPesados(usuarioLogged);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
-          // Inicialmente, mostrar todos los vehículos
-          filtrarVehiculos(null);    }
+        filtrarVehiculos(null);
+    }
 }

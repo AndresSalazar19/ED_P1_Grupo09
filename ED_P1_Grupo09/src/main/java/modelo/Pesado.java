@@ -20,7 +20,7 @@ public class Pesado extends Vehiculo {
               DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
               Usuario vendedor, double pesoMax, double pesoMin) {
     super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-          detallesExt, detallesInt, lista);
+          detallesExt, detallesInt, lista, vendedor);
     this.pesoMax = pesoMax;
     this.pesoMin = pesoMin;
 }

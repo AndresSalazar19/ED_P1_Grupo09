@@ -19,7 +19,7 @@ public class Carro extends Vehiculo {
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor,String tipocarro) {
         super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista);
+              detallesExt, detallesInt, lista, vendedor);
         this.tipocarro = tipocarro;
     }
 

@@ -112,7 +112,6 @@ public class PaginaPrincipalController implements Initializable {
         cargarUsuarios();
         
         Usuario usuariocargado = cargarUsuarioLogged();
-        System.out.println(usuariocargado.toString());
         nombreLabel.setText(usuariocargado.getNombre());
         correoLabel.setText(usuariocargado.getCorreo());
 

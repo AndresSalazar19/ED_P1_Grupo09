@@ -21,7 +21,7 @@ public class Aereo extends Vehiculo {
                  DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
                  Usuario vendedor, String tipoAeronave, double pesoMaximoDespegue, int rangoVuelo) {
         super(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista);
+              detallesExt, detallesInt, lista, vendedor);
         this.tipoAeronave = tipoAeronave;
         this.pesoMaximoDespegue = pesoMaximoDespegue;
         this.rangoVuelo = rangoVuelo;
