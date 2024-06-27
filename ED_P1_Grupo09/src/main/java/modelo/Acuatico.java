@@ -9,18 +9,15 @@ import javafx.scene.image.Image;
 
 /**
  *
- * @author Ayman El Salous Mnz
+ * @author andres b
  */
-public class Acuatico extends Vehiculo{
+public class Acuatico extends Vehiculo {
     private String tipoacua;
 
-    public Acuatico(int kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
-                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-                 Usuario vendedor,String tipoacua) {
-        super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
-              detallesExt, detallesInt, lista);
-        
+    public Acuatico(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, String year,
+                    CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                    Usuario vendedor, DetallesVehiInt detallesInt, String tipoacua, boolean negociable) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudadVehi, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable);
         this.tipoacua = tipoacua;
     }
 
@@ -31,5 +28,4 @@ public class Acuatico extends Vehiculo{
     public void setTipoacua(String tipoacua) {
         this.tipoacua = tipoacua;
     }
-    
 }

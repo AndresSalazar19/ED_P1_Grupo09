@@ -10,38 +10,44 @@ import tda.*;
 import javafx.scene.image.Image;
 /**
  *
- * @author Ayman El Salous Mnz
+ * @author andres 
  */
 public abstract class Vehiculo {
-    protected int kilometraje;
-    protected String modelo;
-    protected String ciudadv;
-    protected double precio;
-    protected String year;
-    protected CircularDoublyLinkedList<Image> Imagenes;
-    protected LinkedList<Accidente> accidentes;
-    protected int id;
-    protected int capacidad;
-    protected DetallesVehiExt detalles_Ext;
-    protected DetallesVehiInt detalles_Int;
-    protected LinkedList<Proceso> lista;
-    protected Usuario vendedor;
+    private int kilometraje;
+    private String modelo;
+    private String descripcion;
+    private String marca;
+    private Estado estado;
+    private String ciudadVehi;
+    private double precio;
+    private String year;
+    private CircularDoublyLinkedList<Image> imagenes;
+    private LinkedList<Accidente> accidentes;
+    private int id;
+    private int capacidad;
+    private DetallesVehiInt detallesInt;
+    private Usuario vendedor;
+    private boolean negociable;
+     private LinkedList<Mantenimiento> mantenimientos;
 
-    
 
-    public Vehiculo(int kilometraje, String modelo, String ciudadv, double precio, String year, CircularDoublyLinkedList<Image> Imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, DetallesVehiExt detalles_Ext, DetallesVehiInt detalles_Int, LinkedList<Proceso> lista) {
+    public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, String year, CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
-        this.ciudadv = ciudadv;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.estado = estado;
+        this.ciudadVehi = ciudadVehi;
         this.precio = precio;
         this.year = year;
-        this.Imagenes = Imagenes;
+        this.imagenes = imagenes;
         this.accidentes = accidentes;
         this.id = id;
         this.capacidad = capacidad;
-        this.detalles_Ext = detalles_Ext;
-        this.detalles_Int = detalles_Int;
-        this.lista = lista;
+        this.detallesInt = detallesInt;
+        this.negociable = negociable;
+        this.vendedor = vendedor;
+        this.mantenimientos = new LinkedList<>();
     }
 
     public int getKilometraje() {
@@ -60,12 +66,36 @@ public abstract class Vehiculo {
         this.modelo = modelo;
     }
 
-    public String getCiudadv() {
-        return ciudadv;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCiudadv(String ciudadv) {
-        this.ciudadv = ciudadv;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public String getCiudadVehi() {
+        return ciudadVehi;
+    }
+
+    public void setCiudadVehi(String ciudadVehi) {
+        this.ciudadVehi = ciudadVehi;
     }
 
     public double getPrecio() {
@@ -84,15 +114,15 @@ public abstract class Vehiculo {
         this.year = year;
     }
 
-    public List<Image> getImagenes() {
-        return Imagenes;
+    public CircularDoublyLinkedList<Image> getImagenes() {
+        return imagenes;
     }
 
-    public void setImagenes(CircularDoublyLinkedList<Image> Imagenes) {
-        this.Imagenes = Imagenes;
+    public void setImagenes(CircularDoublyLinkedList<Image> imagenes) {
+        this.imagenes = imagenes;
     }
 
-    public List<Accidente> getAccidentes() {
+    public LinkedList<Accidente> getAccidentes() {
         return accidentes;
     }
 
@@ -116,29 +146,14 @@ public abstract class Vehiculo {
         this.capacidad = capacidad;
     }
 
-    public DetallesVehiExt getDetalles_Ext() {
-        return detalles_Ext;
+    public DetallesVehiInt getDetallesInt() {
+        return detallesInt;
     }
 
-    public void setDetalles_Ext(DetallesVehiExt detalles_Ext) {
-        this.detalles_Ext = detalles_Ext;
+    public void setDetallesInt(DetallesVehiInt detallesInt) {
+        this.detallesInt = detallesInt;
     }
 
-    public DetallesVehiInt getDetalles_Int() {
-        return detalles_Int;
-    }
-
-    public void setDetalles_Int(DetallesVehiInt detalles_Int) {
-        this.detalles_Int = detalles_Int;
-    }
-
-    public List<Proceso> getLista() {
-        return lista;
-    }
-
-    public void setLista(LinkedList<Proceso> lista) {
-        this.lista = lista;
-    }
     public Usuario getVendedor() {
         return vendedor;
     }
@@ -147,4 +162,20 @@ public abstract class Vehiculo {
         this.vendedor = vendedor;
     }
     
+    public boolean isNegociable() {
+        return negociable;
+    }
+
+    public void setNegociable(boolean negociable) {
+        this.negociable = negociable;
+    }
+    
+    public LinkedList<Mantenimiento> getMantenimientos() {
+        return mantenimientos;
+    }    
+    
+    public void setMantenimientos(LinkedList<Mantenimiento> mantenimientos) {
+        this.mantenimientos = mantenimientos;
+    }    
+
 }

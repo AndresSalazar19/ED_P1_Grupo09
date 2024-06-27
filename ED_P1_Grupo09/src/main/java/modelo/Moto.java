@@ -1,25 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modelo;
+    package modelo;
 
 import tda.*;
 import javafx.scene.image.Image;
 
 /**
  *
- * @author Ayman El Salous Mnz
+ * @autor andres b
  */
-public class Moto extends Vehiculo{
+public class Moto extends Vehiculo {
     private int cilindraje;
 
-    public Moto(int kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
-                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-                 Usuario vendedor,int cilindraje) {
-        super(kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, id, capacidad,
-              detallesExt, detallesInt, lista);
+    public Moto(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, String year,
+                CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                Usuario vendedor, DetallesVehiInt detallesInt, int cilindraje, boolean negociable) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudadVehi, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable);
         this.cilindraje = cilindraje;
     }
 
@@ -30,5 +24,4 @@ public class Moto extends Vehiculo{
     public void setCilindraje(int cilindraje) {
         this.cilindraje = cilindraje;
     }
-    
 }

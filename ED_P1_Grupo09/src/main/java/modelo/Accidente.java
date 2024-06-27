@@ -1,35 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
-import tda.*;
 
-/**
- *
- * @author Ayman El Salous Mnz
- */
+import java.time.LocalDate;
+import java.util.LinkedList;
+
 public class Accidente {
     private String descripcion;
     private String parteafec;
-    private String accifecha;
-    private List<Proceso> lista;
-    
-    
-   public Accidente(String descripcion, String parteafec,String accifecha, List<Proceso> lista){
-       this.descripcion= descripcion;
-       this.parteafec = parteafec;
-       this.accifecha = accifecha;
-       this.lista =lista;
-   }
+    private LocalDate accifecha; 
+    private LinkedList<Mantenimiento> mantenimiento;
 
-   public String getDescripcion(){
-       return descripcion;
-   
-   }
-   public void setDescripcion(String descripcion){
-       this.descripcion = descripcion;
-   }
+    public Accidente(LocalDate accifecha, String descripcion, String parteafec, LinkedList<Mantenimiento> mantenimiento) {
+        this.descripcion = descripcion;
+        this.parteafec = parteafec;
+        this.accifecha = accifecha;
+        this.mantenimiento = mantenimiento;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public String getParteafec() {
         return parteafec;
@@ -39,22 +32,19 @@ public class Accidente {
         this.parteafec = parteafec;
     }
 
-    public String getAccifecha() {
+    public LocalDate getAccifecha() {
         return accifecha;
     }
 
-    public void setAccifecha(String accifecha) {
+    public void setAccifecha(LocalDate accifecha) {
         this.accifecha = accifecha;
     }
 
-    public List<Proceso> getLista() {
-        return lista;
+    public LinkedList<Mantenimiento> getMantenimiento() {
+        return mantenimiento;
     }
 
-    public void setLista(List<Proceso> lista) {
-        this.lista = lista;
+    public void setMantenimiento(LinkedList<Mantenimiento> mantenimiento) {
+        this.mantenimiento = mantenimiento;
     }
-   
-   
-   
 }

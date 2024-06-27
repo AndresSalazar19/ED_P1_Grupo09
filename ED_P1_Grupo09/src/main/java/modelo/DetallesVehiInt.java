@@ -10,15 +10,15 @@ package modelo;
  */
 public class DetallesVehiInt {
     private String traccion;
-    private String transmission;
+    private String transmision;
     private TipoCombustible combustible;
     private String placade;
     private boolean climatizado;
     private String tipoMotor;
 
-    public DetallesVehiInt(String traccion, String transmission, TipoCombustible combustible, String placade, boolean climatizado, String tipoMotor) {
+    public DetallesVehiInt(String traccion, String transmision, TipoCombustible combustible, String placade, boolean climatizado, String tipoMotor) {
         this.traccion = traccion;
-        this.transmission = transmission;
+        this.transmision = transmision;
         this.combustible = combustible;
         this.placade = placade;
         this.climatizado = climatizado;
@@ -33,12 +33,12 @@ public class DetallesVehiInt {
         this.traccion = traccion;
     }
 
-    public String getTransmission() {
-        return transmission;
+    public String getTransmision() {
+        return transmision;
     }
 
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
+    public void setTransmision(String transmision) {
+        this.transmision = transmision;
     }
 
     public TipoCombustible getCombustible() {

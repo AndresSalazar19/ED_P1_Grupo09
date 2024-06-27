@@ -8,13 +8,13 @@ package modelo;
  *
  * @author asala
  */
-public class Proceso {
+public class Mantenimiento {
     private String descripcion;
-    private String tipo_proceso;
+    private String tipoMantenimiento;
 
-    public Proceso(String descripcion, String tipo_proceso) {
+    public Mantenimiento(String descripcion, String tipoMantenimiento) {
         this.descripcion = descripcion;
-        this.tipo_proceso = tipo_proceso;
+        this.tipoMantenimiento = tipoMantenimiento;
     }
 
     public String getDescripcion() {
@@ -25,11 +25,11 @@ public class Proceso {
         this.descripcion = descripcion;
     }
 
-    public String getTipoProceso() {
-        return tipo_proceso;
+    public String getTipoMantenimiento() {
+        return tipoMantenimiento;
     }
 
-    public void setTipoProceso(String tipo_proceso) {
-        this.tipo_proceso = tipo_proceso;
+    public void setTipoMantenimiento(String tipoMantenimiento) {
+        this.tipoMantenimiento = tipoMantenimiento;
     }
 }
