@@ -151,7 +151,7 @@ public class Vehiculo {
     
 
    public Image getImage(){
-        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(id));
+        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + String.valueOf(id));
         return imagenes.get(0);
    }
 }

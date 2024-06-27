@@ -26,55 +26,46 @@ import javafx.geometry.Pos;
  */
 public class InicioController {
     private static final int VEHICULOS_POR_PAGINA = 8;
-
     private List<Carro> carros;
     private List<Moto> motos;
     private List<Acuatico> acuaticos;
     private List<Aereo> aereos;
     private List<Pesado> pesados;
-
     private ArrayList<Vehiculo> vehiculosFiltrados = new ArrayList<>(Vehiculo.class);
+    
 
-    @FXML
-    private Pagination pagination;
 
-    @FXML
-    private void iniciarSesion() throws IOException {
+    @FXML private Pagination pagination;
+
+    @FXML private void iniciarSesion() throws IOException {
         App.setRoot("iniciarSesion");
     }
 
-    @FXML
-    private void registrarse() throws IOException {
+    @FXML private void registrarse() throws IOException {
         App.setRoot("registrarse");
     }
 
-    @FXML
-    private void mostrarTodos() {
+    @FXML private void mostrarTodos() {
         filtrarVehiculos(null);
     }
 
-    @FXML
-    private void mostrarCarros() {
+    @FXML private void mostrarCarros() {
         filtrarVehiculos(Carro.class);
     }
 
-    @FXML
-    private void mostrarMotos() {
+    @FXML private void mostrarMotos() {
         filtrarVehiculos(Moto.class);
     }
 
-    @FXML
-    private void mostrarPesados() {
+    @FXML private void mostrarPesados() {
         filtrarVehiculos(Pesado.class);
     }
 
-    @FXML
-    private void mostrarAcuaticos() {
+    @FXML private void mostrarAcuaticos() {
         filtrarVehiculos(Acuatico.class);
     }
 
-    @FXML
-    private void mostrarAereos() {
+    @FXML private void mostrarAereos() {
         filtrarVehiculos(Aereo.class);
     }
 
@@ -99,7 +90,6 @@ public class InicioController {
             vehiculosFiltrados.addAll(aereos);
         }
 
-        // Actualizar la paginación
         pagination.setPageCount((int) Math.ceil(vehiculosFiltrados.size() / (double) VEHICULOS_POR_PAGINA));
         pagination.setPageFactory(this::crearPagina);
     }
@@ -111,8 +101,6 @@ public class InicioController {
 
         for (int i = start; i < end; i++) {
             Vehiculo vehiculo = vehiculosFiltrados.get(i);
-
-            // Lógica para cargar la imagen según el tipo de vehículo
             Image image = vehiculo.getImage();
 
             ImageView imageView = new ImageView(image);
@@ -127,21 +115,16 @@ public class InicioController {
                 }
             });
 
-            // Crear etiquetas con los detalles del vehículo
             Label nombreLabel = new Label("Nombre: " + vehiculo.getModelo());
-            nombreLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
+            nombreLabel.getStyleClass().add("label-small");
             Label kilometrajeLabel = new Label("Kilometraje: " + vehiculo.getKilometraje());
-            kilometrajeLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
+            kilometrajeLabel.getStyleClass().add("label-small");
             Label precioLabel = new Label("Precio: " + vehiculo.getPrecio());
-            precioLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
-            Label negociableLabel = new Label("Es negociable: " + true);
-            negociableLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
-            Label ciudadLabel = new Label("Ciudad: " + vehiculo.getCiudad());
-            ciudadLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12");
+            precioLabel.getStyleClass().add("label-small");
 
             VBox vbox = new VBox(10); // Espacio de 10 pixels entre las etiquetas
             vbox.setAlignment(Pos.CENTER);
-            vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel, negociableLabel, ciudadLabel);
+            vbox.getChildren().addAll(nombreLabel, kilometrajeLabel, precioLabel);
 
             VBox imageWithDetails = new VBox(10); // Espacio de 10 pixels entre la imagen y los detalles
             imageWithDetails.setAlignment(Pos.CENTER);
@@ -151,7 +134,6 @@ public class InicioController {
             grid.setHgap(15.0);// espacio entre grid
             grid.setVgap(15.0);
         }
-        
 
         return grid;
     }
@@ -168,8 +150,7 @@ public class InicioController {
         }
     }
 
-    @FXML
-    private void initialize() throws IOException {
+    @FXML private void initialize() throws IOException {
         VehiculoManager vehiculoManager = new VehiculoManager();
 
         carros = vehiculoManager.cargarCarros();
@@ -177,7 +158,7 @@ public class InicioController {
         acuaticos = vehiculoManager.cargarAcuaticos();
         aereos = vehiculoManager.cargarAereos();
         pesados = vehiculoManager.cargarPesados();
-
+        
         // Inicialmente, mostrar todos los vehículos
         filtrarVehiculos(null);
     }

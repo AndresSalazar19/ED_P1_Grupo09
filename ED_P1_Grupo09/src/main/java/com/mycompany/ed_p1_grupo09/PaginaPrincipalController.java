@@ -98,7 +98,7 @@ public class PaginaPrincipalController implements Initializable {
     
     @FXML
     private void cerrarSesion() throws IOException {
-        App.setRoot("verDetallesVehiculo");
+        App.setRoot("Inicio");
     }
     
 

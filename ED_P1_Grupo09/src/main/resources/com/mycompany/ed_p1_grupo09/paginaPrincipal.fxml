@@ -3,56 +3,33 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="CENTER" prefHeight="480" prefWidth="640" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.PaginaPrincipalController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.PaginaPrincipalController">
    <children>
-      <GridPane>
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="56.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="199.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Pane prefHeight="560.0" prefWidth="936.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Concesionaria titulo" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido" GridPane.columnIndex="1" />
-            <Button fx:id="cerrarSesionButton" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" GridPane.columnIndex="4" />
-            <Label fx:id="correoLabel" prefHeight="17.0" prefWidth="119.0" text="correo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="misVehiculosButton" mnemonicParsing="false" onAction="#misVehiculos" text="Mis Vehículos" GridPane.columnIndex="3" />
-            <Label fx:id="nombreLabel" text="usuario" GridPane.columnIndex="2" />
+            <Text layoutX="35.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido" />
+            <Label fx:id="nombreLabel" layoutX="119.0" layoutY="180.0" text="usuario" />
+            <Label fx:id="correoLabel" layoutX="185.0" layoutY="180.0" prefHeight="17.0" prefWidth="119.0" text="correo" />
+            <Button fx:id="misVehiculosButton" layoutX="498.0" layoutY="58.0" mnemonicParsing="false" onAction="#misVehiculos" text="Mis Vehículos" />
+            <Button fx:id="cerrarSesionButton" layoutX="629.0" layoutY="58.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" />
+            <ImageView fx:id="logo" blendMode="MULTIPLY" fitHeight="124.0" fitWidth="130.0" layoutX="14.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
+               </image>
+            </ImageView>
+            <ImageView blendMode="MULTIPLY" depthTest="DISABLE" fitHeight="79.0" fitWidth="310.0" layoutX="149.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../../../imagenes/recursos/Title.png" />
+               </image>
+            </ImageView>
          </children>
-      </GridPane>
-      <GridPane prefHeight="90.0" prefWidth="632.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="27.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="493.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="30.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <TextFlow prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </HBox>
-      <Button fx:id="añadirVehiculoButton" mnemonicParsing="false" onAction="#añadirVehiculo" text="Añadir vehículo" />
+      </Pane>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

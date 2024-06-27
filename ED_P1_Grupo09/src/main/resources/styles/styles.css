@@ -1,7 +1,125 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
+/* General Styles */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10;
 }
+
+/* Button Styles */
+.button {
+    -fx-background-color: #0077c0; /* Azul característico de Mazda */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #005aa7; /* Azul oscuro para el hover */
+}
+
+.button:disabled {
+    -fx-background-color: #c0c0c0;
+}
+
+/* Text Field Styles */
+.text-field {
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #0077c0; /* Azul para el foco */
+}
+
+/* Label Styles */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Table Styles */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #0077c0; /* Azul para los encabezados de columna */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #0077c0; /* Azul para los encabezados de columna */
+}
+
+.table-view .cell {
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Form Container Styles */
+.form-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-spacing: 10;
+}
+
+/* Image Styles */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);
+    -fx-background-radius: 5px;
+    -fx-background-color: #ffffff;
+}
+
+/* Header Styles */
+.header {
+    -fx-background-color: #0077c0; /* Azul para el encabezado */
+    -fx-padding: 15;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+/* Navigation Bar Styles */
+.nav-bar {
+    -fx-background-color: #0077c0; /* Azul para la barra de navegación */
+    -fx-padding: 10;
+}
+
+.nav-bar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.nav-bar .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Footer Styles */
+.footer {
+    -fx-background-color: #333333;
+    -fx-padding: 10;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+.pagination {
+    -fx-pref-width: 400px; 
+    -fx-pref-height: 30px; 
+}
+

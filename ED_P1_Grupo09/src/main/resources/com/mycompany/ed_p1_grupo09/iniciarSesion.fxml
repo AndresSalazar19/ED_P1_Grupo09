@@ -5,42 +5,41 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.IniciarSesionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.IniciarSesionController">
    <children>
-      <Pane prefHeight="37.0" prefWidth="600.0">
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label layoutX="236.0" layoutY="19.0" prefHeight="37.0" prefWidth="251.0" text="Ingresa a tu cuenta">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
+            <Pane prefHeight="37.0" prefWidth="600.0" />
+            <Pane prefHeight="50.0" prefWidth="600.0" />
          </children>
-      </Pane>
-      <Label layoutX="235.0" layoutY="128.0" prefHeight="17.0" prefWidth="133.0" text="Correo electrónico *">
+      </VBox>
+      <TextField fx:id="correoTextField" layoutX="326.0" layoutY="157.0" />
+      <Button fx:id="volverButton" layoutX="74.0" layoutY="418.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="35.0" text="&lt;-">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="contrasenaTextField" layoutX="326.0" layoutY="259.0" />
+      <Text fx:id="registrarseTextField" layoutX="281.0" layoutY="93.0" onMouseClicked="#registrarse" strokeType="OUTSIDE" strokeWidth="0.0" text="o crea tu cuenta de usuario gratis" wrappingWidth="194.0" />
+      <Label layoutX="215.0" layoutY="263.0" prefHeight="17.0" prefWidth="74.0" text="Contraseña">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="correoTextField" layoutX="226.0" layoutY="154.0" />
-      <Pane layoutX="1.0" layoutY="345.0" prefHeight="50.0" prefWidth="600.0">
-         <children>
-            <Button fx:id="volverButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="35.0" text="&lt;-">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-      <Button fx:id="IniciarSesionButton" layoutX="247.0" layoutY="333.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar Sesión" />
-      <Text fx:id="registrarseTextField" layoutX="211.0" layoutY="71.0" onMouseClicked="#registrarse" strokeType="OUTSIDE" strokeWidth="0.0" text="o crea tu cuenta de usuario gratis" wrappingWidth="194.0" />
-      <Label layoutX="227.0" layoutY="192.0" prefHeight="17.0" prefWidth="74.0" text="Contraseña">
+      <Button fx:id="IniciarSesionButton" layoutX="326.0" layoutY="333.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar Sesión" />
+      <Label layoutX="186.0" layoutY="161.0" prefHeight="17.0" prefWidth="133.0" text="Correo electrónico *">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="contrasenaTextField" layoutX="227.0" layoutY="218.0" />
+      <Label layoutX="302.0" layoutY="43.0" prefHeight="37.0" prefWidth="251.0" text="Ingresa a tu cuenta">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

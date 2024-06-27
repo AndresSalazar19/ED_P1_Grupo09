@@ -71,13 +71,13 @@ public class VerDetallesVehiculoController implements Initializable {
             mostrarImagenes();
         }
     }
-     private void mostrarImagenes() {
+    private void mostrarImagenes() {
         contenedorImagenes.getChildren().clear(); // Limpiamos el contenedor
 
-        // Iterar sobre todas las imágenes y agregarlas al HBox
-        int size = imagenes.getSize();
+        // Iterar sobre las primeras tres imágenes y agregarlas al HBox
+        int size = Math.min(imagenes.getSize(), 3); // Tomamos el mínimo entre el tamaño de imágenes y 3
         for (int i = 0; i < size; i++) {
-            int index = (currentIndex + i) % size; // Calcular el índice ajustado circularmente
+            int index = (currentIndex + i) % imagenes.getSize(); // Calcular el índice ajustado circularmente
             Image image = imagenes.get(index);
 
             // Crear ImageView y configurar propiedades
@@ -89,6 +89,7 @@ public class VerDetallesVehiculoController implements Initializable {
             contenedorImagenes.getChildren().add(imageView);
         }
     }
+
     
     
      
@@ -159,7 +160,7 @@ public class VerDetallesVehiculoController implements Initializable {
         yearLabel.setText(String.valueOf(vehiculo.getYear()));
 
                 
-        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/" + String.valueOf(vehiculo.getId()));
+        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + String.valueOf(vehiculo.getId()));
 
         if (!imagenes.isEmpty()) {
             currentIndex = 0; // Empezamos desde la primera imagen

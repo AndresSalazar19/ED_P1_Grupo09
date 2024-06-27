@@ -21,11 +21,15 @@ public class App extends Application {
         
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("inicio"), 1000, 800);
-        stage.setScene(scene);
-         stage.setTitle("Concesionaria titulo");
-        stage.show();
-    }
+           scene = new Scene(loadFXML("inicio"), 800, 600);
+
+           String css = getClass().getResource("/styles/styles.css").toExternalForm();
+           scene.getStylesheets().add(css);
+
+           stage.setScene(scene);
+           stage.setTitle("Gear Max");
+           stage.show();
+       }
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
