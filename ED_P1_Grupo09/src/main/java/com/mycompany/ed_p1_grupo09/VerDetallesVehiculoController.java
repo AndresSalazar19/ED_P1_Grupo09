@@ -25,18 +25,8 @@ import tda.*;
  * @author asala
  */
 public class VerDetallesVehiculoController implements Initializable {
+    private static Vehiculo vehiculo;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
- /*
-    private List<Carro> carros;
-    private List<Moto> motos;
-    private List<Acuatico> acuaticos;
-    private List<Aereo> aereos;
-    private List<Pesado> pesados;
-    
     @FXML
     private Label kilometrajeLabel;
     @FXML
@@ -48,16 +38,19 @@ public class VerDetallesVehiculoController implements Initializable {
     @FXML
     private Label yearLabel;
     
-    
     @FXML
     private HBox contenedorImagenes; 
 
-    private CircularDoublyLinkedList<Image> imagenes;
+    private CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>(); // Inicializar la lista
     private int currentIndex;
+
+    public static void setVehiculo(Vehiculo vehiculo) {
+        VerDetallesVehiculoController.vehiculo = vehiculo;
+    }
     
     @FXML
     private void getPrevious() {
-        if (!imagenes.isEmpty()) {
+        if (imagenes != null && !imagenes.isEmpty()) { // Verificar si imagenes no es nulo
             currentIndex--;
             if (currentIndex < 0) {
                 currentIndex = imagenes.getSize() - 1; // Volvemos al final de la lista circular
@@ -66,9 +59,9 @@ public class VerDetallesVehiculoController implements Initializable {
         }
     }
      
-     @FXML
+    @FXML
     private void getNext() {
-        if (!imagenes.isEmpty()) {
+        if (imagenes != null && !imagenes.isEmpty()) { // Verificar si imagenes no es nulo
             currentIndex++;
             if (currentIndex >= imagenes.getSize()) {
                 currentIndex = 0; // Volvemos al inicio de la lista circular
@@ -76,6 +69,7 @@ public class VerDetallesVehiculoController implements Initializable {
             mostrarImagenes();
         }
     }
+
     private void mostrarImagenes() {
         contenedorImagenes.getChildren().clear(); // Limpiamos el contenedor
 
@@ -95,88 +89,31 @@ public class VerDetallesVehiculoController implements Initializable {
         }
     }
 
-    
-    
-     
-       public String getIdVehiculoLogged(){
-     try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/archivos/vehiculoLoggedArchivos.csv"))) {
-            String linea;
-            linea = br.readLine();
-            return linea;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-     return "null";
-    }
-       
-      public Vehiculo getVehiculoLogged() {
-        ArrayList<Vehiculo> vehiculos = new ArrayList<>(Vehiculo.class);
-        vehiculos.addAll(carros);
-        vehiculos.addAll(motos);
-        vehiculos.addAll(pesados);
-        vehiculos.addAll(acuaticos);
-        vehiculos.addAll(aereos);
-
-        for (Vehiculo vehiculo : vehiculos) {
-            if (String.valueOf(vehiculo.getId()).equals(getIdVehiculoLogged())) {
-                return vehiculo;
-            }
-        }
-        return null;
-      }
-
-    
-        @Override
-        public void initialize(URL url, ResourceBundle rb) {
-        VehiculoManager vehiculoManager = new VehiculoManager();
-        
-        try {
-            carros = vehiculoManager.cargarCarros();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            motos = vehiculoManager.cargarMotos();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            acuaticos = vehiculoManager.cargarAcuaticos();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            aereos = vehiculoManager.cargarAereos();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            pesados = vehiculoManager.cargarPesados();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        Vehiculo vehiculo = getVehiculoLogged();
-        // Cargar las imágenes desde una carpeta
-        kilometrajeLabel.setText(vehiculo.getKilometraje());
-        modeloLabel.setText(vehiculo.getModelo());
-        ciudadLabel.setText(vehiculo.getCiudad());
-        precioLabel.setText(String.valueOf(vehiculo.getPrecio()));
-        yearLabel.setText(String.valueOf(vehiculo.getYear()));
-
-                
-        imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + String.valueOf(vehiculo.getId()));
-
-        if (!imagenes.isEmpty()) {
-            currentIndex = 0; // Empezamos desde la primera imagen
-            mostrarImagenes();
-        }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        mostrarDetalles();
     }  
     
-     @FXML
+    private void mostrarDetalles() {
+        if (vehiculo != null) {
+            System.out.println("KilometrajeLabel: " + vehiculo.getKilometraje());
+            kilometrajeLabel.setText(String.valueOf(vehiculo.getKilometraje()));
+            modeloLabel.setText(vehiculo.getModelo());
+            ciudadLabel.setText(vehiculo.getCiudad());
+            precioLabel.setText(String.valueOf(vehiculo.getPrecio()));
+            yearLabel.setText(String.valueOf(vehiculo.getYear()));
+
+            imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + vehiculo.getId());
+
+            if (!imagenes.isEmpty()) {
+                currentIndex = 0; // Empezamos desde la primera imagen
+                mostrarImagenes();
+            }
+        }
+    }
+
+    @FXML
     private void volver() throws IOException {
         App.setRoot("inicio");
     }   
-    */
 }
-

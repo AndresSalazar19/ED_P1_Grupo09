@@ -102,10 +102,7 @@ public class VehiculoManager {
                 String tipoAeronave = linea[17];
                 double pesoMaximoDespegue = Double.parseDouble(linea[18]);
                 int rangoVuelo = Integer.parseInt(linea[19]);
-                System.out.println("aereos:");
-                Aereo aereo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo) ;
-                System.out.println(aereo.toString());
-                return aereo;
+                return new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
             case CARRO:
                 String tipocarro = linea[17];
                 return new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipocarro);
@@ -181,7 +178,6 @@ public class VehiculoManager {
             }
             return lista;
         } else {
-            System.out.println("Mantenimientos está vacía");
             return null;
         }
     }

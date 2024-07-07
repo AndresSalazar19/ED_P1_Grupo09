@@ -20,8 +20,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="getNextButton" layoutX="221.0" layoutY="369.0" mnemonicParsing="false" onAction="#getNext" text="Next" />
-            <Button fx:id="getPreviousButton" layoutX="83.0" layoutY="369.0" mnemonicParsing="false" onAction="#getPrevious" text="Previous" />
+            <Button fx:id="getNextButton" layoutX="216.0" layoutY="382.0" mnemonicParsing="false" onAction="#getNext" text="Next" />
+            <Button fx:id="getPreviousButton" layoutX="83.0" layoutY="382.0" mnemonicParsing="false" onAction="#getPrevious" text="Previous" />
             <ImageView fx:id="logo" blendMode="MULTIPLY" fitHeight="124.0" fitWidth="130.0" layoutX="24.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
@@ -32,22 +32,15 @@
                   <Image url="@../../../imagenes/recursos/Title.png" />
                </image>
             </ImageView>
-            <HBox fx:id="contenedorImagenes" layoutX="60.0" layoutY="151.0" prefHeight="174.0" prefWidth="214.0" />
-            <Pane layoutX="479.0" layoutY="151.0" prefHeight="218.0" prefWidth="214.0">
-               <children>
-                  <Text layoutX="33.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kilometraje:" />
-                  <Text layoutX="33.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
-                  <Text layoutX="33.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:" />
-                  <Text layoutX="37.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio:" />
-                  <Text layoutX="38.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Año:" />
-                  <Label fx:id="kilometrajeLabel" layoutX="136.0" layoutY="33.0" text="Label" />
-                  <Label fx:id="modeloLabel" layoutX="136.0" layoutY="64.0" text="Label" />
-                  <Label fx:id="ciudadLabel" layoutX="136.0" layoutY="99.0" text="Label" />
-                  <Label fx:id="precioLabel" layoutX="136.0" layoutY="124.0" text="Label" />
-                  <Label fx:id="yearLabel" layoutX="136.0" layoutY="160.0" text="Label" />
-               </children>
-            </Pane>
-            <Text layoutX="148.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ver detalles vehículo" />
+            <HBox fx:id="contenedorImagenes" layoutX="52.0" layoutY="193.0" prefHeight="174.0" prefWidth="214.0" />
+            <Pane layoutX="479.0" layoutY="151.0" prefHeight="218.0" prefWidth="214.0" />
+            <Text layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
+            <Label fx:id="modeloLabel" layoutX="113.0" layoutY="132.0" text="Label" />
+            <Label fx:id="yearLabel" layoutX="38.0" layoutY="154.0" text="Año" />
+            <Label fx:id="kilometrajeLabel" layoutX="111.0" layoutY="154.0" text="Kilometraje" />
+            <Label fx:id="ciudadLabel" layoutX="199.0" layoutY="153.0" text="Ciudad" />
+            <Label fx:id="precioLabel" layoutX="370.0" layoutY="125.0" text="Precio" />
+            <Text layoutX="354.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
          </children>
       </Pane>
    </children>

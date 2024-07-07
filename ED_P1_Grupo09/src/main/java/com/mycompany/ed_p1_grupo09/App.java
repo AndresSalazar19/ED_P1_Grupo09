@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import javafx.scene.image.Image;
+
 
 
 import modelo.*;
@@ -42,8 +42,7 @@ public class App extends Application {
     
  
     public static void main(String[] args) {
-        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes");
-        System.out.println(imagenes.size());
+        String tilin = "ESOTILIN";
         System.out.println("Hello Wolrd");
         launch();
     }

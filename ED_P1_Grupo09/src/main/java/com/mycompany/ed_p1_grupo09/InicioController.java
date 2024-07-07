@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import modelo.*;
@@ -18,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 
 /**
  * FXML Controller class
@@ -75,11 +77,8 @@ public class InicioController {
         vehiculosFiltrados.clear();
 
         if (tipo == null) {
-            vehiculosFiltrados.addAll(carros);
-            vehiculosFiltrados.addAll(motos);
-            vehiculosFiltrados.addAll(acuaticos);
-            vehiculosFiltrados.addAll(aereos);
-            vehiculosFiltrados.addAll(pesados);
+            vehiculosFiltrados.addAll(vehiculos);
+
         } else if (tipo == Carro.class) {
             vehiculosFiltrados.addAll(carros);
         } else if (tipo == Moto.class) {
@@ -147,27 +146,20 @@ public class InicioController {
     }
 
     private void mostrarDetalles(Vehiculo vehiculo) throws IOException {
-        String filePath = "src/main/java/archivos/vehiculoLoggedArchivos.csv";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            bw.write(String.valueOf(vehiculo.getId()));
-        } catch (IOException e) {
-            System.err.println("Error al escribir en archivo: " + e.getMessage());
-            throw e;
-        } finally {
-            App.setRoot("verDetallesVehiculo");
-        }
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("verDetallesVehiculo.fxml"));
+       Parent root = loader.load();
+
+       VerDetallesVehiculoController detallesController = loader.getController();
+       detallesController.setVehiculo(vehiculo);
+       App.setRoot("verDetallesVehiculo");
+        
     }
 
     @FXML private void initialize() throws IOException {
-        VehiculoManager vehiculoManager = new VehiculoManager();
-        vehiculos = vehiculoManager.cargarVehiculos();
+        SistemaApp sis = SistemaApp.getInstance();
+        vehiculos = sis.getVehiculos();
         System.out.println("dasdadsa" + vehiculos.size());
-        carros = vehiculoManager.cargarCarros();
-        motos = vehiculoManager.cargarMotos();
-        acuaticos = vehiculoManager.cargarAcuaticos();
-        aereos = vehiculoManager.cargarAereos();
-        pesados = vehiculoManager.cargarPesados();
-        System.out.println("1:10SDA" + vehiculos.size());
+
         
         // Inicialmente, mostrar todos los vehículos
         filtrarVehiculos(null);
