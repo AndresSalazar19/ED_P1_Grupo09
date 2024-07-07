@@ -12,6 +12,7 @@ import tda.*;
  * @author asala
  */
 public class Usuario {
+    int id;
     String nombre;
     String correo;
     String telefono;
@@ -20,7 +21,8 @@ public class Usuario {
     LinkedList<Vehiculo> vehiculosFavoritos;
     LinkedList<Vehiculo> misVehiculos;
     
-    public Usuario(String nombre, String correo, String telefono, String contrasena){
+    public Usuario(int id, String nombre, String correo, String telefono, String contrasena){
+        this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
@@ -81,6 +83,10 @@ public class Usuario {
     
     public void mostrarFavoritos(){  
        
+    }
+    
+    public int getId(){
+        return id;
     }
     
     @Override

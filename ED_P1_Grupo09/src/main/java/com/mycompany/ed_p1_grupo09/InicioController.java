@@ -25,7 +25,9 @@ import javafx.geometry.Pos;
  * @author asala
  */
 public class InicioController {
+    
     private static final int VEHICULOS_POR_PAGINA = 8;
+    private List<Vehiculo> vehiculos;
     private List<Carro> carros;
     private List<Moto> motos;
     private List<Acuatico> acuaticos;
@@ -98,10 +100,16 @@ public class InicioController {
         GridPane grid = new GridPane();
         int start = pageIndex * VEHICULOS_POR_PAGINA;
         int end = Math.min(start + VEHICULOS_POR_PAGINA, vehiculosFiltrados.size());
-
+        
+        if (vehiculosFiltrados.isEmpty()) {
+            Label noDataLabel = new Label("No hay vehículos disponibles.");
+            grid.add(noDataLabel, 0, 0);
+            return grid;
+        }
+             
         for (int i = start; i < end; i++) {
             Vehiculo vehiculo = vehiculosFiltrados.get(i);
-            Image image = vehiculo.getImage();
+            Image image = vehiculo.getImagenes().get(0);
 
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(120);
@@ -152,14 +160,17 @@ public class InicioController {
 
     @FXML private void initialize() throws IOException {
         VehiculoManager vehiculoManager = new VehiculoManager();
-
+        vehiculos = vehiculoManager.cargarVehiculos();
+        System.out.println("dasdadsa" + vehiculos.size());
         carros = vehiculoManager.cargarCarros();
         motos = vehiculoManager.cargarMotos();
         acuaticos = vehiculoManager.cargarAcuaticos();
         aereos = vehiculoManager.cargarAereos();
         pesados = vehiculoManager.cargarPesados();
+        System.out.println("1:10SDA" + vehiculos.size());
         
         // Inicialmente, mostrar todos los vehículos
         filtrarVehiculos(null);
     }
+
 }

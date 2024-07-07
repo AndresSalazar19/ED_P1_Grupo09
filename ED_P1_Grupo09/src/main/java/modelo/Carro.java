@@ -14,12 +14,10 @@ import javafx.scene.image.Image;
 public class Carro extends Vehiculo {
     private String tipocarro;
 
-    public Carro( int id, String kilometraje, String modelo, String ciudad, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
-                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-                 Usuario vendedor,String tipocarro) {
-        super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista, vendedor);
+   public Carro(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                 Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo, String tipocarro) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);
         this.tipocarro = tipocarro;
     }
 
@@ -31,24 +29,5 @@ public class Carro extends Vehiculo {
         this.tipocarro = tipocarro;
     }
     
-    @Override
-    public String toString() {
-        return "Carro{"
-                + "id=" + getId()
-                + ", kilometraje='" + getKilometraje() + '\''
-                + ", modelo='" + getModelo() + '\''
-                + ", ciudad='" + getCiudad() + '\''
-                + ", precio=" + getPrecio()
-                + ", year='" + getYear() + '\''
-                + ", tipocarro='" + tipocarro + '\''
-                + ", imagenes=" + getImagenes()
-                + ", accidentes=" + getAccidentes()
-                + ", capacidad=" + getCapacidad()
-                + ", detallesExt=" + getDetallesExt()
-                + ", detallesInt=" + getDetallesInt()
-                + ", lista=" + getLista()
-                + ", vendedor=" + getVendedor()
-                + '}';
-    }
-
+ 
 }

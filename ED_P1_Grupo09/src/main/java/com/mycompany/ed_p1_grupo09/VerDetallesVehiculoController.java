@@ -25,7 +25,12 @@ import tda.*;
  * @author asala
  */
 public class VerDetallesVehiculoController implements Initializable {
-    
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+ /*
     private List<Carro> carros;
     private List<Moto> motos;
     private List<Acuatico> acuaticos;
@@ -172,4 +177,6 @@ public class VerDetallesVehiculoController implements Initializable {
     private void volver() throws IOException {
         App.setRoot("inicio");
     }   
+    */
 }
+

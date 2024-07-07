@@ -19,14 +19,15 @@ import tda.*;
 public class SistemaLogin {
     private static final String ARCHIVO_USUARIOS = "src/main/java/archivos/usuarioArchivos.csv";
     private List<Usuario> usuarios;
-
+    int countId;
+    
     public SistemaLogin() {
         usuarios = new ArrayList<>(Usuario.class);
         cargarUsuarios();
     }
 
     public void registrarUsuario(String nombre, String correo, String telefono, String contrasena) {
-        Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
+        Usuario usuario = new Usuario(countId++, nombre, correo, telefono, contrasena);
         usuarios.addFirst(usuario);
         guardarUsuarios();
     }
@@ -41,18 +42,23 @@ public class SistemaLogin {
     }
     
 
-    private void cargarUsuarios() {
+     private void cargarUsuarios() {
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
-                if (datos.length == 4) {
-                    String nombre = datos[0];
-                    String correo = datos[1];
-                    String telefono = datos[2];
-                    String contrasena = datos[3];
-                    Usuario usuario = new Usuario(nombre, correo, telefono, contrasena);
+                if (datos.length == 5) {
+                    int id = Integer.parseInt(datos[0]);
+                    String nombre = datos[1];
+                    String correo = datos[2];
+                    String telefono = datos[3];
+                    String contrasena = datos[4];
+                    Usuario usuario = new Usuario(id, nombre, correo, telefono, contrasena);
                     usuarios.addFirst(usuario);
+                    // Actualizar countId para asegurarnos de que sea único
+                    if (id >= countId) {
+                        countId = id + 1;
+                    }
                 }
             }
         } catch (IOException e) {

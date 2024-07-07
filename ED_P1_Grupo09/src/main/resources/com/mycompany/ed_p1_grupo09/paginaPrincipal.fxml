@@ -28,6 +28,7 @@
                   <Image url="@../../../imagenes/recursos/Title.png" />
                </image>
             </ImageView>
+            <Button fx:id="AñadirVehiculoButton" layoutX="321.0" layoutY="261.0" mnemonicParsing="false" onAction="#añadirVehiculo" text="Añadir Vehiculo" />
          </children>
       </Pane>
    </children>

@@ -15,16 +15,14 @@ public class Pesado extends Vehiculo {
     private double pesoMax;
     private double pesoMin;
 
- public Pesado(int id, String kilometraje, String modelo, String ciudad, double precio, String year,
-              CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
-              DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-              Usuario vendedor, double pesoMax, double pesoMin) {
-    super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-          detallesExt, detallesInt, lista, vendedor);
-    this.pesoMax = pesoMax;
-    this.pesoMin = pesoMin;
-}
-
+    public Pesado(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+                  CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                  Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable, LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo,
+                  double pesoMax, double pesoMin) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);
+        this.pesoMax = pesoMax;
+        this.pesoMin = pesoMin;
+    }
 
 
     public double getPesoMax() {
@@ -42,19 +40,6 @@ public class Pesado extends Vehiculo {
     public void setPesoMin(double pesoMin) {
         this.pesoMin = pesoMin;
     }
-    
-    @Override
-    public String toString() {
-        return "Pesado{" +
-                "id=" + getId() +
-                ", kilometraje='" + getKilometraje() + '\'' +
-                ", modelo='" + getModelo() + '\'' +
-                ", ciudad='" + getCiudad() + '\'' +
-                ", precio=" + getPrecio() +
-                ", year='" + getYear() + '\'' +
-                ", pesoMax=" + pesoMax +
-                ", pesoMin=" + pesoMin +
-                '}';
-    }
+
 
 }

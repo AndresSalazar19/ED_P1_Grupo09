@@ -16,17 +16,16 @@ public class Aereo extends Vehiculo {
     private double pesoMaximoDespegue;
     private int rangoVuelo;
     
-    public Aereo(int id, String kilometraje, String modelo, String ciudadv, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
-                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-                 Usuario vendedor, String tipoAeronave, double pesoMaximoDespegue, int rangoVuelo) {
-        super(id, kilometraje, modelo, ciudadv, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista, vendedor);
+   public Aereo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                 Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo,
+                 String tipoAeronave, double pesoMaximoDespegue, int rangoVuelo) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);
         this.tipoAeronave = tipoAeronave;
         this.pesoMaximoDespegue = pesoMaximoDespegue;
         this.rangoVuelo = rangoVuelo;
     }
-
+   
     public String getTipoAeronave() {
         return tipoAeronave;
     }  
@@ -53,12 +52,28 @@ public class Aereo extends Vehiculo {
 
     @Override
     public String toString() {
-        return  "Aereo{" + "id=" + id + 
-                " , tipoAeronave='" + tipoAeronave + '\'' +
+        return "Aereo{" +
+                ", modelo='" + getModelo() + '\'' +
+                ", descripcion='" + getDescripcion() + '\'' +
+                ", marca='" + getMarca() + '\'' +
+                "tipoAeronave='" + tipoAeronave + '\'' +
                 ", pesoMaximoDespegue=" + pesoMaximoDespegue +
                 ", rangoVuelo=" + rangoVuelo +
-                "} " + super.toString();
+                ", kilometraje=" + getKilometraje() +
+                ", estado=" + getEstado() +
+                ", ciudad='" + getCiudad() + '\'' +
+                ", precio=" + getPrecio() +
+                ", year='" + getYear() + '\'' +
+                ", accidentes=" + getAccidentes() +
+                ", id=" + getId() +
+                ", capacidad=" + getCapacidad() +
+                ", vendedor=" + getVendedor().getId() +
+                ", detallesInt=" + getDetallesInt().toString() +
+                ", negociable=" + isNegociable() +
+                ", tipoVehiculo=" + getTipoVehiculo() +
+                '}';
     }
+
 
 }
 

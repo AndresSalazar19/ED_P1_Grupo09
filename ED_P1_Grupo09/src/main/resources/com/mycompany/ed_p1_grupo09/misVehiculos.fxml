@@ -41,6 +41,7 @@
                   <Image url="@../../../imagenes/recursos/Title.png" />
                </image>
             </ImageView>
+            <Button layoutX="355.0" layoutY="534.0" mnemonicParsing="false" text="Añadir Vehiculo" />
          </children>
       </Pane>
    </children>

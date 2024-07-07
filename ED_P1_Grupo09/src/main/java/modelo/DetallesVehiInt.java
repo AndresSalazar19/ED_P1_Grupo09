@@ -10,17 +10,17 @@ package modelo;
  */
 public class DetallesVehiInt {
     private String traccion;
-    private String transmission;
+    private String transmision;
     private TipoCombustible combustible;
-    private String placade;
+    private String placa;
     private boolean climatizado;
     private String tipoMotor;
 
-    public DetallesVehiInt(String traccion, String transmission, TipoCombustible combustible, String placade, boolean climatizado, String tipoMotor) {
+    public DetallesVehiInt(String traccion, String transmision, TipoCombustible combustible, String placa, boolean climatizado, String tipoMotor) {
         this.traccion = traccion;
-        this.transmission = transmission;
+        this.transmision = transmision;
         this.combustible = combustible;
-        this.placade = placade;
+        this.placa = placa;
         this.climatizado = climatizado;
         this.tipoMotor = tipoMotor;
     }
@@ -33,12 +33,12 @@ public class DetallesVehiInt {
         this.traccion = traccion;
     }
 
-    public String getTransmission() {
-        return transmission;
+    public String getTransmision() {
+        return transmision;
     }
 
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
+    public void setTransmision(String transmision) {
+        this.transmision = transmision;
     }
 
     public TipoCombustible getCombustible() {
@@ -49,15 +49,15 @@ public class DetallesVehiInt {
         this.combustible = combustible;
     }
 
-    public String getPlacade() {
-        return placade;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setPlacade(String placade) {
-        this.placade = placade;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
-    public boolean getClimatizado() {
+    public boolean isClimatizado() {
         return climatizado;
     }
 
@@ -72,4 +72,18 @@ public class DetallesVehiInt {
     public void setTipoMotor(String tipoMotor) {
         this.tipoMotor = tipoMotor;
     }
+    
+    @Override
+    public String toString() {
+        return "DetallesVehiInt{" +
+                "traccion='" + traccion + '\'' +
+                ", transmision='" + transmision + '\'' +
+                ", combustible=" + combustible +
+                ", placa='" + placa + '\'' +
+                ", climatizado=" + climatizado +
+                ", tipoMotor='" + tipoMotor + '\'' +
+                '}';
+    }
+
+
 }

@@ -14,14 +14,14 @@ import javafx.scene.image.Image;
 public class Moto extends Vehiculo{
     private int cilindraje;
 
-    public Moto(int id, String kilometraje, String modelo, String ciudad, double precio, String year,
-                 CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int capacidad,
-                 DetallesVehiExt detallesExt, DetallesVehiInt detallesInt, LinkedList<Proceso> lista,
-                 Usuario vendedor,int cilindraje) {
-        super(id, kilometraje, modelo, ciudad, precio, year, imagenes, accidentes, capacidad,
-              detallesExt, detallesInt, lista, vendedor);
+    public Moto(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+                CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo, int cilindraje) {
+        super(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);
         this.cilindraje = cilindraje;
     }
+
+
 
     public int getCilindraje() {
         return cilindraje;
@@ -31,18 +31,6 @@ public class Moto extends Vehiculo{
         this.cilindraje = cilindraje;
     }
     
-    @Override
-    public String toString() {
-        return "Moto{" +
-                "id=" + getId() +
-                ", kilometraje='" + getKilometraje() + '\'' +
-                ", modelo='" + getModelo() + '\'' +
-                ", ciudad='" + getCiudad() + '\'' +
-                ", precio=" + getPrecio() +
-                ", year='" + getYear() + '\'' +
-                ", cilindraje=" + cilindraje +
-                '}';
-    }
 
 
 }
