@@ -48,7 +48,7 @@ public abstract class Vehiculo {
         this.detallesInt = detallesInt;
         this.negociable = negociable;
         this.vendedor = vendedor;
-        this.mantenimientos = new LinkedList<>();
+        this.mantenimientos = mantenimientos;
         this.tipoVehiculo = tipoVehiculo;
     }
 

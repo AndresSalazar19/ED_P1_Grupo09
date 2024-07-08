@@ -1,7 +1,7 @@
-1,5000,Boeing 737,"Comercial jet",Boeing,NUEVO,Seattle,90000000,2022,[3;2],20000,(4WD~Automatico~SUPER~"N12345"~true~"Turbofan"),1,true,[(Cambio de pintura~Maintenance)],AEREO,Pasajero,70000,6000
+1,5000,Boeing 737,"Comercial jet",Boeing,NUEVO,Seattle,90000000,2022,[3;2;4;5;6],20000,(4WD~Automatico~SUPER~"N12345"~true~"Turbofan"),1,true,[(Cambio de pintura~Maintenance)],AEREO,Pasajero,70000,6000
 2,1500,Cessna 172,"Light aircraft",Cessna,USADO,Miami,300000,2019,[2],4,(N/A~Manual~DIESEL~"N67890"~false~"Piston"),2,false,[],AEREO,Privado,1200,1200
-3,20000,Model S,"Electric car",Tesla,NUEVO,New York,75000,2021,[3],5,(AWD~Automatico~OTRO~"ABC123"~true~"Electric"),1,true,[],CARRO,Sedan,,
-4,50000,Civic,"Compact car",Honda,USADO,Los Angeles,20000,2018,[4],5,(FWD~Manual~SUPER~"DEF456"~false~"Gasolina"),2,false,[],CARRO,Hatchback,,
+3,20000,Model S,"Electric car",Tesla,NUEVO,New York,75000,2021,[3],5,(AWD~Automatico~OTRO~"ABC123"~true~"Electric"),1,true,[],CARRO,SEDAN,,
+4,50000,Civic,"Compact car",Honda,USADO,Los Angeles,20000,2018,[4],5,(FWD~Manual~SUPER~"DEF456"~false~"Gasolina"),2,false,[],CARRO,CUATROXCUATRO,,
 5,10000,Yamaha R1,"Sport motorcycle",Yamaha,USADO,San Francisco,15000,2020,[5],2,(N/A~Manual~ELECTRICO~"GHI789"~false~"Gasolina"),3,true,[],MOTO,1000,,
 6,30000,Harley Davidson,"Cruiser motorcycle",Harley Davidson,USADO,Chicago,20000,2015,[6],2,(N/A~Manual~DIESEL~"JKL012"~true~"Gasolina"),4,false,[],MOTO,1500,,
 7,60000,Volvo FH,"Heavy-duty truck",Volvo,USADO,Dallas,120000,2017,[7],3,(4WD~Automatico~DIESEL~"MNO345"~true~"Diesel"),5,true,[],PESADO,40000,10000

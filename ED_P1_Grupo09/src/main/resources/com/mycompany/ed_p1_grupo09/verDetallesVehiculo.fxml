@@ -3,8 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -33,15 +35,17 @@
                </image>
             </ImageView>
             <HBox fx:id="contenedorImagenes" layoutX="52.0" layoutY="193.0" prefHeight="174.0" prefWidth="214.0" />
-            <Pane layoutX="479.0" layoutY="151.0" prefHeight="142.0" prefWidth="214.0">
+            <Pane layoutX="479.0" layoutY="151.0" prefHeight="167.0" prefWidth="214.0">
                <children>
                   <Text layoutX="65.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles interior" />
-                  <Label fx:id="traccionLabel" layoutX="28.0" layoutY="54.0" text="Tracción" />
-                  <Label fx:id="transmisionLabel" layoutX="28.0" layoutY="80.0" text="Transmisión" />
-                  <Label fx:id="tipoCombustibleLabel" layoutX="28.0" layoutY="108.0" text="Tipo de combustible" />
-                  <Label fx:id="placaLabel" layoutX="144.0" layoutY="54.0" text="placa" />
-                  <Label fx:id="climatizadoLabel" layoutX="144.0" layoutY="80.0" text="climatizado" />
-                  <Label fx:id="tipoMotorLabel" layoutX="144.0" layoutY="108.0" text="Tipo de motor" />
+                  <Label fx:id="traccionLabel" layoutX="33.0" layoutY="39.0" text="Tracción" />
+                  <Label fx:id="transmisionLabel" layoutX="33.0" layoutY="65.0" text="Transmisión" />
+                  <Label fx:id="tipoCombustibleLabel" layoutX="33.0" layoutY="93.0" text="Tipo de combustible" />
+                  <Label fx:id="placaLabel" layoutX="149.0" layoutY="39.0" text="placa" />
+                  <Label fx:id="climatizadoLabel" layoutX="149.0" layoutY="65.0" text="climatizado" />
+                  <Label fx:id="tipoMotorLabel" layoutX="149.0" layoutY="93.0" text="Tipo de motor" />
+                  <Label fx:id="extraLabel1" layoutX="33.0" layoutY="117.0" text="extraLabel1" />
+                  <Label fx:id="extraLabel2" layoutX="33.0" layoutY="134.0" text="extraLabel2" />
                </children>
             </Pane>
             <Text layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
@@ -55,10 +59,23 @@
             <Label fx:id="negociableLabel" layoutX="356.0" layoutY="146.0" text="Negociable" />
             <Pane layoutX="303.0" layoutY="307.0" prefHeight="228.0" prefWidth="446.0">
                <children>
-                  <Text layoutX="54.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accidentes" />
-                  <VBox fx:id="contenedorAccidentes" layoutX="41.0" layoutY="36.0" prefHeight="200.0" prefWidth="407.0" />
+                  <ScrollPane fx:id="scrollPaneAccidentes" layoutY="36.0" prefHeight="192.0" prefWidth="446.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <VBox fx:id="contenedorAccidentes" prefHeight="200.0" prefWidth="407.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Text layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accidentes" />
                </children>
             </Pane>
+            <Text layoutX="479.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo:" wrappingWidth="40.826171875" />
+            <Label fx:id="tipoVehiculoLabel" layoutX="572.0" layoutY="47.0" prefHeight="17.0" prefWidth="108.0" text="Tipo de Vehiculo" />
+            <Button layoutX="469.0" layoutY="109.0" mnemonicParsing="false" onAction="#verMantenimientos" text="Ver mantenimientos" />
+            <Text layoutX="472.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de mantenimientos" />
+            <Label fx:id="numeroMantenimientosLabel" layoutX="642.0" layoutY="83.0" text="Label" />
          </children>
       </Pane>
    </children>

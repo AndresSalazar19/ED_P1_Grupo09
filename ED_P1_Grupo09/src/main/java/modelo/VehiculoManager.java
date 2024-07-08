@@ -92,9 +92,7 @@ public class VehiculoManager {
         Usuario vendedor = cargarUsuario(Integer.parseInt(linea[12]));       
         boolean negociable = Boolean.parseBoolean(linea[13]);
         LinkedList<Mantenimiento> mantenimientos = cargarMantenimientos(linea[14]);
-        
         TipoVehiculo tipoVehiculo = TipoVehiculo.valueOf(linea[15]);
-        
 
         switch (tipoVehiculo) {
             case ACUATICO:
@@ -106,7 +104,7 @@ public class VehiculoManager {
                 int rangoVuelo = Integer.parseInt(linea[18]);
                 return new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
             case CARRO:
-                String tipocarro = linea[16];
+                TipoCarro tipocarro = TipoCarro.valueOf(linea[16]);
                 return new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipocarro);
             case MOTO:
                 int cilindraje = Integer.parseInt(linea[16]);
@@ -126,13 +124,18 @@ public class VehiculoManager {
     }
 
     private static LinkedList<Accidente> cargarAccidentes(String accidentesStr) throws IOException {
-        LinkedList<Accidente> accidentes = new LinkedList<>();
-        String[] idAccidentes = accidentesStr.replace("[", "").replace("]", "").split(";");
-        for (String idAccidente : idAccidentes) {
-            accidentes.addFirst(cargarAccidente(Integer.parseInt(idAccidente)));
-        }
+    LinkedList<Accidente> accidentes = new LinkedList<>();
+    if (accidentesStr.replace("[", "").replace("]", "").isEmpty()) {
         return accidentes;
     }
+    
+    String[] idAccidentes = accidentesStr.replace("[", "").replace("]", "").split(";");
+    for (String idAccidente : idAccidentes) {
+        accidentes.addFirst(cargarAccidente(Integer.parseInt(idAccidente)));
+    }
+    return accidentes;
+}
+
 
     private static Accidente cargarAccidente(int idAccidente) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -182,7 +185,7 @@ public class VehiculoManager {
             }
             return lista;
         } else {
-            return null;
+            return lista;
         }
     }
 
@@ -230,7 +233,7 @@ public class VehiculoManager {
             sb.append(",").append(((Aereo) vehiculo).getPesoMaximoDespegue());
             sb.append(",").append(((Aereo) vehiculo).getRangoVuelo());
         } else if (vehiculo instanceof Carro) {
-            sb.append(",").append(((Carro) vehiculo).getTipocarro());
+            sb.append(",").append(String.valueOf(((Carro) vehiculo).getTipoCarro()));
         } else if (vehiculo instanceof Moto) {
             sb.append(",").append(((Moto) vehiculo).getCilindraje());
         } else if (vehiculo instanceof Pesado) {
