@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
+import java.time.LocalDate;
 import tda.*;
 
 /**
@@ -13,11 +14,11 @@ public class Accidente {
     private final int id;
     private String descripcion;
     private String parteafec;
-    private String accifecha;
+    private LocalDate accifecha;
     private LinkedList<Mantenimiento> listaMantenimiento;
     
     
-   public Accidente(int id, String descripcion, String parteafec,String accifecha, LinkedList<Mantenimiento> listaMantenimiento){
+   public Accidente(int id, String descripcion, String parteafec,LocalDate accifecha, LinkedList<Mantenimiento> listaMantenimiento){
        this.id= id;
        this.descripcion= descripcion;
        this.parteafec = parteafec;
@@ -33,19 +34,19 @@ public class Accidente {
        this.descripcion = descripcion;
    }
 
-    public String getParteafec() {
+    public String getParteAfectada() {
         return parteafec;
     }
 
-    public void setParteafec(String parteafec) {
+    public void setParteAfectada(String parteafec) {
         this.parteafec = parteafec;
     }
 
-    public String getAccifecha() {
+    public LocalDate getFechaAccidente() {
         return accifecha;
     }
 
-    public void setAccifecha(String accifecha) {
+    public void setFechaAccidente(LocalDate accifecha) {
         this.accifecha = accifecha;
     }
 

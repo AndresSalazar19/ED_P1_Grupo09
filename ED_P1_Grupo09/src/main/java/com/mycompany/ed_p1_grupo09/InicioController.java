@@ -158,7 +158,7 @@ public class InicioController {
     @FXML private void initialize() throws IOException {
         SistemaApp sis = SistemaApp.getInstance();
         vehiculos = sis.getVehiculos();
-        System.out.println("dasdadsa" + vehiculos.size());
+
 
         
         // Inicialmente, mostrar todos los vehículos

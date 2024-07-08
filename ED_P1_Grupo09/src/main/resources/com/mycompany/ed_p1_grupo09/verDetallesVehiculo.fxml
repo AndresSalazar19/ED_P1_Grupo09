@@ -33,14 +33,32 @@
                </image>
             </ImageView>
             <HBox fx:id="contenedorImagenes" layoutX="52.0" layoutY="193.0" prefHeight="174.0" prefWidth="214.0" />
-            <Pane layoutX="479.0" layoutY="151.0" prefHeight="218.0" prefWidth="214.0" />
+            <Pane layoutX="479.0" layoutY="151.0" prefHeight="142.0" prefWidth="214.0">
+               <children>
+                  <Text layoutX="65.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles interior" />
+                  <Label fx:id="traccionLabel" layoutX="28.0" layoutY="54.0" text="Tracción" />
+                  <Label fx:id="transmisionLabel" layoutX="28.0" layoutY="80.0" text="Transmisión" />
+                  <Label fx:id="tipoCombustibleLabel" layoutX="28.0" layoutY="108.0" text="Tipo de combustible" />
+                  <Label fx:id="placaLabel" layoutX="144.0" layoutY="54.0" text="placa" />
+                  <Label fx:id="climatizadoLabel" layoutX="144.0" layoutY="80.0" text="climatizado" />
+                  <Label fx:id="tipoMotorLabel" layoutX="144.0" layoutY="108.0" text="Tipo de motor" />
+               </children>
+            </Pane>
             <Text layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
             <Label fx:id="modeloLabel" layoutX="113.0" layoutY="132.0" text="Label" />
             <Label fx:id="yearLabel" layoutX="38.0" layoutY="154.0" text="Año" />
             <Label fx:id="kilometrajeLabel" layoutX="111.0" layoutY="154.0" text="Kilometraje" />
-            <Label fx:id="ciudadLabel" layoutX="199.0" layoutY="153.0" text="Ciudad" />
-            <Label fx:id="precioLabel" layoutX="370.0" layoutY="125.0" text="Precio" />
+            <Label fx:id="ciudadLabel" layoutX="189.0" layoutY="154.0" text="Ciudad" />
+            <Label fx:id="precioLabel" layoutX="370.0" layoutY="125.0" prefHeight="17.0" prefWidth="108.0" text="Precio" />
             <Text layoutX="354.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
+            <Label fx:id="estadoLabel" layoutX="266.0" layoutY="154.0" text="Estado" />
+            <Label fx:id="negociableLabel" layoutX="356.0" layoutY="146.0" text="Negociable" />
+            <Pane layoutX="303.0" layoutY="307.0" prefHeight="228.0" prefWidth="446.0">
+               <children>
+                  <Text layoutX="54.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accidentes" />
+                  <VBox fx:id="contenedorAccidentes" layoutX="41.0" layoutY="36.0" prefHeight="200.0" prefWidth="407.0" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

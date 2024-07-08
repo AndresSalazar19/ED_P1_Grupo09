@@ -8,6 +8,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.image.Image;
 import tda.*;
 /**
@@ -78,40 +80,40 @@ public class VehiculoManager {
         double precio = Double.parseDouble(linea[7]);
         String year = linea[8];
         
-        CircularDoublyLinkedList<Image> imagenes = cargarImagenes(linea[9]);
+        CircularDoublyLinkedList<Image> imagenes = cargarImagenes(linea[0]);
                                     
-        LinkedList<Accidente> accidentes = cargarAccidentes(linea[10]);
+        LinkedList<Accidente> accidentes = cargarAccidentes(linea[9]);
     
-        int capacidad = Integer.parseInt(linea[11]);
-        String[] detallesIntArr = linea[12].replace("(", "").replace(")", "").split("~");
+        int capacidad = Integer.parseInt(linea[10]);
+        String[] detallesIntArr = linea[11].replace("(", "").replace(")", "").split("~");
     
         DetallesVehiInt detallesInt = new DetallesVehiInt(detallesIntArr[0], detallesIntArr[1], TipoCombustible.valueOf(detallesIntArr[2]), detallesIntArr[3], Boolean.parseBoolean(detallesIntArr[4]), detallesIntArr[5]);
 
-        Usuario vendedor = cargarUsuario(Integer.parseInt(linea[13]));       
-        boolean negociable = Boolean.parseBoolean(linea[14]);
-        LinkedList<Mantenimiento> mantenimientos = cargarMantenimientos(linea[15]);
+        Usuario vendedor = cargarUsuario(Integer.parseInt(linea[12]));       
+        boolean negociable = Boolean.parseBoolean(linea[13]);
+        LinkedList<Mantenimiento> mantenimientos = cargarMantenimientos(linea[14]);
         
-        TipoVehiculo tipoVehiculo = TipoVehiculo.valueOf(linea[16]);
+        TipoVehiculo tipoVehiculo = TipoVehiculo.valueOf(linea[15]);
         
 
         switch (tipoVehiculo) {
             case ACUATICO:
-                String tipoacua = linea[17];
+                String tipoacua = linea[16];
                 return new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable ,mantenimientos, tipoVehiculo ,tipoacua);
             case AEREO:
-                String tipoAeronave = linea[17];
-                double pesoMaximoDespegue = Double.parseDouble(linea[18]);
-                int rangoVuelo = Integer.parseInt(linea[19]);
+                String tipoAeronave = linea[16];
+                double pesoMaximoDespegue = Double.parseDouble(linea[17]);
+                int rangoVuelo = Integer.parseInt(linea[18]);
                 return new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
             case CARRO:
-                String tipocarro = linea[17];
+                String tipocarro = linea[16];
                 return new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipocarro);
             case MOTO:
-                int cilindraje = Integer.parseInt(linea[17]);
+                int cilindraje = Integer.parseInt(linea[16]);
                 return new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos,tipoVehiculo, cilindraje);
             case PESADO:
-                double pesoMax = Double.parseDouble(linea[17]);
-                double pesoMin = Double.parseDouble(linea[18]);
+                double pesoMax = Double.parseDouble(linea[16]);
+                double pesoMin = Double.parseDouble(linea[17]);
                 return new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, pesoMax, pesoMin);
             default:
                 throw new IllegalArgumentException("Tipo de vehículo desconocido: " + tipoVehiculo);
@@ -133,6 +135,8 @@ public class VehiculoManager {
     }
 
     private static Accidente cargarAccidente(int idAccidente) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try (BufferedReader br = new BufferedReader(new FileReader(accidenteArchivos))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -140,7 +144,7 @@ public class VehiculoManager {
                 if (Integer.parseInt(datos[0]) == idAccidente) {
                     String descripcion = datos[1];
                     String parteAfectada = datos[2];
-                    String fecha = datos[3];
+                    LocalDate fecha = LocalDate.parse(datos[3], formatter);
                     LinkedList<Mantenimiento> mantenimientos = cargarMantenimientos(datos[4]);
                     return new Accidente(idAccidente, descripcion, parteAfectada, fecha, mantenimientos);
                 }
