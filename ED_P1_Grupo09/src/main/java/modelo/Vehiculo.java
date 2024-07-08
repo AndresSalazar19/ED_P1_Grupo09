@@ -20,7 +20,7 @@ public abstract class Vehiculo {
     private Estado estado;
     private String ciudad;
     private double precio;
-    private String year;
+    private int year;
     private CircularDoublyLinkedList<Image> imagenes;
     private LinkedList<Accidente> accidentes;
     private int id;
@@ -32,7 +32,7 @@ public abstract class Vehiculo {
     private TipoVehiculo tipoVehiculo;
 
 
-   public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year, CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo) {
+   public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year, CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo) {
         this.kilometraje = kilometraje;
         this.modelo = modelo;
         this.descripcion = descripcion;
@@ -108,11 +108,11 @@ public abstract class Vehiculo {
         this.precio = precio;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

@@ -64,8 +64,8 @@ public class IniciarSesionController implements Initializable {
         }
         
         // Lógica para validar el inicio de sesión
-        boolean esValido = sistemaLogin.iniciarSesion(correo, contrasena);
-        if (esValido) {
+        Usuario usuarioLogeado = sistemaLogin.iniciarSesion(correo, contrasena);
+        if (usuarioLogeado != null) {
             mostrarAlerta("Éxito", "Inicio de sesión exitoso.");
             
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/archivos/loggedArchivos.csv"))) {
@@ -73,8 +73,9 @@ public class IniciarSesionController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-            App.setRoot("paginaPrincipal");
-
+            InicioController.setUsuario(usuarioLogeado);
+            App.setRoot("inicio");
+            
         } else {
             mostrarAlerta("Error", "Correo o contraseña incorrectos.");
         }

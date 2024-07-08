@@ -31,7 +31,8 @@ import tda.*;
  */
 public class VerDetallesVehiculoController implements Initializable {
     private static Vehiculo vehiculo;
-
+    @FXML
+    private Button verMantenimientosBtn; 
     @FXML
     private Label tipoVehiculoLabel;
     @FXML
@@ -112,7 +113,8 @@ public class VerDetallesVehiculoController implements Initializable {
             Image image = imagenes.get(index);
 
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(150);
+            imageView.setFitHeight(300);
+            imageView.setFitWidth(400);
             imageView.setPreserveRatio(true);
 
             contenedorImagenes.getChildren().add(imageView);
@@ -178,6 +180,12 @@ public class VerDetallesVehiculoController implements Initializable {
             }
 
             mostrarAccidentes();
+            
+            if (!vehiculo.getMantenimientos().isEmpty()) {
+                verMantenimientosBtn.setVisible(true);
+            } else {
+                verMantenimientosBtn.setVisible(false);
+            }
         }
     }
     

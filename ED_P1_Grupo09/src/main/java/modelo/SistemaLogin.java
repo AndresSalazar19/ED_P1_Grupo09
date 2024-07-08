@@ -15,14 +15,14 @@ import tda.*;
  *
  * @author asala
  */
-
-public class SistemaLogin {
+  public class SistemaLogin {
     private static final String ARCHIVO_USUARIOS = "src/main/java/archivos/usuarioArchivos.csv";
     private List<Usuario> usuarios;
-    int countId;
-    
+    private int countId;
+
     public SistemaLogin() {
         usuarios = new ArrayList<>(Usuario.class);
+        countId = 1;
         cargarUsuarios();
     }
 
@@ -32,17 +32,16 @@ public class SistemaLogin {
         guardarUsuarios();
     }
 
-    public boolean iniciarSesion(String correo, String contrasena) {
+    public Usuario iniciarSesion(String correo, String contrasena) {
         for (Usuario usuario : usuarios) {
             if (usuario.getCorreo().equals(correo) && usuario.getContrasena().equals(contrasena)) {
-                return true;
+                return usuario;
             }
         }
-        return false;
+        return null;
     }
-    
 
-     private void cargarUsuarios() {
+    private void cargarUsuarios() {
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -69,11 +68,15 @@ public class SistemaLogin {
     private void guardarUsuarios() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_USUARIOS))) {
             for (Usuario usuario : usuarios) {
-                bw.write(usuario.getNombre() + "," + usuario.getCorreo() + "," + usuario.getTelefono() + "," + usuario.getContrasena());
+                bw.write(usuario.getId() + "," + usuario.getNombre() + "," + usuario.getCorreo() + "," + usuario.getTelefono() + "," + usuario.getContrasena());
                 bw.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Usuario> getUsuarios(){
+        return usuarios;
     }
 }

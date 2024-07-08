@@ -15,7 +15,7 @@ public class Pesado extends Vehiculo {
     private double pesoMax;
     private double pesoMin;
 
-    public Pesado(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+    public Pesado(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year,
                   CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
                   Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable, LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo,
                   double pesoMax, double pesoMin) {

@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class Acuatico extends Vehiculo{
     private String tipoacua;
 
-   public Acuatico(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, String year,
+   public Acuatico(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, int year,
                     CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
                     Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo,String tipoacua) {
         super(kilometraje, modelo, descripcion, marca, estado, ciudadVehi, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);

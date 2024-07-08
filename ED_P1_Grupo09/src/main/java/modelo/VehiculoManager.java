@@ -78,7 +78,7 @@ public class VehiculoManager {
         Estado estado = Estado.valueOf(linea[5]);
         String ciudad = linea[6];
         double precio = Double.parseDouble(linea[7]);
-        String year = linea[8];
+        int year = Integer.parseInt(linea[8]);
         
         CircularDoublyLinkedList<Image> imagenes = cargarImagenes(linea[0]);
                                     

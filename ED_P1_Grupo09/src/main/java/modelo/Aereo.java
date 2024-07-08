@@ -16,7 +16,7 @@ public class Aereo extends Vehiculo {
     private double pesoMaximoDespegue;
     private int rangoVuelo;
     
-   public Aereo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, String year,
+   public Aereo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year,
                  CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
                  Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo,
                  String tipoAeronave, double pesoMaximoDespegue, int rangoVuelo) {
