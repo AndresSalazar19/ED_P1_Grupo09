@@ -28,5 +28,5 @@ public interface List<E> extends Iterable<E> {
     int lastIndexOf(E element); // Retorna el índice del último elemento igual al especificado
     E find(Comparator<E> comp, E elemento); // Encuentra un elemento utilizando un comparador
     List<E> findAll(Comparator<E> comp, E elemento); // Encuentra todos los elementos utilizando un comparador
-    
+    E removeFirst(); // Elimina y retorna el primer elemento de la lista
 }

@@ -212,4 +212,12 @@ public class ArrayList<E> implements List<E> {
         sb.append(elements[effectiveSize - 1]).append("]");
         return sb.toString();
     }
+    
+    @Override
+    public E removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return remove(0);
+    }
 }

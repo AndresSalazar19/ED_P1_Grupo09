@@ -28,42 +28,37 @@ import tda.LinkedList;
 public class AñadirVehiculoController implements Initializable {
 
     @FXML
-    private TextField kilometrajeLabel;
+    private TextField kmTF;
     @FXML
-    private TextField modeloLabel;
+    private TextField modeloTF;
     @FXML
-    private TextField ciudadLabel;
+    private TextField ciudadTF;
     @FXML
-    private TextField precioLabel;
+    private TextField precioTF;
     @FXML
-    private TextField añoLabel;
+    private TextField añoTF;
     @FXML
-    private TextField capacidadLabel;
+    private TextField capacidadTF;
     @FXML
     private ComboBox<TipoVehiculo> tipoVehiCBox;
-
     @FXML
-    private VBox motoFields;
+    private VBox motoFields;  
     @FXML
     private TextField cilindrajeTF;
-
     @FXML
-    private VBox pesadoFields;
+    private VBox pesadoFields;    
     @FXML
     private TextField pesoMaxTF;
     @FXML
     private TextField pesoMinTF;
-
     @FXML
     private VBox carroFields;
     @FXML
     private TextField tipoCarroTF;
-
     @FXML
     private VBox acuaticoFields;
     @FXML
     private TextField tipoAcuaticoTF;
-
     @FXML
     private VBox aereoFields;
     @FXML
@@ -72,21 +67,40 @@ public class AñadirVehiculoController implements Initializable {
     private TextField pesoMaxDespegueTF;
     @FXML
     private TextField rangoVueloTF;
-
     @FXML
-    private Button addImagenesButton;
-    
+    private Button addImagenesButton;   
     @FXML
-    private CheckBox negociableCB;
+    private CheckBox negociableCB;    
+    @FXML
+    private ComboBox<Estado> EstadoCBox;
+    @FXML
+    private Button detIntBT;
+    @FXML
+    private Button addMantenimiento;
+    @FXML
+    private Button addAccidente;
+    @FXML
+    private Button guardarButton;
+    @FXML
+    private Button volverButton;
+    @FXML
+    private TextField DescripcionTF;
+    @FXML
+    private TextField marcaTF;
 
     private Usuario usuario;
 
     private CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
+    private LinkedList<Mantenimiento> mantenimientosIndependientes = new LinkedList<>();
+    private DetallesVehiInt detallesInt;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tipoVehiCBox.getItems().addAll(TipoVehiculo.values());
         tipoVehiCBox.setOnAction(e -> updateFieldsVisibility());
+
+        // Inicializar el ComboBox con los valores del enum Estado
+        EstadoCBox.setItems(FXCollections.observableArrayList(Estado.values()));
     }
 
     // Método para establecer el usuario autenticado
@@ -111,11 +125,23 @@ public class AñadirVehiculoController implements Initializable {
         }
     }
 
-
     @FXML
-    private void getDetInternos() throws IOException {
-        guardarDetallesVehi();
-        App.setRoot("detallesInternos");
+    private void getDetInternos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("detallesInternos.fxml"));
+            Parent root = loader.load();
+
+            DetallesInternosController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Detalles Internos");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -123,64 +149,13 @@ public class AñadirVehiculoController implements Initializable {
         return negociableCB.isSelected();
     }
 
-    @FXML
-    private void getDetExternos() throws IOException {
-        guardarDetallesVehi();
-        App.setRoot("detallesExternos");
-    }
 
     @FXML
     private void volver() throws IOException {
         App.setRoot("inicio");
     }
     
-    @FXML
-    private void getPesoMax() {
-        // Implementar lógica para peso máximo si es necesario
-    }
-
-    @FXML
-    private void getPesoMin() {
-        // Implementar lógica para peso mínimo si es necesario
-    }
-
-    @FXML
-    private void getTipoAcua() {
-        // Implementar lógica para tipo acuático si es necesario
-    }
-
-    @FXML
-    private void getTipoAeronave() {
-        // Implementar lógica para tipo aeronave si es necesario
-    }
-
-    @FXML
-    private void getTipoCarro() {
-        // Implementar lógica para tipo de carro si es necesario
-    }
-
-    @FXML
-    private void getCilindraje() {
-        // Implementar lógica para cilindraje si es necesario
-    }
-
-    @FXML
-    private void getPesoMaxDespegue() {
-        // Implementar lógica para peso máximo despegue si es necesario
-    }
-
-    @FXML
-    private void getRangoVuelo() {
-        // Implementar lógica para rango de vuelo si es necesario
-    }  
     
-    @FXML
-    private void selectTipoVehi() {
-        // Implementar lógica para rango de vuelo si es necesario
-    } 
-    
-    
-
     @FXML
     private void updateFieldsVisibility() {
         TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
@@ -212,66 +187,68 @@ public class AñadirVehiculoController implements Initializable {
         }
     }
 
-@FXML
-private void guardarDetallesVehi() {
-    try {
-        // Obtener valores de los campos FXML
-        int kilometraje = Integer.parseInt(kilometrajeLabel.getText());
-        String modelo = modeloLabel.getText();
-        String ciudadVehi = ciudadLabel.getText();
-        double precio = Double.parseDouble(precioLabel.getText());
-        String year = añoLabel.getText();
-        int capacidad = Integer.parseInt(capacidadLabel.getText());
+    @FXML
+    private void guardarDetallesVehi() {
+        try {
+            // Obtener valores de los campos FXML
+        int kilometraje = Integer.parseInt(kmTF.getText());
+        String modelo = modeloTF.getText();
+        String ciudadVehi = ciudadTF.getText();
+        double precio = Double.parseDouble(precioTF.getText());
+        String year = añoTF.getText();
+        int capacidad = Integer.parseInt(capacidadTF.getText());
         boolean negociable = negociableCB.isSelected();
+        String descripcion = DescripcionTF.getText();
+        String marca = marcaTF.getText();
+        Estado estado = EstadoCBox.getValue();
 
-        // Crear listas y detalles
-        LinkedList<Accidente> listaAccidentes = new LinkedList<>();
-        LinkedList<Mantenimiento> listaProcesos = new LinkedList<>();
-        CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
-        Usuario usuario = null; // 
-        DetallesVehiInt detallesInt = new DetallesVehiInt("", "", null, "", true, ""); // Asegúrate de pasar los valores correctos
+            // Crear listas y detalles
+            LinkedList<Accidente> listaAccidentes = new LinkedList<>();
+            LinkedList<Mantenimiento> listaProcesos = new LinkedList<>();
+            CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
+            Usuario usuario = null; // 
+            DetallesVehiInt detallesInt = new DetallesVehiInt("", "", null, "", true, ""); // Asegúrate de pasar los valores correctos
 
-        // Inicializar el vehículo nuevo
-        Vehiculo vehiculoNuevo = null;
-        TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
+            // Inicializar el vehículo nuevo
+            Vehiculo vehiculoNuevo = null;
+            TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
 
-        // Crear el vehículo basado en el tipo seleccionado
-        switch (tipoSeleccionado) {
-            case PESADO:
-                double pesoMax = Double.parseDouble(pesoMaxTF.getText());
-                double pesoMin = Double.parseDouble(pesoMinTF.getText());
-                vehiculoNuevo = new Pesado(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, pesoMax, pesoMin, negociable);
-                break;
-            case CARRO:
-                String tipoCarro = tipoCarroTF.getText();
-                vehiculoNuevo = new Carro(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoCarro, negociable);
-                break;
-            case ACUATICO:
-                String tipoAcuatico = tipoAcuaticoTF.getText();
-                vehiculoNuevo = new Acuatico(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAcuatico, negociable);
-                break;
-            case AEREO:
-                String tipoAeronave = tipoAeronaveTF.getText();
-                double pesoMaxDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
-                int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
-                vehiculoNuevo = new Aereo(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAeronave, pesoMaxDespegue, rangoVuelo, negociable);
-                break;
-            case MOTO:
-                int cilindraje = Integer.parseInt(cilindrajeTF.getText());
-                vehiculoNuevo = new Moto(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, cilindraje, negociable);
-                break;
+            // Crear el vehículo basado en el tipo seleccionado
+            switch (tipoSeleccionado) {
+                case PESADO:
+                    double pesoMax = Double.parseDouble(pesoMaxTF.getText());
+                    double pesoMin = Double.parseDouble(pesoMinTF.getText());
+                    vehiculoNuevo = new Pesado(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, pesoMax, pesoMin, negociable);
+                    break;
+                case CARRO:
+                    String tipoCarro = tipoCarroTF.getText();
+                    vehiculoNuevo = new Carro(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoCarro, negociable);
+                    break;
+                case ACUATICO:
+                    String tipoAcuatico = tipoAcuaticoTF.getText();
+                    vehiculoNuevo = new Acuatico(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAcuatico, negociable);
+                    break;
+                case AEREO:
+                    String tipoAeronave = tipoAeronaveTF.getText();
+                    double pesoMaxDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
+                    int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
+                    vehiculoNuevo = new Aereo(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAeronave, pesoMaxDespegue, rangoVuelo, negociable);
+                    break;
+                case MOTO:
+                    int cilindraje = Integer.parseInt(cilindrajeTF.getText());
+                    vehiculoNuevo = new Moto(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, cilindraje, negociable);
+                    break;
+            }
+
+            // Aquí puedes agregar la lógica para guardar `vehiculoNuevo` en donde necesites, por ejemplo en una base de datos o una lista.
+        } catch (NumberFormatException e) {
+            // Manejar errores de formato de número
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Manejar otros errores
+            e.printStackTrace();
         }
-
-        // Aquí puedes agregar la lógica para guardar `vehiculoNuevo` en donde necesites, por ejemplo en una base de datos o una lista.
-    } catch (NumberFormatException e) {
-        // Manejar errores de formato de número
-        e.printStackTrace();
-    } catch (Exception e) {
-        // Manejar otros errores
-        e.printStackTrace();
     }
-  }
-
 
     @FXML
     private void abrirAgregarAccidentePopup() {
@@ -287,7 +264,6 @@ private void guardarDetallesVehi() {
         }
     }
 
-    
     @FXML
     private void abrirProcesosPopup() {
         try {
@@ -301,11 +277,150 @@ private void guardarDetallesVehi() {
         } catch (IOException e) {
         }
     }
-    
+
+    @FXML
+    private void getAgregarAccidente() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarAccidente.fxml"));
+            Parent root = loader.load();
+
+            AgregarAccidenteController controller = loader.getController();
+            // No necesitas pasar un vehículo aquí si solo quieres abrir el popup
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Agregar Accidente");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     
     @FXML
-    private void getAgregarAccidente() throws IOException {
-        guardarDetallesVehi();
-        App.setRoot("agregarAccidente");
+    public void agregarMantenimientoIndependiente(Mantenimiento mantenimiento) {
+        mantenimientosIndependientes.addFirst(mantenimiento);
+        System.out.println("Mantenimiento añadido: " + mantenimiento.getDescripcion());
     }
+
+    @FXML
+    private void getAgregarMantenimiento() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarMantenimiento.fxml"));
+            Parent root = loader.load();
+
+            AgregarMantenimientoController controller = loader.getController();
+            controller.setController(this);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Agregar Mantenimiento");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void selectEstado() {
+        Estado estadoSeleccionado = EstadoCBox.getValue();
+        System.out.println("Estado seleccionado: " + estadoSeleccionado);
+    }
+    
+    @FXML
+    public void setDetallesInternos(DetallesVehiInt detalles) {
+        this.detallesInt = detalles;
+    }
+
+    
+    
+    // Métodos para obtener los valores de los campos de texto
+
+    @FXML
+    private String getKm() {
+        return kmTF.getText();
+    }
+
+    @FXML
+    private String getModelo() {
+        return modeloTF.getText();
+    }
+
+    @FXML
+    private String getCiudad() {
+        return ciudadTF.getText();
+    }
+
+    @FXML
+    private String getPrecio() {
+        return precioTF.getText();
+    }
+
+    @FXML
+    private String getYear() {
+        return añoTF.getText();
+    }
+
+    @FXML
+    private String getCapacidad() {
+        return capacidadTF.getText();
+    }
+
+    @FXML
+    private String getDescripcion() {
+        return DescripcionTF.getText();
+    }
+
+    @FXML
+    private String getMarca() {
+        return marcaTF.getText();
+    }
+
+    @FXML
+    private String getPesoMax() {
+        return pesoMaxTF.getText();
+    }
+
+    @FXML
+    private String getPesoMin() {
+        return pesoMinTF.getText();
+    }
+
+    @FXML
+    private String getTipoAcua() {
+        return tipoAcuaticoTF.getText();
+    }
+
+    @FXML
+    private String getTipoAeronave() {
+        return tipoAeronaveTF.getText();
+    }
+
+    @FXML
+    private String getTipoCarro() {
+        return tipoCarroTF.getText();
+    }
+
+    @FXML
+    private String getCilindraje() {
+        return cilindrajeTF.getText();
+    }
+
+    @FXML
+    private String getPesoMaxDespegue() {
+        return pesoMaxDespegueTF.getText();
+    }
+
+    @FXML
+    private String getRangoVuelo() {
+        return rangoVueloTF.getText();
+    }
+
+    @FXML
+    private TipoVehiculo selectTipoVehi() {
+        return tipoVehiCBox.getValue();
+    }
+    
 }

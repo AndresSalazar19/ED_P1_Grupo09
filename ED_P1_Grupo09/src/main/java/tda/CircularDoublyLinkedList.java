@@ -208,6 +208,24 @@ public class CircularDoublyLinkedList<E> implements List<E> {
         }
         return intersection;
     }
+    
+    
+    @Override
+    public E removeFirst() {
+        if (last == null) {
+            throw new NoSuchElementException();
+        }
+        DoublyNodeList<E> header = last.getNext();
+        E content = header.getContent();
+        if (header == last) {
+            last = null;
+        } else {
+            last.setNext(header.getNext());
+            header.getNext().setPrevious(last);
+        }
+        size--;
+        return content;
+    }
 
     @Override
     public Iterator<E> iterator() {

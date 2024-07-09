@@ -3,16 +3,17 @@ package com.mycompany.ed_p1_grupo09;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayDeque;
-import tda.*;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import modelo.Vehiculo;
 import modelo.Mantenimiento;
 import modelo.Accidente;
+import tda.LinkedList;
 
 public class AgregarAccidenteController implements Initializable {
 
@@ -20,22 +21,24 @@ public class AgregarAccidenteController implements Initializable {
     private DatePicker acciDP;
 
     @FXML
-    private TextField descripcionAcciLabel;
+    private TextField descripcionAcciTF;
 
     @FXML
-    private TextField partesAfectadasLabel;
+    private TextField partesAfectadasTF;
 
     @FXML
     private TextField mantenimientoTF;
+    @FXML
+    private Button volverDAcci;
 
     private Vehiculo vehiculo; // Vehículo actual en el cual se añadirán los mantenimientos
-    private ArrayDeque<String> mantenimientoDeque = new ArrayDeque<>(); // Cola doble para mantener los mantenimientos
-    
-    
+    private LinkedList<String> mantenimientoList = new LinkedList<>(); // Lista para ir almacenando los mantenimientos
+
     @FXML
-    public String getMantenimiento(){
+    public String getMantenimiento() {
         return mantenimientoTF.getText();
     }
+
     @FXML
     private void getAcciFecha() {
         LocalDate fechaAccidente = acciDP.getValue();
@@ -44,13 +47,13 @@ public class AgregarAccidenteController implements Initializable {
 
     @FXML
     private void getAcciDescripcion() {
-        String descripcion = descripcionAcciLabel.getText();
+        String descripcion = descripcionAcciTF.getText();
         System.out.println("Descripción del accidente: " + descripcion);
     }
 
     @FXML
     private void getPartesAfectadas() {
-        String partesAfectadas = partesAfectadasLabel.getText();
+        String partesAfectadas = partesAfectadasTF.getText();
         System.out.println("Partes afectadas: " + partesAfectadas);
     }
 
@@ -58,7 +61,7 @@ public class AgregarAccidenteController implements Initializable {
     private void addMantenimiento() {
         String mantenimiento = mantenimientoTF.getText();
         if (mantenimiento != null && !mantenimiento.isEmpty()) {
-            mantenimientoDeque.add(mantenimiento); // Añadir a la cola doble
+            mantenimientoList.addFirst(mantenimiento); // Añadir al inicio para mantener LIFO
             mantenimientoTF.clear(); // Limpiar el campo después de agregar
             System.out.println("Mantenimiento añadido: " + mantenimiento);
         } else {
@@ -70,14 +73,14 @@ public class AgregarAccidenteController implements Initializable {
     private void guardarAccidente() {
         if (vehiculo != null) {
             LocalDate fechaAccidente = acciDP.getValue();
-            String descripcionAccidente = descripcionAcciLabel.getText();
-            String partesAfectadas = partesAfectadasLabel.getText();
+            String descripcionAccidente = descripcionAcciTF.getText();
+            String partesAfectadas = partesAfectadasTF.getText();
             LinkedList<Mantenimiento> listaMantenimiento = new LinkedList<>();
 
-            while (!mantenimientoDeque.isEmpty()) {
-                String descripcionMantenimiento = mantenimientoDeque.poll();
+            while (!mantenimientoList.isEmpty()) {
+                String descripcionMantenimiento = mantenimientoList.removeFirst(); // Obtener y eliminar del inicio
                 Mantenimiento mantenimiento = new Mantenimiento(descripcionMantenimiento, "Tipo de mantenimiento");
-                listaMantenimiento.addFirst(mantenimiento);
+                listaMantenimiento.addLast(mantenimiento); // Añadir al final para mantener el orden LIFO original
             }
 
             if (fechaAccidente != null && descripcionAccidente != null && !descripcionAccidente.isEmpty() &&
@@ -97,15 +100,15 @@ public class AgregarAccidenteController implements Initializable {
     }
 
     @FXML
-    private void volverDAcci() throws IOException {
-        App.setRoot("añadirVehiculo");
+    private void volverDAcci() {
+        Stage stage = (Stage) volverDAcci.getScene().getWindow();
+        stage.close();
     }
-    
+
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Inicialización del vehículo u otros componentes si es necesario

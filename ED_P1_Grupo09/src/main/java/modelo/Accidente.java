@@ -13,7 +13,7 @@ public class Accidente {
         this.descripcion = descripcion;
         this.parteafec = parteafec;
         this.accifecha = accifecha;
-        this.mantenimiento = mantenimiento;
+        this.mantenimiento = new LinkedList<>();
     }
 
     public String getDescripcion() {
@@ -47,4 +47,8 @@ public class Accidente {
     public void setMantenimiento(LinkedList<Mantenimiento> mantenimiento) {
         this.mantenimiento = mantenimiento;
     }
+    
+     public void addMantenimiento(Mantenimiento mantenimiento) {
+        this.mantenimiento.addFirst(mantenimiento);
+    }   
 }

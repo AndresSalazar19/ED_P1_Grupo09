@@ -291,6 +291,22 @@ public class CircularLinkedList<E> implements List<E>, Comparator<E> {
         }
         return index;
     }
+    
+    
+    @Override
+    public E removeFirst() {
+        if (last == null) {
+            throw new NoSuchElementException();
+        }
+        CircularNodeList<E> header = getHeader();
+        E content = header.getContent();
+        if (header == last) {
+            last = null;
+        } else {
+            last.setNext(header.getNext());
+        }
+        return content;
+    }
 
 
 

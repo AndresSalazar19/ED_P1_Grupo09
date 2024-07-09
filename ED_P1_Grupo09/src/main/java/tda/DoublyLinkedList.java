@@ -313,5 +313,20 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
         }
         return s.toString();
     }
+    
+    @Override
+    public E removeFirst() {
+        if (header == null) {
+            throw new NoSuchElementException();
+        }
+        E content = header.getContent();
+        header = header.getNext();
+        if (header != null) {
+            header.setPrevious(null);
+        } else {
+            last = null;
+        }
+        return content;
+    }  
 
 }

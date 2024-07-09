@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tda;
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -315,5 +314,20 @@ public class LinkedList<E> implements List<E>, Comparator<E> {
         s.append("]");
         return s.toString();
     }
+    
+    @Override
+    public E removeFirst() {
+        if (header == null) {
+            throw new NoSuchElementException();
+        }
+        E content = header.getContent();
+        header = header.getNext();
+        if (header == null) {
+            last = null;
+        }
+        return content;
+    }    
+    
+     
 }
 
