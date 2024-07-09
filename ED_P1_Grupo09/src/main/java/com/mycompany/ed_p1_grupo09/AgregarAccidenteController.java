@@ -5,10 +5,14 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Vehiculo;
 import modelo.Mantenimiento;
@@ -27,7 +31,7 @@ public class AgregarAccidenteController implements Initializable {
     private TextField partesAfectadasTF;
 
     @FXML
-    private TextField mantenimientoTF;
+    private Button añadirProcesosButton;
     @FXML
     private Button volverDAcci;
 
@@ -35,9 +39,24 @@ public class AgregarAccidenteController implements Initializable {
     private LinkedList<String> mantenimientoList = new LinkedList<>(); // Lista para ir almacenando los mantenimientos
 
     @FXML
-    public String getMantenimiento() {
-        return mantenimientoTF.getText();
+    private void añadirMantenimiento() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarMantenimiento.fxml"));
+            Parent root = loader.load();
+
+            AgregarMantenimientoController controller = loader.getController();
+            controller.setController1(this);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Agregar Mantenimiento");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     private void getAcciFecha() {
@@ -56,18 +75,9 @@ public class AgregarAccidenteController implements Initializable {
         String partesAfectadas = partesAfectadasTF.getText();
         System.out.println("Partes afectadas: " + partesAfectadas);
     }
+    
 
-    @FXML
-    private void addMantenimiento() {
-        String mantenimiento = mantenimientoTF.getText();
-        if (mantenimiento != null && !mantenimiento.isEmpty()) {
-            mantenimientoList.addFirst(mantenimiento); // Añadir al inicio para mantener LIFO
-            mantenimientoTF.clear(); // Limpiar el campo después de agregar
-            System.out.println("Mantenimiento añadido: " + mantenimiento);
-        } else {
-            System.out.println("Error: Descripción de mantenimiento vacía.");
-        }
-    }
+
 
     @FXML
     private void guardarAccidente() {

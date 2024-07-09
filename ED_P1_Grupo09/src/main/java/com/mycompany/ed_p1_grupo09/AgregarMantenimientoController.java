@@ -31,9 +31,14 @@ public class AgregarMantenimientoController implements Initializable {
     private Button volverB;
 
     private AñadirVehiculoController mainController;
+    private AgregarAccidenteController mainController1;
 
     public void setController(AñadirVehiculoController controller) {
         this.mainController = controller;
+    }
+    
+    public void setController1(AgregarAccidenteController agregarAccidenteController) {
+        this.mainController1 = agregarAccidenteController;
     }
 
     @Override

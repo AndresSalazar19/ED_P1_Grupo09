@@ -40,14 +40,13 @@
       </Label>
       <TextField fx:id="partesAfectadasTF" layoutX="136.0" layoutY="149.0" onAction="#getPartesAfectadas" />
       <TextField fx:id="descripcionAcciTF" layoutX="225.0" layoutY="69.0" onAction="#getAcciDescripcion" />
-      <TextField fx:id="mantenimientoTF" layoutX="137.0" layoutY="224.0" onAction="#getMantenimiento" />
-      <Label fx:id="mantenimientoLabel" layoutX="167.0" layoutY="201.0" text="Mantenimiento">
+      <Button fx:id="volverDAcci" layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#volverDAcci" text="&lt;-" />
+      <Button fx:id="guardarAcci" layoutX="343.0" layoutY="224.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
-      </Label>
-      <Button fx:id="volverDAcci" layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#volverDAcci" text="&lt;-" />
-      <Button fx:id="guardarAcci" layoutX="343.0" layoutY="224.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
+      </Button>
+      <Button fx:id="añadirProcesosButton" layoutX="158.0" layoutY="199.0" mnemonicParsing="false" onAction="#añadirMantenimiento" text="Añadir procesos">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
