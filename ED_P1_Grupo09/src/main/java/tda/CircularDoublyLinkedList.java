@@ -240,4 +240,6 @@ public class CircularDoublyLinkedList<E> implements List<E> {
     public int compare(E e1, E e2) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+
 }

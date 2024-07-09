@@ -31,26 +31,28 @@ public abstract class Vehiculo {
     private LinkedList<Mantenimiento> mantenimientos;
     private TipoVehiculo tipoVehiculo;
 
-
-   public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year, CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo) {
-        this.kilometraje = kilometraje;
-        this.modelo = modelo;
-        this.descripcion = descripcion;
-        this.marca = marca;
-        this.estado = estado;
-        this.ciudad = ciudad;
-        this.precio = precio;
-        this.year = year;
-        this.imagenes = imagenes;
-        this.accidentes = accidentes;
-        this.id = id;
-        this.capacidad = capacidad;
-        this.detallesInt = detallesInt;
-        this.negociable = negociable;
-        this.vendedor = vendedor;
-        this.mantenimientos = mantenimientos;
-        this.tipoVehiculo = tipoVehiculo;
-    }
+    
+    public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year,
+                        CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                        Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable, LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo) {
+            this.kilometraje = kilometraje;
+            this.modelo = modelo;
+            this.descripcion = descripcion;
+            this.marca = marca;
+            this.estado = estado;
+            this.ciudad = ciudad;
+            this.precio = precio;
+            this.year = year;
+            this.imagenes = imagenes;
+            this.accidentes = accidentes;
+            this.id = id;
+            this.capacidad = capacidad;
+            this.vendedor = vendedor;
+            this.detallesInt = detallesInt;
+            this.negociable = negociable;
+            this.mantenimientos = mantenimientos;
+            this.tipoVehiculo = tipoVehiculo;
+        }
 
     public int getKilometraje() {
         return kilometraje;

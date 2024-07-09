@@ -68,11 +68,6 @@ public class IniciarSesionController implements Initializable {
         if (usuarioLogeado != null) {
             mostrarAlerta("Éxito", "Inicio de sesión exitoso.");
             
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/archivos/loggedArchivos.csv"))) {
-            bw.write(correo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
             InicioController.setUsuario(usuarioLogeado);
             App.setRoot("inicio");
             

@@ -15,8 +15,8 @@ public class Moto extends Vehiculo{
     private int cilindraje;
 
     public Moto(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year,
-                CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
-                Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable,LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo, int cilindraje) {
+        CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+        DetallesVehiInt detallesInt, Usuario vendedor, boolean negociable, LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo, int cilindraje) {
         super(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo);
         this.cilindraje = cilindraje;
     }

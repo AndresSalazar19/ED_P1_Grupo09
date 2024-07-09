@@ -53,10 +53,10 @@
             <Label fx:id="yearLabel" layoutX="38.0" layoutY="154.0" text="Año" />
             <Label fx:id="kilometrajeLabel" layoutX="111.0" layoutY="154.0" text="Kilometraje" />
             <Label fx:id="ciudadLabel" layoutX="189.0" layoutY="154.0" text="Ciudad" />
-            <Label fx:id="precioLabel" layoutX="370.0" layoutY="125.0" prefHeight="17.0" prefWidth="108.0" text="Precio" />
-            <Text layoutX="354.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
-            <Label fx:id="estadoLabel" layoutX="266.0" layoutY="154.0" text="Estado" />
-            <Label fx:id="negociableLabel" layoutX="356.0" layoutY="146.0" text="Negociable" />
+            <Label fx:id="precioLabel" layoutX="392.0" layoutY="130.0" prefHeight="17.0" prefWidth="108.0" text="Precio" />
+            <Text layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
+            <Label fx:id="estadoLabel" layoutX="286.0" layoutY="154.0" text="Estado" />
+            <Label fx:id="negociableLabel" layoutX="378.0" layoutY="151.0" text="Negociable" />
             <Pane layoutX="487.0" layoutY="485.0" prefHeight="228.0" prefWidth="446.0">
                <children>
                   <ScrollPane fx:id="scrollPaneAccidentes" layoutY="36.0" prefHeight="192.0" prefWidth="446.0">
@@ -76,6 +76,10 @@
             <Button fx:id="verMantenimientosBtn" layoutX="749.0" layoutY="138.0" mnemonicParsing="false" onAction="#verMantenimientos" text="Ver mantenimientos" />
             <Text layoutX="512.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de mantenimientos" />
             <Label fx:id="numeroMantenimientosLabel" layoutX="682.0" layoutY="142.0" text="Label" />
+            <Button fx:id="favoritoButton" layoutX="447.0" layoutY="193.0" mnemonicParsing="false" onAction="#seleccionarFavorito" prefHeight="25.0" prefWidth="44.0" text="❤" />
+            <Button fx:id="editarVehiculoButton" layoutX="249.0" layoutY="574.0" mnemonicParsing="false" onAction="#editarVehiculo" text="Editar" />
+            <Button fx:id="flechaDerechaButton" layoutX="926.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlSiguiente" text="-&gt;" />
+            <Button fx:id="flechaIzquierdaButton" layoutX="-2.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlAnterior" text="&lt;-" />
          </children>
       </Pane>
    </children>

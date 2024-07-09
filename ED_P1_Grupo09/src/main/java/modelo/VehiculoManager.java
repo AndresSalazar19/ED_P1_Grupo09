@@ -22,7 +22,7 @@ public class VehiculoManager {
     private static final String usuarioArchivos = "src/main/java/archivos/usuarioArchivos.csv";
 
     public static List<Vehiculo> cargarVehiculos() throws IOException {
-        List<Vehiculo> vehiculos = new ArrayList<>(Vehiculo.class);
+        DoublyLinkedList<Vehiculo> vehiculos = new DoublyLinkedList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(vehiculoArchivos))) {
             String linea;
@@ -108,7 +108,7 @@ public class VehiculoManager {
                 return new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipocarro);
             case MOTO:
                 int cilindraje = Integer.parseInt(linea[16]);
-                return new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos,tipoVehiculo, cilindraje);
+                return new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad,detallesInt,vendedor, negociable,mantenimientos,tipoVehiculo, cilindraje);
             case PESADO:
                 double pesoMax = Double.parseDouble(linea[16]);
                 double pesoMin = Double.parseDouble(linea[17]);

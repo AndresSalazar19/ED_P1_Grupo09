@@ -18,8 +18,8 @@ public class Usuario {
     String telefono;
     String contrasena;
     
-    LinkedList<Vehiculo> vehiculosFavoritos;
-    LinkedList<Vehiculo> misVehiculos;
+    DoublyLinkedList<Vehiculo> vehiculosFavoritos;
+    DoublyLinkedList<Vehiculo> misVehiculos;
     
     public Usuario(int id, String nombre, String correo, String telefono, String contrasena){
         this.id = id;
@@ -27,8 +27,8 @@ public class Usuario {
         this.correo = correo;
         this.telefono = telefono;
         this.contrasena = contrasena;
-        this.vehiculosFavoritos = new LinkedList<>();
-        this.misVehiculos = new LinkedList<>();
+        this.vehiculosFavoritos = new DoublyLinkedList<>();
+        this.misVehiculos = new DoublyLinkedList<>();
     }
 
     public String getNombre() {
@@ -59,19 +59,19 @@ public class Usuario {
         return contrasena;
     }
       
-    public LinkedList<Vehiculo> getVehiculosFavoritos() {
+    public DoublyLinkedList<Vehiculo> getVehiculosFavoritos() {
         return vehiculosFavoritos;
     }
 
-    public void setVehiculosFavoritos(LinkedList<Vehiculo> vehiculosFavoritos) {
+    public void setVehiculosFavoritos(DoublyLinkedList<Vehiculo> vehiculosFavoritos) {
         this.vehiculosFavoritos = vehiculosFavoritos;
     }
 
-    public List<Vehiculo> getmisVehiculos() {
+    public DoublyLinkedList<Vehiculo> getMisVehiculos() {
         return misVehiculos;
     }
 
-    public void setmisVehiculos(LinkedList<Vehiculo> misVehiculos) {
+    public void setMisVehiculos(DoublyLinkedList<Vehiculo> misVehiculos) {
         this.misVehiculos = misVehiculos;
     }
 

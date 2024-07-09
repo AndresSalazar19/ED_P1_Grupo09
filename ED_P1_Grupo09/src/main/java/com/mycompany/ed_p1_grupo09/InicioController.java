@@ -7,6 +7,7 @@ package com.mycompany.ed_p1_grupo09;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.PriorityQueue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,19 +22,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
  *
  * @author asala
- */public class InicioController {
+ */
+
+public class InicioController {
 
     private static final int VEHICULOS_POR_PAGINA = 8;
     private List<Vehiculo> vehiculos;
-    private List<Vehiculo> vehiculosFiltrados;
+    private DoublyLinkedList<Vehiculo> vehiculosFiltrados;
     private static Usuario usuarioLogeado;
-
+    private boolean mostrar;
+    
     @FXML private Pagination pagination;
     @FXML private ComboBox<String> tipoVehiculoComboBox;
     @FXML private ComboBox<String> marcaComboBox;
@@ -43,15 +50,82 @@ import javafx.scene.control.ComboBox;
     @FXML private ComboBox<String> anoDesdeComboBox;
     @FXML private ComboBox<String> anoHastaComboBox;
     @FXML private ComboBox<String> ordenarPorComboBox;
+    @FXML private Button iniciarSesionButton;
+    @FXML private Button registrarseButton;
+    @FXML private Button cerrarSesionButton;
+    @FXML private Button misVehiculosButton;
+    @FXML private Button favoritoButton;
+    @FXML private Button añadirVehiculoButton;
+    @FXML private Label bienvenidaLabel;
 
     @FXML private void iniciarSesion() throws IOException {
         App.setRoot("iniciarSesion");
     }
-
+    
+    private void actualizarEstadoUsuario() {
+        if (usuarioLogeado != null) {
+            iniciarSesionButton.setVisible(false);
+            registrarseButton.setVisible(false);
+            cerrarSesionButton.setVisible(true);
+            misVehiculosButton.setVisible(true);
+            favoritoButton.setVisible(true);
+            añadirVehiculoButton.setVisible(true);
+            bienvenidaLabel.setText("Bienvenido, " + usuarioLogeado.getNombre());
+            bienvenidaLabel.setVisible(true);
+        } else {
+            iniciarSesionButton.setVisible(true);
+            registrarseButton.setVisible(true);
+            cerrarSesionButton.setVisible(false);
+            misVehiculosButton.setVisible(false);
+            favoritoButton.setVisible(false);
+            añadirVehiculoButton.setVisible(false);
+            bienvenidaLabel.setVisible(false);
+        }
+    }
+    
     public static void setUsuario(Usuario usuario) {
         usuarioLogeado = usuario;
     }
+    
+    @FXML
+    private void cerrarSesion() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar cierre de sesión");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Estás seguro de que quieres cerrar sesión?");
 
+        ButtonType buttonTypeYes = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            usuarioLogeado = null;
+            actualizarEstadoUsuario();
+            try {
+                App.setRoot("inicio");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    @FXML private void mostrarMisVehiculos() throws IOException {
+        vehiculos = usuarioLogeado.getMisVehiculos();
+        mostrar = true;
+        aplicarFiltro();
+        mostrar = false;
+    }
+    
+    @FXML private void filtrarFavoritos() throws IOException {
+        System.out.println("VEHICULOSSS FAV FILTRADOS");
+    }
+    
+    @FXML private void añadirVehiculos() throws IOException {
+        System.out.println("Añadir VEHICULOSSSS");
+    }
+    
     @FXML private void registrarse() throws IOException {
         App.setRoot("registrarse");
     }
@@ -60,6 +134,19 @@ import javafx.scene.control.ComboBox;
     private void aplicarFiltro() {
         vehiculosFiltrados.clear();
 
+        for (Vehiculo vehiculo : vehiculos) {
+            if (filtrarVehiculo(vehiculo)) {
+                if (mostrar || (usuarioLogeado == null) || (vehiculo.getVendedor().getId() != usuarioLogeado.getId())) {
+                    vehiculosFiltrados.addFirst(vehiculo);
+                }
+            }
+        }
+
+        ordenarVehiculos();
+        actualizarPaginacion();
+    }
+
+    private boolean filtrarVehiculo(Vehiculo vehiculo) {
         String tipo = tipoVehiculoComboBox.getValue();
         String marca = marcaComboBox.getValue();
         String modelo = modeloComboBox.getValue();
@@ -67,40 +154,36 @@ import javafx.scene.control.ComboBox;
         String precioHasta = precioHastaComboBox.getValue();
         String anoDesde = anoDesdeComboBox.getValue();
         String anoHasta = anoHastaComboBox.getValue();
-        String ordenarPor = ordenarPorComboBox.getValue();
 
-        for (Vehiculo vehiculo : vehiculos) {
-            boolean matches = true;
-
-            if (tipo != null && !tipo.equals("Todos")) {
-                matches &= vehiculo.getTipoVehiculo().toString().equalsIgnoreCase(tipo);
-            }
-            if (marca != null && !marca.isEmpty()) {
-                matches &= vehiculo.getMarca().equalsIgnoreCase(marca);
-            }
-            if (modelo != null && !modelo.isEmpty()) {
-                matches &= vehiculo.getModelo().equalsIgnoreCase(modelo);
-            }
-            if (precioDesde != null && !precioDesde.isEmpty()) {
-                matches &= vehiculo.getPrecio() >= Double.parseDouble(precioDesde);
-            }
-            if (precioHasta != null && !precioHasta.isEmpty()) {
-                matches &= vehiculo.getPrecio() <= Double.parseDouble(precioHasta);
-            }
-            if (anoDesde != null && !anoDesde.isEmpty()) {
-                matches &= vehiculo.getYear() >= Integer.parseInt(anoDesde);
-            }
-            if (anoHasta != null && !anoHasta.isEmpty()) {
-                matches &= vehiculo.getYear() <= Integer.parseInt(anoHasta);
-            }
-
-            if (matches) {
-                vehiculosFiltrados.addFirst(vehiculo);
-            }
+        boolean matches = true;
+        if (tipo != null && !tipo.equals("Todos")) {
+            matches &= vehiculo.getTipoVehiculo().toString().equalsIgnoreCase(tipo);
         }
+        if (marca != null && !marca.isEmpty()) {
+            matches &= vehiculo.getMarca().equalsIgnoreCase(marca);
+        }
+        if (modelo != null && !modelo.isEmpty()) {
+            matches &= vehiculo.getModelo().equalsIgnoreCase(modelo);
+        }
+        if (precioDesde != null && !precioDesde.isEmpty()) {
+            matches &= vehiculo.getPrecio() >= Double.parseDouble(precioDesde);
+        }
+        if (precioHasta != null && !precioHasta.isEmpty()) {
+            matches &= vehiculo.getPrecio() <= Double.parseDouble(precioHasta);
+        }
+        if (anoDesde != null && !anoDesde.isEmpty()) {
+            matches &= vehiculo.getYear() >= Integer.parseInt(anoDesde);
+        }
+        if (anoHasta != null && !anoHasta.isEmpty()) {
+            matches &= vehiculo.getYear() <= Integer.parseInt(anoHasta);
+        }
+        return matches;
+    }
 
-        // Usar PriorityQueue para ordenar los vehículos según el criterio seleccionado
+    private void ordenarVehiculos() {
+        String ordenarPor = ordenarPorComboBox.getValue();
         PriorityQueue<Vehiculo> priorityQueue = null;
+
         if (ordenarPor != null) {
             switch (ordenarPor) {
                 case "Precio Ascendente":
@@ -121,7 +204,7 @@ import javafx.scene.control.ComboBox;
             }
 
             if (!vehiculosFiltrados.isEmpty()) {
-                for(Vehiculo vehiculo : vehiculosFiltrados){
+                for (Vehiculo vehiculo : vehiculosFiltrados) {
                     priorityQueue.offer(vehiculo);
                 }
                 vehiculosFiltrados.clear();
@@ -130,7 +213,9 @@ import javafx.scene.control.ComboBox;
                 }
             }
         }
+    }
 
+    private void actualizarPaginacion() {
         pagination.setPageCount((int) Math.ceil(vehiculosFiltrados.size() / (double) VEHICULOS_POR_PAGINA));
         pagination.setPageFactory(this::crearPagina);
     }
@@ -184,35 +269,56 @@ import javafx.scene.control.ComboBox;
 
         return grid;
     }
-
-    private void mostrarDetalles(Vehiculo vehiculo) throws IOException {
+        private void mostrarDetalles(Vehiculo vehiculo) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("verDetallesVehiculo.fxml"));
         Parent root = loader.load();
 
         VerDetallesVehiculoController detallesController = loader.getController();
         detallesController.setVehiculo(vehiculo);
+        detallesController.setUsuario(usuarioLogeado);
+        detallesController.setListaVehiculos(vehiculosFiltrados);
+
         App.setRoot("verDetallesVehiculo");
+    }
+
+    private <T> void agregarValorPersonalizado(ComboBox<T> comboBox) {
+        T valorActual = comboBox.getValue();
+        if (valorActual != null && !comboBox.getItems().contains(valorActual)) {
+            comboBox.getItems().add(valorActual);
+        }
     }
 
     @FXML
     private void initialize() throws IOException {
         SistemaApp sis = SistemaApp.getInstance();
         vehiculos = sis.getVehiculos();
-        vehiculosFiltrados = new ArrayList<>(Vehiculo.class);
+        vehiculosFiltrados = new DoublyLinkedList<>();
 
         tipoVehiculoComboBox.getItems().addAll("Todos", "Carro", "Moto", "Acuatico", "Aereo", "Pesado");
-        marcaComboBox.getItems().addAll("Todos", "Marca2", "Marca3"); // Añade marcas reales
-        modeloComboBox.getItems().addAll("Todos", "Modelo2", "Modelo3"); // Añade modelos reales
-        precioDesdeComboBox.getItems().addAll("1000", "5000", "10000"); // Añade rangos de precios reales
-        precioHastaComboBox.getItems().addAll("20000", "30000", "40000"); // Añade rangos de precios reales
-        anoDesdeComboBox.getItems().addAll("2000", "2010", "2015"); // Añade años reales
-        anoHastaComboBox.getItems().addAll("2018", "2019", "2020"); // Añade años reales
         ordenarPorComboBox.getItems().addAll("Precio Ascendente", "Precio Descendente", "Año Ascendente", "Año Descendente");
+
+        marcaComboBox.setEditable(true);
+        modeloComboBox.setEditable(true);
+        precioDesdeComboBox.setEditable(true);
+        precioHastaComboBox.setEditable(true);
+        anoDesdeComboBox.setEditable(true);
+        anoHastaComboBox.setEditable(true);
+
+        // Añadir listeners para agregar valores personalizados
+        marcaComboBox.setOnAction(event -> agregarValorPersonalizado(marcaComboBox));
+        modeloComboBox.setOnAction(event -> agregarValorPersonalizado(modeloComboBox));
+        precioDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(precioDesdeComboBox));
+        precioHastaComboBox.setOnAction(event -> agregarValorPersonalizado(precioHastaComboBox));
+        anoDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(anoDesdeComboBox));
+        anoHastaComboBox.setOnAction(event -> agregarValorPersonalizado(anoHastaComboBox));
 
         // Inicialmente, mostrar todos los vehículos
         aplicarFiltro();
+        actualizarEstadoUsuario();
         if (usuarioLogeado != null) {
             System.out.println("Usuario logueado: " + usuarioLogeado.getId());
+            sis.cargarVehiculosAUsuario(usuarioLogeado);
+            System.out.println(usuarioLogeado.getMisVehiculos());
         } else {
             System.out.println("No hay usuario logueado.");
         }

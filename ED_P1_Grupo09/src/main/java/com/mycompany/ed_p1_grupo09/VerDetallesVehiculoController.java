@@ -30,7 +30,11 @@ import tda.*;
  * @author asala
  */
 public class VerDetallesVehiculoController implements Initializable {
+    private static DoublyLinkedList<Vehiculo> listaVehiculos;
     private static Vehiculo vehiculo;
+    private static Usuario usuario;
+    private DoublyNodeList<Vehiculo> currentNode;
+
     @FXML
     private Button verMantenimientosBtn; 
     @FXML
@@ -67,7 +71,14 @@ public class VerDetallesVehiculoController implements Initializable {
     private Label extraLabel1; // Etiqueta adicional para detalles específicos
     @FXML
     private Label extraLabel2; // Etiqueta adicional para detalles específicos
-
+    @FXML
+    private Button favoritoButton;
+    @FXML
+    private Button editarVehiculoButton;
+    @FXML
+    private Button flechaIzquierdaButton;
+    @FXML
+    private Button flechaDerechaButton;
     @FXML
     private VBox contenedorAccidentes;
     @FXML
@@ -79,7 +90,41 @@ public class VerDetallesVehiculoController implements Initializable {
     private int currentIndex;
 
     public static void setVehiculo(Vehiculo vehiculo) {
-        VerDetallesVehiculoController.vehiculo = vehiculo;
+    VerDetallesVehiculoController.vehiculo = vehiculo;
+    }
+
+    public static void setUsuario(Usuario usuario) {
+        VerDetallesVehiculoController.usuario = usuario;
+    }
+
+    public static void setListaVehiculos(DoublyLinkedList<Vehiculo> vehiculos) {
+        VerDetallesVehiculoController.listaVehiculos = vehiculos;
+    }
+
+
+    @FXML
+    private void irAlAnterior() {
+        if (currentNode != null && currentNode.getPrevious() != null) {
+            currentNode = currentNode.getPrevious();
+            vehiculo = currentNode.getContent();
+            mostrarDetalles(vehiculo);
+            actualizarFlechas();
+        }
+    }
+
+    @FXML
+    private void irAlSiguiente() {
+        if (currentNode != null && currentNode.getNext() != null) {
+            currentNode = currentNode.getNext();
+            vehiculo = currentNode.getContent();
+            mostrarDetalles(vehiculo);
+            actualizarFlechas();
+        }
+    }
+
+    private void actualizarFlechas() {
+        flechaIzquierdaButton.setVisible(currentNode != null && currentNode.getPrevious() != null);
+        flechaDerechaButton.setVisible(currentNode != null && currentNode.getNext() != null);
     }
 
     @FXML
@@ -121,12 +166,41 @@ public class VerDetallesVehiculoController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        mostrarDetalles();
+    @FXML
+    private void seleccionarFavorito(){
+        System.out.println("SUPERRRR");
     }
 
-    private void mostrarDetalles() {
+    @FXML
+    private void editarVehiculo(){
+        System.out.println("Raime Hakke");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        if (listaVehiculos != null) {
+            currentNode = listaVehiculos.getNode(vehiculo);
+            System.out.println(currentNode);
+            actualizarFlechas();
+            mostrarDetalles(vehiculo);
+            if (usuario != null) {
+                if (usuario.getId() == vehiculo.getVendedor().getId()) {
+                    editarVehiculoButton.setVisible(true);
+                    favoritoButton.setVisible(false);
+                } else {
+                    favoritoButton.setVisible(true);
+                    editarVehiculoButton.setVisible(false);
+                }
+            } else {
+                favoritoButton.setVisible(false);
+                editarVehiculoButton.setVisible(false);
+            }
+
+        }
+    }
+
+
+    private void mostrarDetalles(Vehiculo vehiculo) {
         if (vehiculo != null) {
             tipoVehiculoLabel.setText(String.valueOf(vehiculo.getTipoVehiculo()));
             numeroMantenimientosLabel.setText(String.valueOf(vehiculo.getMantenimientos().size()));
@@ -180,7 +254,7 @@ public class VerDetallesVehiculoController implements Initializable {
             }
 
             mostrarAccidentes();
-            
+
             if (!vehiculo.getMantenimientos().isEmpty()) {
                 verMantenimientosBtn.setVisible(true);
             } else {
@@ -188,13 +262,13 @@ public class VerDetallesVehiculoController implements Initializable {
             }
         }
     }
-    
-    @FXML
+
+      @FXML
     private void verMantenimientos() throws IOException {
         VerMantenimientosController.setVehiculo(vehiculo);
         App.setRoot("verMantenimientos");
     }
-    
+
     private void mostrarAccidentes() {
         contenedorAccidentes.getChildren().clear();
 

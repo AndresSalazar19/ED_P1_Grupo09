@@ -17,7 +17,16 @@ public class SistemaApp {
         this.vehiculos = VehiculoManager.cargarVehiculos();
     }
     
-
+    public void cargarVehiculosAUsuario(Usuario usuario){
+        DoublyLinkedList<Vehiculo> vehiculosUsuario = new DoublyLinkedList<>();
+        for(Vehiculo vehiculo: vehiculos){
+            if(vehiculo.getVendedor().getId() == usuario.getId()){
+                vehiculosUsuario.addFirst(vehiculo);
+            }
+        }
+        System.out.println("EAS" + vehiculosUsuario.size());
+        usuario.setMisVehiculos(vehiculosUsuario);
+    }
     
     public static SistemaApp getInstance() throws IOException {
         if (instance == null) {

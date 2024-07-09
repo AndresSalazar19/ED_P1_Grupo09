@@ -17,123 +17,90 @@ import java.util.NoSuchElementException;
  * @param <E>
  */
 
-public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
-    private DoublyNodeList<E> header;
+public class DoublyLinkedList<E> implements List<E> {
+
     private DoublyNodeList<E> last;
+    private int size;
 
     public DoublyLinkedList() {
-        this.header = null;
         this.last = null;
+        this.size = 0;
     }
-
-    @Override
-    public boolean isEmpty() {
-        return header == null && last == null;
-    }
-
-    @Override
-    public int size() {
-        int count = 0;
-        DoublyNodeList<E> current = header;
-        while (current != null) {
-            count++;
-            current = current.getNext();
-        }
-        return count;
-    }
-
-    public DoublyNodeList<E> getHeader() {
-        return header;
-    }
-
-    public void setHeader(DoublyNodeList<E> header) {
-        this.header = header;
-    }
-
-    public DoublyNodeList<E> getLast() {
-        return last;
-    }
-
-    public void setLast(DoublyNodeList<E> last) {
-        this.last = last;
-    }
-
-    public DoublyNodeList<E> getPrevious(DoublyNodeList<E> node) {
-        return node.getPrevious();
-    }
-
 
     @Override
     public boolean addLast(E e) {
-        if (e != null) {
-            DoublyNodeList<E> newNode = new DoublyNodeList<>(e);
-            if (header == null) {
-                header = newNode;
-                last = newNode;
-            } else {
-                newNode.setPrevious(last);
-                last.setNext(newNode);
-                last = newNode;
-            }
-            return true;
+        if (e == null) {
+            return false;
         }
-        return false;
+        DoublyNodeList<E> newNode = new DoublyNodeList<>(e);
+        if (last == null) {
+            last = newNode;
+            last.setNext(last);
+            last.setPrevious(last);
+        } else {
+            DoublyNodeList<E> header = last.getNext();
+            last.setNext(newNode);
+            newNode.setPrevious(last);
+            newNode.setNext(header);
+            header.setPrevious(newNode);
+            last = newNode;
+        }
+        size++;
+        return true;
     }
 
     @Override
     public boolean addFirst(E e) {
-        if (e != null) {
-            DoublyNodeList<E> newNode = new DoublyNodeList<>(e);
-            if (header == null) {
-                header = newNode;
-                last = newNode;
-            } else {
-                newNode.setNext(header);
-                header.setPrevious(newNode);
-                header = newNode;
-            }
-            return true;
+        if (e == null) {
+            return false;
         }
-        return false;
+        DoublyNodeList<E> newNode = new DoublyNodeList<>(e);
+        if (last == null) {
+            last = newNode;
+            last.setNext(last);
+            last.setPrevious(last);
+        } else {
+            DoublyNodeList<E> header = last.getNext();
+            newNode.setNext(header);
+            newNode.setPrevious(last);
+            last.setNext(newNode);
+            header.setPrevious(newNode);
+        }
+        size++;
+        return true;
     }
 
     @Override
     public boolean add(int index, E element) {
-        if (index < 0 || (index > 0 && header == null)) {
-            throw new IndexOutOfBoundsException();
+        if (element == null || index < 0 || index > size) {
+            return false;
         }
         if (index == 0) {
             return addFirst(element);
-        }
-
-        DoublyNodeList<E> current = header;
-        for (int i = 1; i < index && current.getNext() != null; i++) {
-            current = current.getNext();
-        }
-
-        if (current.getNext() == null) {
+        } else if (index == size) {
             return addLast(element);
         } else {
+            DoublyNodeList<E> current = last.getNext();
+            for (int i = 0; i < index - 1; i++) {
+                current = current.getNext();
+            }
             DoublyNodeList<E> newNode = new DoublyNodeList<>(element);
             newNode.setNext(current.getNext());
             newNode.setPrevious(current);
             current.getNext().setPrevious(newNode);
             current.setNext(newNode);
+            size++;
             return true;
         }
     }
 
     @Override
     public E get(int index) {
-        if (index < 0 || header == null) {
-            throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-
-        DoublyNodeList<E> current = header;
+        DoublyNodeList<E> current = last.getNext();
         for (int i = 0; i < index; i++) {
-            if (current.getNext() == null) {
-                throw new IndexOutOfBoundsException();
-            }
             current = current.getNext();
         }
         return current.getContent();
@@ -141,116 +108,97 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
 
     @Override
     public E remove(int index) {
-        if (index < 0 || header == null) {
-            throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-
-        DoublyNodeList<E> current = header;
-        if (index == 0) {
-            E content = current.getContent();
-            header = current.getNext();
-            if (header != null) {
-                header.setPrevious(null);
-            } else {
-                last = null;
-            }
-            return content;
-        }
-
+        DoublyNodeList<E> current = last.getNext();
         for (int i = 0; i < index; i++) {
-            if (current.getNext() == null) {
-                throw new IndexOutOfBoundsException();
-            }
             current = current.getNext();
         }
-
-        E content = current.getContent();
-        DoublyNodeList<E> prev = current.getPrevious();
-        DoublyNodeList<E> next = current.getNext();
-
-        if (prev != null) {
-            prev.setNext(next);
+        E removedElement = current.getContent();
+        if (size == 1) {
+            last = null;
+        } else {
+            current.getPrevious().setNext(current.getNext());
+            current.getNext().setPrevious(current.getPrevious());
+            if (current == last) {
+                last = current.getPrevious();
+            }
         }
-        if (next != null) {
-            next.setPrevious(prev);
-        }
-        if (current == last) {
-            last = prev;
-        }
-        return content;
+        size--;
+        return removedElement;
     }
 
     @Override
     public E set(int index, E element) {
-        if (index < 0 || header == null) {
-            throw new IndexOutOfBoundsException();
+        if (element == null || index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-
-        DoublyNodeList<E> current = header;
+        DoublyNodeList<E> current = last.getNext();
         for (int i = 0; i < index; i++) {
-            if (current.getNext() == null) {
-                throw new IndexOutOfBoundsException();
-            }
             current = current.getNext();
         }
-
-        E oldContent = current.getContent();
+        E oldElement = current.getContent();
         current.setContent(element);
-        return oldContent;
+        return oldElement;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     @Override
     public boolean contains(E element) {
-        DoublyNodeList<E> current = header;
-        while (current != null) {
-            if (Objects.equals(current.getContent(), element)) {
-                return true;
-            }
-            current = current.getNext();
-        }
-        return false;
+        return indexOf(element) >= 0;
     }
 
     @Override
     public void clear() {
-        header = null;
         last = null;
+        size = 0;
     }
 
     @Override
     public int indexOf(E element) {
-        int index = 0;
-        DoublyNodeList<E> current = header;
-        while (current != null) {
-            if (Objects.equals(current.getContent(), element)) {
-                return index;
+        if (element == null) {
+            return -1;
+        }
+        DoublyNodeList<E> current = last.getNext();
+        for (int i = 0; i < size; i++) {
+            if (current.getContent().equals(element)) {
+                return i;
             }
             current = current.getNext();
-            index++;
         }
         return -1;
     }
 
     @Override
     public int lastIndexOf(E element) {
-        int index = 0;
-        int lastIndex = -1;
-        DoublyNodeList<E> current = header;
-        while (current != null) {
-            if (Objects.equals(current.getContent(), element)) {
-                lastIndex = index;
-            }
-            current = current.getNext();
-            index++;
+        if (element == null) {
+            return -1;
         }
-        return lastIndex;
+        DoublyNodeList<E> current = last;
+        for (int i = size - 1; i >= 0; i--) {
+            if (current.getContent().equals(element)) {
+                return i;
+            }
+            current = current.getPrevious();
+        }
+        return -1;
     }
 
     @Override
     public E find(Comparator<E> comp, E elemento) {
-        for (E e1 : this) {
-            if (comp.compare(e1, elemento) == 0) {
-                return e1;
+        for (E e : this) {
+            if (comp.compare(e, elemento) == 0) {
+                return e;
             }
         }
         return null;
@@ -259,27 +207,23 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
     @Override
     public List<E> findAll(Comparator<E> comp, E elemento) {
         List<E> intersection = new DoublyLinkedList<>();
-        for (E e1 : this) {
-            if (comp.compare(e1, elemento) == 0) {
-                intersection.addLast(e1);
+        for (E e : this) {
+            if (comp.compare(e, elemento) == 0) {
+                intersection.addLast(e);
             }
         }
         return intersection;
     }
 
     @Override
-    public int compare(E e1, E e2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            DoublyNodeList<E> cursor = header;
+            private DoublyNodeList<E> current = (last == null) ? null : last.getNext();
+            private int count = 0;
 
             @Override
             public boolean hasNext() {
-                return cursor != null;
+                return count < size;
             }
 
             @Override
@@ -287,31 +231,33 @@ public class DoublyLinkedList<E> implements List<E>, Comparator<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E e = cursor.getContent();
-                cursor = cursor.getNext();
+                E e = current.getContent();
+                current = current.getNext();
+                count++;
                 return e;
             }
         };
     }
 
-    @Override
-    public void forEach(Consumer<? super E> action) {
-        throw new UnsupportedOperationException("Not supported yet.");
-
-    }
-
-    @Override
-    public Spliterator<E> spliterator() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (DoublyNodeList<E> n = header; n != null; n = n.getNext()) {
-            s.append(n.getContent()).append(", ");
+    public DoublyNodeList<E> getNode(E element) {
+        if (element == null || last == null) {
+            return null;
         }
-        return s.toString();
+        DoublyNodeList<E> current = last.getNext();
+        do {
+            if (current.getContent().equals(element)) {
+                return current;
+            }
+            current = current.getNext();
+        } while (current != last.getNext());
+        return null;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public int compare(E e1, E e2) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
