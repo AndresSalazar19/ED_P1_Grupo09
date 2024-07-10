@@ -50,7 +50,7 @@ public class Accidente {
         this.accifecha = accifecha;
     }
 
-    public List<Mantenimiento> getListaMantenimiento() {
+    public LinkedList<Mantenimiento> getListaMantenimiento() {
         return listaMantenimiento;
     }
 

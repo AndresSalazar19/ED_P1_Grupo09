@@ -16,15 +16,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Modality;
 import tda.*;
 import modelo.*;
@@ -290,7 +294,7 @@ public class AñadirVehiculoController implements Initializable {
     }
 
     @FXML
-    private void getAgregarAccidente() {
+    private void añadirAccidente() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarAccidente.fxml"));
             Parent root = loader.load();
@@ -465,21 +469,35 @@ public class AñadirVehiculoController implements Initializable {
 
             Button editarAccidenteBtn = new Button("Editar Accidente");
             editarAccidenteBtn.setOnAction(event -> {
-                /*
-                try {
-                    VerMantenimientosController.setAccidente(accidente);
-                    App.setRoot("verMantenimientos");
-                } catch (IOException e) {
-                    System.err.println("Error al cargar mantenimientos: " + e.getMessage());
-                }
-                */
-                 System.out.println("Accidentes");
+                abrirEditarAccidentePopup(accidente);
             });
 
-            VBox btnContainer = new VBox(editarAccidenteBtn);
-            btnContainer.setAlignment(Pos.CENTER);
-            btnContainer.setPrefWidth(150);
+            Button eliminarAccidenteBtn = new Button("X");
+            eliminarAccidenteBtn.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            eliminarAccidenteBtn.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmar Eliminación");
+                alert.setHeaderText(null);
+                alert.setContentText("¿Está seguro que desea eliminar este accidente?");
+
+                ButtonType buttonTypeYes = new ButtonType("Sí");
+                ButtonType buttonTypeNo = new ButtonType("No");
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == buttonTypeYes) {
+                    accidentes.remove(accidente);
+                    mostrarAccidentes();
+                }
+            });
+
+            HBox btnContainer = new HBox(editarAccidenteBtn, eliminarAccidenteBtn);
+            btnContainer.setAlignment(Pos.CENTER_RIGHT);
+            btnContainer.setSpacing(10);
+            btnContainer.setPrefWidth(200);
             btnContainer.setPrefHeight(80);
+
+            HBox.setHgrow(btnContainer, Priority.ALWAYS);
 
             accidenteHBox.getChildren().addAll(accidenteBox, btnContainer);
             accidenteHBox.setAlignment(Pos.CENTER);
@@ -489,6 +507,34 @@ public class AñadirVehiculoController implements Initializable {
         scrollPaneAccidentes.setContent(contenedorAccidentes);
         scrollPaneAccidentes.setFitToWidth(true);
         scrollPaneAccidentes.setFitToHeight(true);
+    }
+
+    private void abrirEditarAccidentePopup(Accidente accidente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarAccidente.fxml"));
+            Parent root = loader.load();
+
+            AgregarAccidenteController controller = loader.getController();
+            controller.setController(this);
+            controller.setAccidente(accidente);
+            controller.mostrarProcesos();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Accidente");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarAccidente() {
+        mostrarAccidentes();
+    }
+
+    public void agregarAccidente(Accidente accidente) {
+        accidentes.addFirst(accidente);
+        mostrarAccidentes();
     }
     
     private void mostrarMantenimientos() {
@@ -516,13 +562,35 @@ public class AñadirVehiculoController implements Initializable {
 
             Button editarMantenimientoBtn = new Button("Editar Mantenimiento");
             editarMantenimientoBtn.setOnAction(event -> {
-                System.out.println("Mantenimientos");
+                abrirEditarMantenimientoPopup(mantenimiento);
             });
 
-            VBox btnContainer = new VBox(editarMantenimientoBtn);
-            btnContainer.setAlignment(Pos.CENTER);
-            btnContainer.setPrefWidth(150);
+            Button eliminarMantenimientoBtn = new Button("X");
+            eliminarMantenimientoBtn.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            eliminarMantenimientoBtn.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmar Eliminación");
+                alert.setHeaderText(null);
+                alert.setContentText("¿Está seguro que desea eliminar este mantenimiento?");
+
+                ButtonType buttonTypeYes = new ButtonType("Sí");
+                ButtonType buttonTypeNo = new ButtonType("No");
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == buttonTypeYes) {
+                    mantenimientos.remove(mantenimiento);
+                    mostrarMantenimientos();
+                }
+            });
+
+            HBox btnContainer = new HBox(editarMantenimientoBtn, eliminarMantenimientoBtn);
+            btnContainer.setAlignment(Pos.CENTER_RIGHT);
+            btnContainer.setSpacing(10);
+            btnContainer.setPrefWidth(200);
             btnContainer.setPrefHeight(80);
+
+            HBox.setHgrow(btnContainer, Priority.ALWAYS);
 
             mantenimientoHbox.getChildren().addAll(mantenimientoBox, btnContainer);
             mantenimientoHbox.setAlignment(Pos.CENTER);
@@ -533,6 +601,32 @@ public class AñadirVehiculoController implements Initializable {
         scrollPaneMantenimientos.setFitToWidth(true);
         scrollPaneMantenimientos.setFitToHeight(true);
     }
+
+    private void abrirEditarMantenimientoPopup(Mantenimiento mantenimiento) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarMantenimiento.fxml"));
+            Parent root = loader.load();
+
+            AgregarMantenimientoController controller = loader.getController();
+            controller.setController(this);
+            controller.setMantenimiento(mantenimiento);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Mantenimiento");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarMantenimiento() {
+        mostrarMantenimientos();
+    }
+
+
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -540,9 +634,7 @@ public class AñadirVehiculoController implements Initializable {
         
         Accidente acci = new Accidente(1,"des","parteafec",LocalDate.of(2024, 7, 9), mantenimientos);
         accidentes.addFirst(acci);
-        
-        mantenimientos.addFirst(new Mantenimiento("Hola","Easdz WAZAA"));
-        
+                
         mostrarAccidentes();
         mostrarMantenimientos();
 

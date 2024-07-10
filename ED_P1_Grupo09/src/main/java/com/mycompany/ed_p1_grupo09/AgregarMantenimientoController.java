@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -26,14 +27,26 @@ import javafx.scene.control.ButtonType;
 public class AgregarMantenimientoController {
 
     @FXML
+    private Label tituloLabel;
+    @FXML
     private TextField descripcionTextField;
     @FXML
     private TextField tipoMantenimientoTextField;
 
     private AñadirVehiculoController mainController;
+    private Mantenimiento mantenimientoActual;
 
     @FXML
     private void guardar() {
+        if (descripcionTextField.getText().isEmpty() || tipoMantenimientoTextField.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Todos los campos deben estar llenos.");
+            alert.showAndWait();
+            return;
+        }
+
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Guardado");
         alert.setHeaderText(null);
@@ -48,21 +61,36 @@ public class AgregarMantenimientoController {
             String descripcion = descripcionTextField.getText();
             String tipoMantenimiento = tipoMantenimientoTextField.getText();
 
-            Mantenimiento mantenimiento = new Mantenimiento(descripcion, tipoMantenimiento);
-            mainController.agregarMantenimiento(mantenimiento);
+            if (mantenimientoActual == null) {
+                Mantenimiento nuevoMantenimiento = new Mantenimiento(descripcion, tipoMantenimiento);
+                mainController.agregarMantenimiento(nuevoMantenimiento);
+            } else {
+                mantenimientoActual.setDescripcion(descripcion);
+                mantenimientoActual.setTipoMantenimiento(tipoMantenimiento);
+                mainController.actualizarMantenimiento();
+            }
 
             Stage stage = (Stage) descripcionTextField.getScene().getWindow();
             stage.close();
         }
     }
-    
+
     @FXML
     private void volver() {
         Stage stage = (Stage) descripcionTextField.getScene().getWindow();
         stage.close();
     }
-    
+
     public void setController(AñadirVehiculoController controller) {
         this.mainController = controller;
     }
+    
+    public void setMantenimiento(Mantenimiento mantenimiento) {
+        this.mantenimientoActual = mantenimiento;
+        tituloLabel.setText("Editar Mantenimiento");
+        descripcionTextField.setText(mantenimiento.getDescripcion());
+        tipoMantenimientoTextField.setText(mantenimiento.getTipoMantenimiento());
+    }
+    
+    
 }

@@ -4,21 +4,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="271.0" prefWidth="421.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AgregarAccidenteController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AgregarAccidenteController">
     <stylesheets>
         <URL value="@/styles/agregaraccidente.css" />
     </stylesheets>
    <children>
-      <DatePicker fx:id="acciDP" layoutX="22.0" layoutY="69.0" onAction="#getAcciFecha" />
-      <Label layoutX="22.0" layoutY="46.0" prefHeight="17.0" prefWidth="110.0" text="Fecha del accidente">
+      <DatePicker fx:id="acciDP" layoutX="22.0" layoutY="69.0" />
+      <Label layoutX="29.0" layoutY="46.0" prefHeight="17.0" prefWidth="110.0" text="Fecha del accidente">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
-      <Label layoutX="225.0" layoutY="46.0" text="Descripción">
+      <Label layoutX="318.0" layoutY="46.0" text="Descripción">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -28,28 +30,37 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="13.0" layoutY="13.0" text="Añadir Accidente:">
+      <Label fx:id="tituloLabel" layoutX="13.0" layoutY="13.0" prefHeight="17.0" prefWidth="149.0" text="Agregar Accidente:">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="164.0" layoutY="127.0" text="Partes afectadas">
+      <Label layoutX="176.0" layoutY="127.0" text="Partes afectadas">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="partesAfectadasTF" layoutX="136.0" layoutY="149.0" onAction="#getPartesAfectadas" />
-      <TextField fx:id="descripcionAcciTF" layoutX="225.0" layoutY="69.0" onAction="#getAcciDescripcion" />
-      <Button fx:id="volverDAcci" layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#volverDAcci" text="&lt;-" />
-      <Button fx:id="guardarAcci" layoutX="343.0" layoutY="224.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
+      <TextField fx:id="partesAfectadasTF" layoutX="176.0" layoutY="149.0" />
+      <TextField fx:id="descripcionAcciTF" layoutX="318.0" layoutY="69.0" />
+      <Button layoutX="22.0" layoutY="200.0" mnemonicParsing="false" onAction="#volver" text="&lt;-" />
+      <Button fx:id="guardarAcci" layoutX="423.0" layoutY="188.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="añadirProcesosButton" layoutX="158.0" layoutY="199.0" mnemonicParsing="false" onAction="#añadirMantenimiento" text="Añadir procesos">
+      <Button fx:id="añadirProcesosButton" layoutX="194.0" layoutY="200.0" mnemonicParsing="false" onAction="#añadirProceso" text="Agregar procesos">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
+      <ScrollPane fx:id="scrollPaneProcesos" layoutX="25.0" layoutY="237.0" prefHeight="170.0" prefWidth="450.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox fx:id="contenedorProcesos" layoutX="11.0" layoutY="1.0" prefHeight="170.0" prefWidth="450.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

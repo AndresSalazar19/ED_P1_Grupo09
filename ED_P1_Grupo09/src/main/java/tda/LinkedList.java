@@ -328,6 +328,43 @@ public class LinkedList<E> implements List<E>, Comparator<E> {
         return content;
     }    
     
-     
+    public boolean remove(E element) {
+        if (element == null || header == null) {
+            return false;
+        }
+
+        // Caso especial: el elemento a eliminar está en el primer nodo
+        if (Objects.equals(header.getContent(), element)) {
+            header = header.getNext();
+            if (header == null) {
+                last = null; // Si la lista se vuelve vacía
+            }
+            return true;
+        }
+
+        NodeList<E> current = header;
+        NodeList<E> previous = null;
+
+        while (current != null && !Objects.equals(current.getContent(), element)) {
+            previous = current;
+            current = current.getNext();
+        }
+
+        // Si no se encontró el elemento
+        if (current == null) {
+            return false;
+        }
+
+        // Eliminar el nodo encontrado
+        previous.setNext(current.getNext());
+
+        // Caso especial: el elemento a eliminar está en el último nodo
+        if (current == last) {
+            last = previous;
+        }
+
+        return true;
+    }
+
 }
 
