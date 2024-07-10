@@ -80,9 +80,9 @@ public class AñadirVehiculoController implements Initializable {
     @FXML
     private Button detIntBT;
     @FXML
-    private Button addMantenimiento;
+    private Button añadirMantenimientoButton;
     @FXML
-    private Button addAccidente;
+    private Button añadirAccidenteButton;
     @FXML
     private Button guardarButton;
     @FXML
@@ -95,7 +95,11 @@ public class AñadirVehiculoController implements Initializable {
     private VBox contenedorAccidentes;
     @FXML
     private ScrollPane scrollPaneAccidentes;
-      
+    @FXML
+    private VBox contenedorMantenimientos;
+    @FXML
+    private ScrollPane scrollPaneMantenimientos;
+    
     private Usuario usuario;
     
     private int kilometraje;
@@ -112,9 +116,9 @@ public class AñadirVehiculoController implements Initializable {
     private DetallesVehiInt detallesInt;
     private Usuario vendedor;
     private boolean negociable;
-    private LinkedList<Mantenimiento> mantenimientos;
     private TipoVehiculo tipoVehiculo;
 
+    LinkedList<Mantenimiento> mantenimientos = new LinkedList<>();
 
 
     // Método para establecer el usuario autenticado
@@ -311,8 +315,8 @@ public class AñadirVehiculoController implements Initializable {
         System.out.println("Mantenimiento añadido: " + mantenimiento.getDescripcion());
     }
 
-    @FXML
-    private void getAgregarMantenimiento() throws IOException {
+   @FXML
+    private void añadirMantenimiento() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarMantenimiento.fxml"));
             Parent root = loader.load();
@@ -328,6 +332,11 @@ public class AñadirVehiculoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        mostrarMantenimientos();
+    }
+
+    public void agregarMantenimiento(Mantenimiento mantenimiento) {
+            mantenimientos.addFirst(mantenimiento);
     }
 
     @FXML
@@ -430,7 +439,7 @@ public class AñadirVehiculoController implements Initializable {
         return tipoVehiCBox.getValue();
     }
     
-        private void mostrarAccidentes() {
+    private void mostrarAccidentes() {
         contenedorAccidentes.getChildren().clear();
 
         if (accidentes.isEmpty()) {
@@ -482,12 +491,61 @@ public class AñadirVehiculoController implements Initializable {
         scrollPaneAccidentes.setFitToHeight(true);
     }
     
+    private void mostrarMantenimientos() {
+        contenedorMantenimientos.getChildren().clear();
+
+        if (mantenimientos.isEmpty()) {
+            Label noMantenimientosLabel = new Label("No hay mantenimientos.");
+            contenedorMantenimientos.getChildren().add(noMantenimientosLabel);
+            return;
+        }
+
+        for (Mantenimiento mantenimiento : mantenimientos) {
+            HBox mantenimientoHbox = new HBox();
+            mantenimientoHbox.setSpacing(10);
+            mantenimientoHbox.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: gray;");
+            mantenimientoHbox.setAlignment(Pos.CENTER_LEFT);
+
+            VBox mantenimientoBox = new VBox();
+            mantenimientoBox.setSpacing(5);
+
+            Label mantenimientoDescripcion = new Label("Descripción: " + mantenimiento.getDescripcion());
+            Label mantenimientoTipoMantenimiento = new Label("Tipo de Mantenimiento: " + mantenimiento.getTipoMantenimiento());
+
+            mantenimientoBox.getChildren().addAll(mantenimientoDescripcion, mantenimientoTipoMantenimiento);
+
+            Button editarMantenimientoBtn = new Button("Editar Mantenimiento");
+            editarMantenimientoBtn.setOnAction(event -> {
+                System.out.println("Mantenimientos");
+            });
+
+            VBox btnContainer = new VBox(editarMantenimientoBtn);
+            btnContainer.setAlignment(Pos.CENTER);
+            btnContainer.setPrefWidth(150);
+            btnContainer.setPrefHeight(80);
+
+            mantenimientoHbox.getChildren().addAll(mantenimientoBox, btnContainer);
+            mantenimientoHbox.setAlignment(Pos.CENTER);
+            contenedorMantenimientos.getChildren().add(mantenimientoHbox);
+        }
+
+        scrollPaneMantenimientos.setContent(contenedorMantenimientos);
+        scrollPaneMantenimientos.setFitToWidth(true);
+        scrollPaneMantenimientos.setFitToHeight(true);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         accidentes = new LinkedList<>();
+        
         Accidente acci = new Accidente(1,"des","parteafec",LocalDate.of(2024, 7, 9), mantenimientos);
         accidentes.addFirst(acci);
+        
+        mantenimientos.addFirst(new Mantenimiento("Hola","Easdz WAZAA"));
+        
         mostrarAccidentes();
+        mostrarMantenimientos();
+
         
         tipoVehiCBox.getItems().addAll(TipoVehiculo.values());
         tipoVehiCBox.setOnAction(e -> updateFieldsVisibility());

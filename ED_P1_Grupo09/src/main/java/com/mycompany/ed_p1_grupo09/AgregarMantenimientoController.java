@@ -11,68 +11,58 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Mantenimiento;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
 /**
  * FXML Controller class
  *
  * @author LENOVO
  */
-public class AgregarMantenimientoController implements Initializable {
+public class AgregarMantenimientoController {
 
     @FXML
-    private TextField descripcionTF;
+    private TextField descripcionTextField;
     @FXML
-    private TextField tipoMantenimientoTF;
-    @FXML
-    private Button guardarB;
-    @FXML
-    private Button volverB;
+    private TextField tipoMantenimientoTextField;
 
     private AñadirVehiculoController mainController;
-    private AgregarAccidenteController mainController1;
-
-    public void setController(AñadirVehiculoController controller) {
-        this.mainController = controller;
-    }
-    
-    public void setController1(AgregarAccidenteController agregarAccidenteController) {
-        this.mainController1 = agregarAccidenteController;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
 
     @FXML
-    private void guardarMantenimiento() {
-        String descripcion = descripcionTF.getText();
-        String tipo = tipoMantenimientoTF.getText();
+    private void guardar() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Guardado");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea guardar este mantenimiento?");
 
-        Mantenimiento mantenimiento = new Mantenimiento(descripcion, tipo);
-        mainController.agregarMantenimientoIndependiente(mantenimiento);
+        ButtonType buttonTypeYes = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
-        Stage stage = (Stage) descripcionTF.getScene().getWindow();
-        stage.close();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            String descripcion = descripcionTextField.getText();
+            String tipoMantenimiento = tipoMantenimientoTextField.getText();
+
+            Mantenimiento mantenimiento = new Mantenimiento(descripcion, tipoMantenimiento);
+            mainController.agregarMantenimiento(mantenimiento);
+
+            Stage stage = (Stage) descripcionTextField.getScene().getWindow();
+            stage.close();
+        }
     }
-
+    
     @FXML
     private void volver() {
-        Stage stage = (Stage) descripcionTF.getScene().getWindow();
+        Stage stage = (Stage) descripcionTextField.getScene().getWindow();
         stage.close();
     }
     
-    @FXML
-    private String getTipoMantenimiento(){
-        String tipoMantenimiento = tipoMantenimientoTF.getText();
-        return tipoMantenimiento;
-    }
-        
-    @FXML
-    private String getDescripcion(){
-        String descripcion = descripcionTF.getText();
-        return descripcion;
+    public void setController(AñadirVehiculoController controller) {
+        this.mainController = controller;
     }
 }

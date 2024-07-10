@@ -27,10 +27,10 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="descripcionTF" layoutX="35.0" layoutY="113.0" onAction="#getDescripcion" />
-      <TextField fx:id="tipoMantenimientoTF" layoutX="263.0" layoutY="113.0" onAction="#getTipoMantenimiento" />
+      <TextField fx:id="descripcionTextField" layoutX="35.0" layoutY="113.0" />
+      <TextField fx:id="tipoMantenimientoTextField" layoutX="263.0" layoutY="113.0" />
       <Button fx:id="volverB" layoutX="26.0" layoutY="255.0" mnemonicParsing="false" onAction="#volver" text="&lt;-" />
-      <Button fx:id="guardarB" layoutX="375.0" layoutY="255.0" mnemonicParsing="false" onAction="#guardarMantenimiento" text="Guardar" />
+      <Button layoutX="375.0" layoutY="255.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
       <HBox layoutX="100.0" layoutY="205.0" prefHeight="100.0" prefWidth="200.0" />
       <HBox layoutX="200.0" layoutY="201.0" prefHeight="44.0" prefWidth="248.0" />
    </children>

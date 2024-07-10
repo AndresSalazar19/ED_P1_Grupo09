@@ -139,7 +139,7 @@
       </VBox>
 
       <!-- Botones de acción -->
-      <Button fx:id="guardarButton" layoutX="815.0" layoutY="612.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
+      <Button fx:id="guardarButton" layoutX="909.0" layoutY="612.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -159,7 +159,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="detIntBT" layoutX="425.0" layoutY="395.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
+      <Button fx:id="detIntBT" layoutX="425.0" layoutY="375.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -176,12 +176,12 @@
          </font>
       </Label>
       <TextField fx:id="marcaTF" layoutX="551.0" layoutY="328.0" onAction="#getMarca" prefHeight="25.0" prefWidth="121.0" />
-      <Label layoutX="551.0" layoutY="532.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
+      <Label layoutX="562.0" layoutY="534.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="addMantenimiento" layoutX="587.0" layoutY="555.0" mnemonicParsing="false" onAction="#getAgregarMantenimiento" prefHeight="25.0" prefWidth="155.0" text="Agregar Mantenimiento">
+      <Button fx:id="añadirMantenimientoButton" layoutX="595.0" layoutY="557.0" mnemonicParsing="false" onAction="#añadirMantenimiento" prefHeight="25.0" prefWidth="155.0" text="Agregar Mantenimiento">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -192,6 +192,15 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox fx:id="contenedorMantenimientos" layoutX="525.0" layoutY="600.0" prefHeight="175.0" prefWidth="351.0">
+         <children>
+            <ScrollPane fx:id="scrollPaneMantenimientos" prefHeight="170.0" prefWidth="351.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+               </content>
             </ScrollPane>
          </children>
       </VBox>

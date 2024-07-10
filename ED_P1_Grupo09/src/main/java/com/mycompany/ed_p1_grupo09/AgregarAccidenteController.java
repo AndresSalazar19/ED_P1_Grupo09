@@ -21,6 +21,12 @@ import tda.LinkedList;
 
 public class AgregarAccidenteController implements Initializable {
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    /*
+
     @FXML
     private DatePicker acciDP;
 
@@ -123,4 +129,5 @@ public class AgregarAccidenteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Inicialización del vehículo u otros componentes si es necesario
     }
+*/
 }
