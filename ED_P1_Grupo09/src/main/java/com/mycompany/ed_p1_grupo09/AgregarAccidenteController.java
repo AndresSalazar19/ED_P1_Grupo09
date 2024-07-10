@@ -44,7 +44,7 @@ public class AgregarAccidenteController implements Initializable {
     
     private AñadirVehiculoController mainController;
     private Accidente accidenteActual;
-    LinkedList<Mantenimiento> procesos = new LinkedList<>();
+    private LinkedList<Mantenimiento> procesos = new LinkedList<>();
     
     @FXML
     private void guardarAccidente() {
@@ -73,13 +73,13 @@ public class AgregarAccidenteController implements Initializable {
             LocalDate fechaAccidente = acciDP.getValue();
 
             if (accidenteActual == null) {
-                LinkedList<Mantenimiento> listaMantenimiento = new LinkedList<>();
-                Accidente nuevoAccidente = new Accidente(1, descripcion, parteAfectada, fechaAccidente, listaMantenimiento);
+                Accidente nuevoAccidente = new Accidente(1, descripcion, parteAfectada, fechaAccidente, new LinkedList<Mantenimiento>());
                 mainController.agregarAccidente(nuevoAccidente);
             } else {
                 accidenteActual.setDescripcion(descripcion);
                 accidenteActual.setParteAfectada(parteAfectada);
                 accidenteActual.setFechaAccidente(fechaAccidente);
+                accidenteActual.setListaMantenimiento(new LinkedList<Mantenimiento>());
                 mainController.actualizarAccidente();
             }
 
@@ -101,9 +101,8 @@ public class AgregarAccidenteController implements Initializable {
             Parent root = loader.load();
 
             AgregarMantenimientoController controller = loader.getController();
-            controller.setController(mainController);
-            controller.setController(this);
-            controller.setAccidente(accidenteActual);
+            controller.setAccidenteController(this);
+
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Agregar Proceso");
@@ -125,11 +124,11 @@ public class AgregarAccidenteController implements Initializable {
         descripcionAcciTF.setText(accidente.getDescripcion());
         partesAfectadasTF.setText(accidente.getParteAfectada());
         acciDP.setValue(accidente.getFechaAccidente());
+        procesos = accidente.getListaMantenimiento();
         mostrarProcesos();
     }
     
-       public void mostrarProcesos() {
-        procesos = accidenteActual.getListaMantenimiento();
+    public void mostrarProcesos() {
         contenedorProcesos.getChildren().clear();
 
         if (procesos.isEmpty()) {
@@ -154,7 +153,7 @@ public class AgregarAccidenteController implements Initializable {
 
             Button editarProcesoBtn = new Button("Editar Proceso");
             editarProcesoBtn.setOnAction(event -> {
-                System.out.println("EDITARRRR");
+                abrirEditarProcesoPopup(proceso);
             });
 
             Button eliminarProcesoBtn = new Button("X");
@@ -193,19 +192,37 @@ public class AgregarAccidenteController implements Initializable {
         scrollPaneProcesos.setFitToWidth(true);
         scrollPaneProcesos.setFitToHeight(true);
     }
-    
+
+    private void abrirEditarProcesoPopup(Mantenimiento proceso) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarMantenimiento.fxml"));
+            Parent root = loader.load();
+
+            AgregarMantenimientoController controller = loader.getController();
+            controller.setAccidenteController(this);
+            controller.setProceso(proceso);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Proceso");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void agregarProceso(Mantenimiento proceso) {
         procesos.addFirst(proceso);
         mostrarProcesos();
     }
-           
-    public void actualizarProcesos() {
+
+    public void actualizarProceso() {
         mostrarProcesos();
     }
-       
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("accidente");
+        // Initialization logic if needed
     }
-     
 }

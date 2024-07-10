@@ -38,37 +38,37 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="kmTF" layoutX="223.0" layoutY="195.0" onAction="#getKm" />
+      <TextField fx:id="kmTF" layoutX="223.0" layoutY="195.0" />
       <Label fx:id="modeloLabel" layoutX="425.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Modelo:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="modeloTF" layoutX="425.0" layoutY="195.0" onAction="#getModelo" />
+      <TextField fx:id="modeloTF" layoutX="425.0" layoutY="195.0" />
       <Label fx:id="ciudadLabel" layoutX="640.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Ciudad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="ciudadTF" layoutX="640.0" layoutY="195.0" onAction="#getCiudad" />
+      <TextField fx:id="ciudadTF" layoutX="640.0" layoutY="195.0" />
       <Label fx:id="precioLabel" layoutX="223.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Precio:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="precioTF" layoutX="223.0" layoutY="261.0" onAction="#getPrecio" />
+      <TextField fx:id="precioTF" layoutX="223.0" layoutY="261.0" />
       <Label fx:id="añoLabel" layoutX="425.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Año:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="añoTF" layoutX="425.0" layoutY="261.0" onAction="#getYear" />
+      <TextField fx:id="añoTF" layoutX="425.0" layoutY="261.0" />
       <Label fx:id="DescripcionLabel" layoutX="366.0" layoutY="300.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="261.0" onAction="#getCapacidad" />
+      <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="261.0" />
 
       <!-- Campos específicos para PESADO -->
       <VBox fx:id="pesadoFields" layoutX="177.0" layoutY="366.0" visible="false">
@@ -77,13 +77,13 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMaxTF" onAction="#getPesoMax" />
+         <TextField fx:id="pesoMaxTF" />
          <Label text="Peso Mínimo:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMinTF" onAction="#getPesoMin" />
+         <TextField fx:id="pesoMinTF" />
       </VBox>
 
       <!-- Campos específicos para MOTO -->
@@ -93,7 +93,7 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="cilindrajeTF" onAction="#getCilindraje" />
+         <TextField fx:id="cilindrajeTF" />
       </VBox>
 
       <!-- Campos específicos para CARRO -->
@@ -103,7 +103,7 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoCarroTF" onAction="#getTipoCarro" />
+         <TextField fx:id="tipoCarroTF" />
       </VBox>
 
       <!-- Campos específicos para ACUATICO -->
@@ -113,7 +113,7 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoAcuaticoTF" onAction="#getTipoAcua" />
+         <TextField fx:id="tipoAcuaticoTF" />
       </VBox>
 
       <!-- Campos específicos para AEREO -->
@@ -123,19 +123,19 @@
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoAeronaveTF" onAction="#getTipoAeronave" />
+         <TextField fx:id="tipoAeronaveTF" />
          <Label fx:id="PesoMaximoLabel" text="Peso Máximo Despegue:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="pesoMaxDespegueTF" onAction="#getPesoMaxDespegue" />
+         <TextField fx:id="pesoMaxDespegueTF" />
          <Label fx:id="RangoVueloLabel" text="Rango de Vuelo:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="rangoVueloTF" onAction="#getRangoVuelo" />
+         <TextField fx:id="rangoVueloTF" />
       </VBox>
 
       <!-- Botones de acción -->
@@ -169,13 +169,13 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="DescripcionTF" layoutX="341.0" layoutY="328.0" onAction="#getDescripcion" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="DescripcionTF" layoutX="341.0" layoutY="328.0" prefHeight="25.0" prefWidth="121.0" />
       <Label fx:id="marcaLabel" layoutX="588.0" layoutY="300.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="marcaTF" layoutX="551.0" layoutY="328.0" onAction="#getMarca" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="marcaTF" layoutX="551.0" layoutY="328.0" prefHeight="25.0" prefWidth="121.0" />
       <Label layoutX="604.0" layoutY="531.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
          <font>
             <Font name="System Bold Italic" size="10.0" />

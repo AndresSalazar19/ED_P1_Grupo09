@@ -24,7 +24,7 @@ import tda.*;
  *
  * @author LENOVO
  */
-public class AgregarMantenimientoController {
+public class AgregarMantenimientoController implements Initializable {
 
     @FXML
     private Label tituloLabel;
@@ -35,16 +35,12 @@ public class AgregarMantenimientoController {
 
     private AñadirVehiculoController mainController;
     private AgregarAccidenteController accidenteController;
-    private Accidente accidenteActual;
     private Mantenimiento mantenimientoActual;
     private Mantenimiento procesoActual;
-    LinkedList<Mantenimiento> procesos = new LinkedList<>();
-
 
     @FXML
     private void guardar() {
-        if(accidenteActual == null){
-            System.out.println("mantenimiento guardando");
+        if (accidenteController == null) {
             if (descripcionTextField.getText().isEmpty() || tipoMantenimientoTextField.getText().isEmpty()) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -80,43 +76,42 @@ public class AgregarMantenimientoController {
                 Stage stage = (Stage) descripcionTextField.getScene().getWindow();
                 stage.close();
             }
-        } else{
-            System.out.println("agregando proceso");
+        } else {
             if (descripcionTextField.getText().isEmpty() || tipoMantenimientoTextField.getText().isEmpty()) {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Todos los campos deben estar llenos.");
-                    alert.showAndWait();
-                    return;
-                }
-
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Confirmar Guardado");
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("¿Está seguro que desea guardar este mantenimiento?");
+                alert.setContentText("Todos los campos deben estar llenos.");
+                alert.showAndWait();
+                return;
+            }
 
-                ButtonType buttonTypeYes = new ButtonType("Sí");
-                ButtonType buttonTypeNo = new ButtonType("No");
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Guardado");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Está seguro que desea guardar este proceso?");
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == buttonTypeYes) {
-                    String descripcion = descripcionTextField.getText();
-                    String tipoMantenimiento = tipoMantenimientoTextField.getText();
+            ButtonType buttonTypeYes = new ButtonType("Sí");
+            ButtonType buttonTypeNo = new ButtonType("No");
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
-                    if (procesoActual == null) {
-                        Mantenimiento nuevoProceso = new Mantenimiento(descripcion, tipoMantenimiento);
-                        accidenteController.agregarProceso(nuevoProceso);
-                    } else {
-                        procesoActual.setDescripcion(descripcion);
-                        procesoActual.setTipoMantenimiento(tipoMantenimiento);
-                        accidenteController.actualizarProcesos();
-                    }
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == buttonTypeYes) {
+                String descripcion = descripcionTextField.getText();
+                String tipoMantenimiento = tipoMantenimientoTextField.getText();
 
-                    Stage stage = (Stage) descripcionTextField.getScene().getWindow();
-                    stage.close();
+                if (procesoActual == null) {
+                    Mantenimiento nuevoProceso = new Mantenimiento(descripcion, tipoMantenimiento);
+                    accidenteController.agregarProceso(nuevoProceso);
+                } else {
+                    procesoActual.setDescripcion(descripcion);
+                    procesoActual.setTipoMantenimiento(tipoMantenimiento);
+                    accidenteController.actualizarProceso();
                 }
+
+                Stage stage = (Stage) descripcionTextField.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 
@@ -126,34 +121,30 @@ public class AgregarMantenimientoController {
         stage.close();
     }
 
-    public void setController(AñadirVehiculoController controller) {
+    public void setMainController(AñadirVehiculoController controller) {
         this.mainController = controller;
     }
-    
-      public void setController(AgregarAccidenteController controller) {
+
+    public void setAccidenteController(AgregarAccidenteController controller) {
         this.accidenteController = controller;
     }
-    
-    
+
     public void setMantenimiento(Mantenimiento mantenimiento) {
         this.mantenimientoActual = mantenimiento;
         tituloLabel.setText("Editar Mantenimiento");
         descripcionTextField.setText(mantenimiento.getDescripcion());
         tipoMantenimientoTextField.setText(mantenimiento.getTipoMantenimiento());
     }
-    
-     public void setProceso(Mantenimiento proceso) {
+
+    public void setProceso(Mantenimiento proceso) {
         this.procesoActual = proceso;
         tituloLabel.setText("Editar Proceso");
         descripcionTextField.setText(proceso.getDescripcion());
         tipoMantenimientoTextField.setText(proceso.getTipoMantenimiento());
     }
-    
-        public void setAccidente(Accidente accidente) {
-        this.accidenteActual = accidente;
-    }
 
-    
-    
-    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Initialization logic if needed
+    }
 }
