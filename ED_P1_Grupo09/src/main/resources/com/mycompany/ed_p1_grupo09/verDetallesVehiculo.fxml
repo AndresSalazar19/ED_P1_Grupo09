@@ -76,8 +76,8 @@
             <Button fx:id="verMantenimientosBtn" layoutX="749.0" layoutY="138.0" mnemonicParsing="false" onAction="#verMantenimientos" text="Ver mantenimientos" />
             <Text layoutX="512.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de mantenimientos" />
             <Label fx:id="numeroMantenimientosLabel" layoutX="682.0" layoutY="142.0" text="Label" />
-            <Button fx:id="favoritoButton" layoutX="447.0" layoutY="193.0" mnemonicParsing="false" onAction="#seleccionarFavorito" prefHeight="25.0" prefWidth="44.0" text="❤" />
-            <Button fx:id="editarVehiculoButton" layoutX="249.0" layoutY="574.0" mnemonicParsing="false" onAction="#editarVehiculo" text="Editar" />
+            <Button fx:id="favoritoButton" layoutX="458.0" layoutY="193.0" mnemonicParsing="false" onAction="#seleccionarFavorito" prefHeight="25.0" prefWidth="44.0" text="❤" />
+            <Button fx:id="editarVehiculoButton" layoutX="457.0" layoutY="193.0" mnemonicParsing="false" onAction="#editarVehiculo" text="Editar" />
             <Button fx:id="flechaDerechaButton" layoutX="926.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlSiguiente" text="-&gt;" />
             <Button fx:id="flechaIzquierdaButton" layoutX="-2.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlAnterior" text="&lt;-" />
          </children>
