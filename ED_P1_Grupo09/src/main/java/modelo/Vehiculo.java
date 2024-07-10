@@ -10,7 +10,7 @@ import tda.*;
 import javafx.scene.image.Image;
 /**
  *
- * @author andres 
+ * @author asala
  */
 public abstract class Vehiculo {
     private int kilometraje;
@@ -18,9 +18,9 @@ public abstract class Vehiculo {
     private String descripcion;
     private String marca;
     private Estado estado;
-    private String ciudadVehi;
+    private String ciudad;
     private double precio;
-    private String year;
+    private int year;
     private CircularDoublyLinkedList<Image> imagenes;
     private LinkedList<Accidente> accidentes;
     private int id;
@@ -28,27 +28,31 @@ public abstract class Vehiculo {
     private DetallesVehiInt detallesInt;
     private Usuario vendedor;
     private boolean negociable;
-     private LinkedList<Mantenimiento> mantenimientos;
+    private LinkedList<Mantenimiento> mantenimientos;
+    private TipoVehiculo tipoVehiculo;
 
-
-    public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudadVehi, double precio, String year, CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad, Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable) {
-        this.kilometraje = kilometraje;
-        this.modelo = modelo;
-        this.descripcion = descripcion;
-        this.marca = marca;
-        this.estado = estado;
-        this.ciudadVehi = ciudadVehi;
-        this.precio = precio;
-        this.year = year;
-        this.imagenes = imagenes;
-        this.accidentes = accidentes;
-        this.id = id;
-        this.capacidad = capacidad;
-        this.detallesInt = detallesInt;
-        this.negociable = negociable;
-        this.vendedor = vendedor;
-        this.mantenimientos = new LinkedList<>();
-    }
+    
+    public Vehiculo(int kilometraje, String modelo, String descripcion, String marca, Estado estado, String ciudad, double precio, int year,
+                        CircularDoublyLinkedList<Image> imagenes, LinkedList<Accidente> accidentes, int id, int capacidad,
+                        Usuario vendedor, DetallesVehiInt detallesInt, boolean negociable, LinkedList<Mantenimiento> mantenimientos, TipoVehiculo tipoVehiculo) {
+            this.kilometraje = kilometraje;
+            this.modelo = modelo;
+            this.descripcion = descripcion;
+            this.marca = marca;
+            this.estado = estado;
+            this.ciudad = ciudad;
+            this.precio = precio;
+            this.year = year;
+            this.imagenes = imagenes;
+            this.accidentes = accidentes;
+            this.id = id;
+            this.capacidad = capacidad;
+            this.vendedor = vendedor;
+            this.detallesInt = detallesInt;
+            this.negociable = negociable;
+            this.mantenimientos = mantenimientos;
+            this.tipoVehiculo = tipoVehiculo;
+        }
 
     public int getKilometraje() {
         return kilometraje;
@@ -90,12 +94,12 @@ public abstract class Vehiculo {
         this.estado = estado;
     }
 
-    public String getCiudadVehi() {
-        return ciudadVehi;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setCiudadVehi(String ciudadVehi) {
-        this.ciudadVehi = ciudadVehi;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public double getPrecio() {
@@ -106,11 +110,11 @@ public abstract class Vehiculo {
         this.precio = precio;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -177,5 +181,13 @@ public abstract class Vehiculo {
     public void setMantenimientos(LinkedList<Mantenimiento> mantenimientos) {
         this.mantenimientos = mantenimientos;
     }    
-
+    
+    public TipoVehiculo getTipoVehiculo(){
+        return tipoVehiculo;
+    }
+    
+    public void setTipoVehiculo(TipoVehiculo tipoVehiculo){
+        this.tipoVehiculo = tipoVehiculo ;
+    }
+     
 }

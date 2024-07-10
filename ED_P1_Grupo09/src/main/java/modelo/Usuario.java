@@ -12,18 +12,23 @@ import tda.*;
  * @author asala
  */
 public class Usuario {
+    int id;
     String nombre;
-    String email;
+    String correo;
     String telefono;
-    LinkedList<Vehiculo> vehiculosFavoritos;
-    LinkedList<Vehiculo> misVehiculos;
+    String contrasena;
     
-    public Usuario(String nombre, String email, String telefono){
+    DoublyLinkedList<Vehiculo> vehiculosFavoritos;
+    DoublyLinkedList<Vehiculo> misVehiculos;
+    
+    public Usuario(int id, String nombre, String correo, String telefono, String contrasena){
+        this.id = id;
         this.nombre = nombre;
-        this.email = email;
+        this.correo = correo;
         this.telefono = telefono;
-        this.vehiculosFavoritos = new LinkedList<>();
-        this.misVehiculos = new LinkedList<>();
+        this.contrasena = contrasena;
+        this.vehiculosFavoritos = new DoublyLinkedList<>();
+        this.misVehiculos = new DoublyLinkedList<>();
     }
 
     public String getNombre() {
@@ -34,12 +39,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getTelefono() {
@@ -49,20 +54,24 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public LinkedList<Vehiculo> getVehiculosFavoritos() {
+    
+     public String getContrasena() {
+        return contrasena;
+    }
+      
+    public DoublyLinkedList<Vehiculo> getVehiculosFavoritos() {
         return vehiculosFavoritos;
     }
 
-    public void setVehiculosFavoritos(LinkedList<Vehiculo> vehiculosFavoritos) {
+    public void setVehiculosFavoritos(DoublyLinkedList<Vehiculo> vehiculosFavoritos) {
         this.vehiculosFavoritos = vehiculosFavoritos;
     }
 
-    public List<Vehiculo> getmisVehiculos() {
+    public DoublyLinkedList<Vehiculo> getMisVehiculos() {
         return misVehiculos;
     }
 
-    public void setmisVehiculos(LinkedList<Vehiculo> misVehiculos) {
+    public void setMisVehiculos(DoublyLinkedList<Vehiculo> misVehiculos) {
         this.misVehiculos = misVehiculos;
     }
 
@@ -76,4 +85,23 @@ public class Usuario {
        
     }
     
+    public int getId(){
+        return id;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Usuario{")
+            .append("nombre='").append(nombre).append('\'')
+            .append(", correo='").append(correo).append('\'')
+            .append(", telefono='").append(telefono).append('\'')
+            .append(", contrasena='").append(contrasena).append('\'')
+            .append(", vehiculosFavoritos=").append(vehiculosFavoritos)
+            .append(", misVehiculos=").append(misVehiculos)
+            .append('}');
+        return sb.toString();
+}
+
+
 }

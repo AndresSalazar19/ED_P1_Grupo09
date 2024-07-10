@@ -12,18 +12,22 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
-import modelo.*;
-import tda.CircularDoublyLinkedList;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
-import tda.LinkedList;
+import tda.*;
+import modelo.*;
 
 public class AñadirVehiculoController implements Initializable {
 
@@ -87,21 +91,31 @@ public class AñadirVehiculoController implements Initializable {
     private TextField DescripcionTF;
     @FXML
     private TextField marcaTF;
-
+    @FXML
+    private VBox contenedorAccidentes;
+    @FXML
+    private ScrollPane scrollPaneAccidentes;
+      
     private Usuario usuario;
-
-    private CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
-    private LinkedList<Mantenimiento> mantenimientosIndependientes = new LinkedList<>();
+    
+    private int kilometraje;
+    private String modelo;
+    private String descripcion;
+    private String marca;
+    private Estado estado;
+    private String ciudad;
+    private double precio;
+    private int year;
+    private CircularDoublyLinkedList<Image> imagenes;
+    private LinkedList<Accidente> accidentes;
+    private int capacidad;
     private DetallesVehiInt detallesInt;
+    private Usuario vendedor;
+    private boolean negociable;
+    private LinkedList<Mantenimiento> mantenimientos;
+    private TipoVehiculo tipoVehiculo;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        tipoVehiCBox.getItems().addAll(TipoVehiculo.values());
-        tipoVehiCBox.setOnAction(e -> updateFieldsVisibility());
 
-        // Inicializar el ComboBox con los valores del enum Estado
-        EstadoCBox.setItems(FXCollections.observableArrayList(Estado.values()));
-    }
 
     // Método para establecer el usuario autenticado
     public void setUsuario(Usuario usuario) {
@@ -109,7 +123,7 @@ public class AñadirVehiculoController implements Initializable {
     }
 
     @FXML
-    private void getAddImagenes() {
+    private void addImagenes() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png", "*.gif"));
         Stage stage = (Stage) addImagenesButton.getScene().getWindow();
@@ -191,53 +205,46 @@ public class AñadirVehiculoController implements Initializable {
     private void guardarDetallesVehi() {
         try {
             // Obtener valores de los campos FXML
-        int kilometraje = Integer.parseInt(kmTF.getText());
-        String modelo = modeloTF.getText();
-        String ciudadVehi = ciudadTF.getText();
-        double precio = Double.parseDouble(precioTF.getText());
-        String year = añoTF.getText();
-        int capacidad = Integer.parseInt(capacidadTF.getText());
-        boolean negociable = negociableCB.isSelected();
-        String descripcion = DescripcionTF.getText();
-        String marca = marcaTF.getText();
-        Estado estado = EstadoCBox.getValue();
+        kilometraje = Integer.parseInt(kmTF.getText());
+        modelo = modeloTF.getText();
+        ciudad = ciudadTF.getText();
+        precio = Double.parseDouble(precioTF.getText());
+        year = Integer.parseInt(añoTF.getText());
+        capacidad = Integer.parseInt(capacidadTF.getText());
+        negociable = negociableCB.isSelected();
+        descripcion = DescripcionTF.getText();
+        marca = marcaTF.getText();
+        estado = EstadoCBox.getValue();
 
-            // Crear listas y detalles
-            LinkedList<Accidente> listaAccidentes = new LinkedList<>();
-            LinkedList<Mantenimiento> listaProcesos = new LinkedList<>();
-            CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
-            Usuario usuario = null; // 
-            DetallesVehiInt detallesInt = new DetallesVehiInt("", "", null, "", true, ""); // Asegúrate de pasar los valores correctos
+        // Inicializar el vehículo nuevo
+        Vehiculo vehiculoNuevo = null;
+        TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
 
-            // Inicializar el vehículo nuevo
-            Vehiculo vehiculoNuevo = null;
-            TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
-
-            // Crear el vehículo basado en el tipo seleccionado
-            switch (tipoSeleccionado) {
-                case PESADO:
-                    double pesoMax = Double.parseDouble(pesoMaxTF.getText());
-                    double pesoMin = Double.parseDouble(pesoMinTF.getText());
-                    vehiculoNuevo = new Pesado(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, pesoMax, pesoMin, negociable);
-                    break;
-                case CARRO:
-                    String tipoCarro = tipoCarroTF.getText();
-                    vehiculoNuevo = new Carro(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoCarro, negociable);
-                    break;
-                case ACUATICO:
-                    String tipoAcuatico = tipoAcuaticoTF.getText();
-                    vehiculoNuevo = new Acuatico(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAcuatico, negociable);
-                    break;
-                case AEREO:
-                    String tipoAeronave = tipoAeronaveTF.getText();
-                    double pesoMaxDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
-                    int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
-                    vehiculoNuevo = new Aereo(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, tipoAeronave, pesoMaxDespegue, rangoVuelo, negociable);
-                    break;
-                case MOTO:
-                    int cilindraje = Integer.parseInt(cilindrajeTF.getText());
-                    vehiculoNuevo = new Moto(kilometraje, modelo, "", "", null, ciudadVehi, precio, year, imagenes, listaAccidentes, 0, capacidad, usuario, detallesInt, cilindraje, negociable);
-                    break;
+        // Crear el vehículo basado en el tipo seleccionado
+         switch (tipoSeleccionado) {
+            case PESADO:
+                double pesoMax = Double.parseDouble(pesoMaxTF.getText());
+                double pesoMin = Double.parseDouble(pesoMinTF.getText());
+                vehiculoNuevo = new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, pesoMax, pesoMin);
+                break;
+            case CARRO:
+                TipoCarro tipoCarro = TipoCarro.valueOf(tipoCarroTF.getText());
+                vehiculoNuevo = new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoCarro);
+                 break;
+            case ACUATICO:
+                String tipoAcuatico = tipoAcuaticoTF.getText();
+                vehiculoNuevo = new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAcuatico);
+                break;
+            case AEREO:
+                String tipoAeronave = tipoAeronaveTF.getText();
+                double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
+                int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
+                vehiculoNuevo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue,rangoVuelo);
+                break;
+            case MOTO:
+                int cilindraje = Integer.parseInt(cilindrajeTF.getText());
+                vehiculoNuevo = new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, cilindraje);
+                break;
             }
 
             // Aquí puedes agregar la lógica para guardar `vehiculoNuevo` en donde necesites, por ejemplo en una base de datos o una lista.
@@ -300,7 +307,7 @@ public class AñadirVehiculoController implements Initializable {
     
     @FXML
     public void agregarMantenimientoIndependiente(Mantenimiento mantenimiento) {
-        mantenimientosIndependientes.addFirst(mantenimiento);
+        mantenimientos.addFirst(mantenimiento);
         System.out.println("Mantenimiento añadido: " + mantenimiento.getDescripcion());
     }
 
@@ -421,6 +428,73 @@ public class AñadirVehiculoController implements Initializable {
     @FXML
     private TipoVehiculo selectTipoVehi() {
         return tipoVehiCBox.getValue();
+    }
+    
+        private void mostrarAccidentes() {
+        contenedorAccidentes.getChildren().clear();
+
+        if (accidentes.isEmpty()) {
+            Label noAccidentesLabel = new Label("No hay accidentes.");
+            contenedorAccidentes.getChildren().add(noAccidentesLabel);
+            return;
+        }
+
+        for (Accidente accidente : accidentes) {
+            HBox accidenteHBox = new HBox();
+            accidenteHBox.setSpacing(10);
+            accidenteHBox.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: gray;");
+            accidenteHBox.setAlignment(Pos.CENTER_LEFT);
+
+            VBox accidenteBox = new VBox();
+            accidenteBox.setSpacing(5);
+
+            Label accidenteDescripcion = new Label("Descripción: " + accidente.getDescripcion());
+            Label accidenteParteAfectada = new Label("Parte Afectada: " + accidente.getParteAfectada());
+            Label accidenteFecha = new Label("Fecha: " + accidente.getFechaAccidente());
+
+            accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha);
+
+            Button editarAccidenteBtn = new Button("Editar Accidente");
+            editarAccidenteBtn.setOnAction(event -> {
+                /*
+                try {
+                    VerMantenimientosController.setAccidente(accidente);
+                    App.setRoot("verMantenimientos");
+                } catch (IOException e) {
+                    System.err.println("Error al cargar mantenimientos: " + e.getMessage());
+                }
+                */
+                 System.out.println("Accidentes");
+            });
+
+            VBox btnContainer = new VBox(editarAccidenteBtn);
+            btnContainer.setAlignment(Pos.CENTER);
+            btnContainer.setPrefWidth(150);
+            btnContainer.setPrefHeight(80);
+
+            accidenteHBox.getChildren().addAll(accidenteBox, btnContainer);
+            accidenteHBox.setAlignment(Pos.CENTER);
+            contenedorAccidentes.getChildren().add(accidenteHBox);
+        }
+
+        scrollPaneAccidentes.setContent(contenedorAccidentes);
+        scrollPaneAccidentes.setFitToWidth(true);
+        scrollPaneAccidentes.setFitToHeight(true);
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        accidentes = new LinkedList<>();
+        Accidente acci = new Accidente(1,"des","parteafec",LocalDate.of(2024, 7, 9), mantenimientos);
+        accidentes.addFirst(acci);
+        mostrarAccidentes();
+        
+        tipoVehiCBox.getItems().addAll(TipoVehiculo.values());
+        tipoVehiCBox.setOnAction(e -> updateFieldsVisibility());
+
+        // Inicializar el ComboBox con los valores del enum Estado
+        EstadoCBox.setItems(FXCollections.observableArrayList(Estado.values()));
+
     }
     
 }

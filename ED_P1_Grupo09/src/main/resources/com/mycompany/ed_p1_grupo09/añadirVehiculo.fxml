@@ -4,23 +4,24 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AñadirVehiculoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AñadirVehiculoController">
    <children>
       <!-- Encabezado -->
-      <Pane prefHeight="37.0" prefWidth="600.0">
+      <Pane layoutX="200.0" layoutY="95.0" prefHeight="37.0" prefWidth="600.0">
          <children>
             <Label layoutX="10.0" prefHeight="37.0" prefWidth="130.0" text=" Añadir vehículo:">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addImagenesButton" layoutX="475.0" layoutY="8.0" mnemonicParsing="false" onAction="#getAddImagenes" text="Añadir imágenes">
+            <Button fx:id="addImagenesButton" layoutX="475.0" layoutY="8.0" mnemonicParsing="false" onAction="#addImagenes" text="Añadir imágenes">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -32,45 +33,45 @@
       </Pane>
       
       <!-- Campos comunes -->
-      <Label fx:id="kmLabel" layoutX="20.0" layoutY="52.0" prefHeight="17.0" prefWidth="74.0" text="Kilometraje:">
+      <Label fx:id="kmLabel" layoutX="223.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Kilometraje:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="kmTF" layoutX="20.0" layoutY="78.0" onAction="#getKm" />
-      <Label fx:id="modeloLabel" layoutX="222.0" layoutY="52.0" prefHeight="17.0" prefWidth="74.0" text="Modelo:">
+      <TextField fx:id="kmTF" layoutX="223.0" layoutY="195.0" onAction="#getKm" />
+      <Label fx:id="modeloLabel" layoutX="425.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Modelo:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="modeloTF" layoutX="222.0" layoutY="78.0" onAction="#getModelo" />
-      <Label fx:id="ciudadLabel" layoutX="437.0" layoutY="52.0" prefHeight="17.0" prefWidth="74.0" text="Ciudad:">
+      <TextField fx:id="modeloTF" layoutX="425.0" layoutY="195.0" onAction="#getModelo" />
+      <Label fx:id="ciudadLabel" layoutX="640.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Ciudad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="ciudadTF" layoutX="437.0" layoutY="78.0" onAction="#getCiudad" />
-      <Label fx:id="precioLabel" layoutX="20.0" layoutY="122.0" prefHeight="17.0" prefWidth="74.0" text="Precio:">
+      <TextField fx:id="ciudadTF" layoutX="640.0" layoutY="195.0" onAction="#getCiudad" />
+      <Label fx:id="precioLabel" layoutX="223.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Precio:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="precioTF" layoutX="20.0" layoutY="144.0" onAction="#getPrecio" />
-      <Label fx:id="añoLabel" layoutX="222.0" layoutY="122.0" prefHeight="17.0" prefWidth="74.0" text="Año:">
+      <TextField fx:id="precioTF" layoutX="223.0" layoutY="261.0" onAction="#getPrecio" />
+      <Label fx:id="añoLabel" layoutX="425.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Año:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="añoTF" layoutX="222.0" layoutY="144.0" onAction="#getYear" />
-      <Label fx:id="DescripcionLabel" layoutX="163.0" layoutY="183.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
+      <TextField fx:id="añoTF" layoutX="425.0" layoutY="261.0" onAction="#getYear" />
+      <Label fx:id="DescripcionLabel" layoutX="366.0" layoutY="300.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="capacidadTF" layoutX="437.0" layoutY="144.0" onAction="#getCapacidad" />
+      <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="261.0" onAction="#getCapacidad" />
 
       <!-- Campos específicos para PESADO -->
-      <VBox fx:id="pesadoFields" layoutX="20.0" layoutY="250.0" visible="false">
+      <VBox fx:id="pesadoFields" layoutX="198.0" layoutY="407.0" visible="false">
          <Label text="Peso Máximo:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -86,7 +87,7 @@
       </VBox>
 
       <!-- Campos específicos para MOTO -->
-      <VBox fx:id="motoFields" layoutX="20.0" layoutY="250.0" visible="false">
+      <VBox fx:id="motoFields" layoutX="198.0" layoutY="407.0" visible="false">
          <Label fx:id="CilindrajeLabel" text="Cilindraje:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -96,7 +97,7 @@
       </VBox>
 
       <!-- Campos específicos para CARRO -->
-      <VBox fx:id="carroFields" layoutX="20.0" layoutY="250.0" visible="false">
+      <VBox fx:id="carroFields" layoutX="198.0" layoutY="407.0" visible="false">
          <Label fx:id="TipoCarroLabel" text="Tipo de carro:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -106,7 +107,7 @@
       </VBox>
 
       <!-- Campos específicos para ACUATICO -->
-      <VBox fx:id="acuaticoFields" layoutX="20.0" layoutY="250.0" visible="false">
+      <VBox fx:id="acuaticoFields" layoutX="198.0" layoutY="407.0" visible="false">
          <Label fx:id="TipoAcuaLabel" text="Tipo de acuático:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -116,7 +117,7 @@
       </VBox>
 
       <!-- Campos específicos para AEREO -->
-      <VBox fx:id="aereoFields" layoutX="20.0" layoutY="250.0" visible="false">
+      <VBox fx:id="aereoFields" layoutX="198.0" layoutY="407.0" visible="false">
          <Label fx:id="TipoAeroLabel" text="Tipo de aeronave:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -138,52 +139,61 @@
       </VBox>
 
       <!-- Botones de acción -->
-      <Button fx:id="guardarButton" layoutX="511.0" layoutY="357.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
+      <Button fx:id="guardarButton" layoutX="815.0" layoutY="612.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="volverButton" layoutX="14.0" layoutY="357.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
+      <Button fx:id="volverButton" layoutX="70.0" layoutY="624.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="94.0" layoutY="313.0" prefHeight="17.0" prefWidth="196.0" text="¿Su vehículo ha tenido algún accidente?">
+      <Label layoutX="228.0" layoutY="542.0" prefHeight="17.0" prefWidth="196.0" text="¿Su vehículo ha tenido algún accidente?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="addAccidente" layoutX="132.0" layoutY="334.0" mnemonicParsing="false" onAction="#getAgregarAccidente" prefHeight="25.0" prefWidth="121.0" text="Agregar Accidente">
+      <Button fx:id="addAccidente" layoutX="266.0" layoutY="569.0" mnemonicParsing="false" onAction="#getAgregarAccidente" prefHeight="25.0" prefWidth="121.0" text="Agregar Accidente">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="detIntBT" layoutX="236.0" layoutY="271.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
+      <Button fx:id="detIntBT" layoutX="425.0" layoutY="395.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="capacidadLabel" layoutX="437.0" layoutY="122.0" prefHeight="17.0" prefWidth="74.0" text="Capacidad:">
+      <Label fx:id="capacidadLabel" layoutX="640.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Capacidad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="DescripcionTF" layoutX="138.0" layoutY="211.0" onAction="#getDescripcion" prefHeight="25.0" prefWidth="121.0" />
-      <Label fx:id="marcaLabel" layoutX="385.0" layoutY="183.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
+      <TextField fx:id="DescripcionTF" layoutX="341.0" layoutY="328.0" onAction="#getDescripcion" prefHeight="25.0" prefWidth="121.0" />
+      <Label fx:id="marcaLabel" layoutX="588.0" layoutY="300.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="marcaTF" layoutX="348.0" layoutY="211.0" onAction="#getMarca" prefHeight="25.0" prefWidth="121.0" />
-      <Label layoutX="312.0" layoutY="313.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
+      <TextField fx:id="marcaTF" layoutX="551.0" layoutY="328.0" onAction="#getMarca" prefHeight="25.0" prefWidth="121.0" />
+      <Label layoutX="551.0" layoutY="532.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="addMantenimiento" layoutX="345.0" layoutY="334.0" mnemonicParsing="false" onAction="#getAgregarMantenimiento" prefHeight="25.0" prefWidth="155.0" text="Agregar Mantenimiento">
+      <Button fx:id="addMantenimiento" layoutX="587.0" layoutY="555.0" mnemonicParsing="false" onAction="#getAgregarMantenimiento" prefHeight="25.0" prefWidth="155.0" text="Agregar Mantenimiento">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <VBox fx:id="contenedorAccidentes" layoutX="150.0" layoutY="600.0" prefHeight="175.0" prefWidth="351.0">
+         <children>
+            <ScrollPane fx:id="scrollPaneAccidentes" prefHeight="175.0" prefWidth="311.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

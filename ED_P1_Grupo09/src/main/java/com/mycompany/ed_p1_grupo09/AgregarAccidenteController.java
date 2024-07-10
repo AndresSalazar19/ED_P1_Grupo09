@@ -96,7 +96,7 @@ public class AgregarAccidenteController implements Initializable {
             if (fechaAccidente != null && descripcionAccidente != null && !descripcionAccidente.isEmpty() &&
                 partesAfectadas != null && !partesAfectadas.isEmpty()) {
 
-                Accidente accidente = new Accidente(fechaAccidente, descripcionAccidente, partesAfectadas, listaMantenimiento);
+                Accidente accidente = new Accidente(1, descripcionAccidente,partesAfectadas ,fechaAccidente, listaMantenimiento);
                 vehiculo.getAccidentes().addFirst(accidente);
 
                 System.out.println("Accidente añadido: " + accidente);
