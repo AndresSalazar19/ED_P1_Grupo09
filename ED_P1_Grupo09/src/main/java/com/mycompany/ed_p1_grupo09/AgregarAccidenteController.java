@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 import modelo.*;
 import tda.*;
 
-public class AgregarAccidenteController {
+public class AgregarAccidenteController implements Initializable {
 
     @FXML
     private Label tituloLabel;
@@ -102,7 +102,8 @@ public class AgregarAccidenteController {
 
             AgregarMantenimientoController controller = loader.getController();
             controller.setController(mainController);
-
+            controller.setController(this);
+            controller.setAccidente(accidenteActual);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Agregar Proceso");
@@ -124,43 +125,45 @@ public class AgregarAccidenteController {
         descripcionAcciTF.setText(accidente.getDescripcion());
         partesAfectadasTF.setText(accidente.getParteAfectada());
         acciDP.setValue(accidente.getFechaAccidente());
+        mostrarProcesos();
     }
     
        public void mostrarProcesos() {
+        procesos = accidenteActual.getListaMantenimiento();
         contenedorProcesos.getChildren().clear();
 
         if (procesos.isEmpty()) {
-            Label noMantenimientosLabel = new Label("No hay mantenimientos.");
-            contenedorProcesos.getChildren().add(noMantenimientosLabel);
+            Label noProcesosLabel = new Label("No hay procesos.");
+            contenedorProcesos.getChildren().add(noProcesosLabel);
             return;
         }
 
         for (Mantenimiento proceso : procesos) {
-            HBox mantenimientoHbox = new HBox();
-            mantenimientoHbox.setSpacing(10);
-            mantenimientoHbox.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: gray;");
-            mantenimientoHbox.setAlignment(Pos.CENTER_LEFT);
+            HBox procesoHbox = new HBox();
+            procesoHbox.setSpacing(10);
+            procesoHbox.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: gray;");
+            procesoHbox.setAlignment(Pos.CENTER_LEFT);
 
-            VBox mantenimientoBox = new VBox();
-            mantenimientoBox.setSpacing(5);
+            VBox procesoBox = new VBox();
+            procesoBox.setSpacing(5);
 
             Label mantenimientoDescripcion = new Label("Descripción: " + proceso.getDescripcion());
-            Label mantenimientoTipoMantenimiento = new Label("Tipo de Mantenimiento: " + proceso.getTipoMantenimiento());
+            Label mantenimientoTipoMantenimiento = new Label("Tipo de Proceso: " + proceso.getTipoMantenimiento());
 
-            mantenimientoBox.getChildren().addAll(mantenimientoDescripcion, mantenimientoTipoMantenimiento);
+            procesoBox.getChildren().addAll(mantenimientoDescripcion, mantenimientoTipoMantenimiento);
 
-            Button editarMantenimientoBtn = new Button("Editar Mantenimiento");
-            editarMantenimientoBtn.setOnAction(event -> {
+            Button editarProcesoBtn = new Button("Editar Proceso");
+            editarProcesoBtn.setOnAction(event -> {
                 System.out.println("EDITARRRR");
             });
 
-            Button eliminarMantenimientoBtn = new Button("X");
-            eliminarMantenimientoBtn.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-            eliminarMantenimientoBtn.setOnAction(event -> {
+            Button eliminarProcesoBtn = new Button("X");
+            eliminarProcesoBtn.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            eliminarProcesoBtn.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmar Eliminación");
                 alert.setHeaderText(null);
-                alert.setContentText("¿Está seguro que desea eliminar este mantenimiento?");
+                alert.setContentText("¿Está seguro que desea eliminar este proceso?");
 
                 ButtonType buttonTypeYes = new ButtonType("Sí");
                 ButtonType buttonTypeNo = new ButtonType("No");
@@ -173,7 +176,7 @@ public class AgregarAccidenteController {
                 }
             });
 
-            HBox btnContainer = new HBox(editarMantenimientoBtn, eliminarMantenimientoBtn);
+            HBox btnContainer = new HBox(editarProcesoBtn, eliminarProcesoBtn);
             btnContainer.setAlignment(Pos.CENTER_RIGHT);
             btnContainer.setSpacing(10);
             btnContainer.setPrefWidth(200);
@@ -181,14 +184,28 @@ public class AgregarAccidenteController {
 
             HBox.setHgrow(btnContainer, Priority.ALWAYS);
 
-            mantenimientoHbox.getChildren().addAll(mantenimientoBox, btnContainer);
-            mantenimientoHbox.setAlignment(Pos.CENTER);
-            contenedorProcesos.getChildren().add(mantenimientoHbox);
+            procesoHbox.getChildren().addAll(procesoBox, btnContainer);
+            procesoHbox.setAlignment(Pos.CENTER);
+            contenedorProcesos.getChildren().add(procesoHbox);
         }
 
         scrollPaneProcesos.setContent(contenedorProcesos);
         scrollPaneProcesos.setFitToWidth(true);
         scrollPaneProcesos.setFitToHeight(true);
     }
+    
+    public void agregarProceso(Mantenimiento proceso) {
+        procesos.addFirst(proceso);
+        mostrarProcesos();
+    }
+           
+    public void actualizarProcesos() {
+        mostrarProcesos();
+    }
        
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("accidente");
+    }
+     
 }

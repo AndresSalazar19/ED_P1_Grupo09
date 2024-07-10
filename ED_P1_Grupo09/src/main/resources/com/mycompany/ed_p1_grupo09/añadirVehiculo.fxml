@@ -71,7 +71,7 @@
       <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="261.0" onAction="#getCapacidad" />
 
       <!-- Campos específicos para PESADO -->
-      <VBox fx:id="pesadoFields" layoutX="198.0" layoutY="407.0" visible="false">
+      <VBox fx:id="pesadoFields" layoutX="177.0" layoutY="366.0" visible="false">
          <Label text="Peso Máximo:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -87,7 +87,7 @@
       </VBox>
 
       <!-- Campos específicos para MOTO -->
-      <VBox fx:id="motoFields" layoutX="198.0" layoutY="407.0" visible="false">
+      <VBox fx:id="motoFields" layoutX="177.0" layoutY="366.0" visible="false">
          <Label fx:id="CilindrajeLabel" text="Cilindraje:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -97,7 +97,7 @@
       </VBox>
 
       <!-- Campos específicos para CARRO -->
-      <VBox fx:id="carroFields" layoutX="198.0" layoutY="407.0" visible="false">
+      <VBox fx:id="carroFields" layoutX="177.0" layoutY="366.0" visible="false">
          <Label fx:id="TipoCarroLabel" text="Tipo de carro:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -107,7 +107,7 @@
       </VBox>
 
       <!-- Campos específicos para ACUATICO -->
-      <VBox fx:id="acuaticoFields" layoutX="198.0" layoutY="407.0" visible="false">
+      <VBox fx:id="acuaticoFields" layoutX="177.0" layoutY="366.0" visible="false">
          <Label fx:id="TipoAcuaLabel" text="Tipo de acuático:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -117,7 +117,7 @@
       </VBox>
 
       <!-- Campos específicos para AEREO -->
-      <VBox fx:id="aereoFields" layoutX="198.0" layoutY="407.0" visible="false">
+      <VBox fx:id="aereoFields" layoutX="177.0" layoutY="366.0" visible="false">
          <Label fx:id="TipoAeroLabel" text="Tipo de aeronave:">
             <font>
                <Font name="System Bold" size="12.0" />

@@ -121,7 +121,7 @@ public class AñadirVehiculoController implements Initializable {
     private Usuario vendedor;
     private boolean negociable;
     private TipoVehiculo tipoVehiculo;
-
+    
     LinkedList<Mantenimiento> mantenimientos = new LinkedList<>();
 
 
@@ -280,20 +280,6 @@ public class AñadirVehiculoController implements Initializable {
     }
 
     @FXML
-    private void abrirProcesosPopup() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("procesos.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Procesos");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-        } catch (IOException e) {
-        }
-    }
-
-    @FXML
     private void añadirAccidente() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("agregarAccidente.fxml"));
@@ -341,6 +327,10 @@ public class AñadirVehiculoController implements Initializable {
 
     public void agregarMantenimiento(Mantenimiento mantenimiento) {
             mantenimientos.addFirst(mantenimiento);
+    }
+    
+    public void agregarAccidente(Accidente accidente) {
+            accidentes.addFirst(accidente);
     }
 
     @FXML
@@ -464,8 +454,9 @@ public class AñadirVehiculoController implements Initializable {
             Label accidenteDescripcion = new Label("Descripción: " + accidente.getDescripcion());
             Label accidenteParteAfectada = new Label("Parte Afectada: " + accidente.getParteAfectada());
             Label accidenteFecha = new Label("Fecha: " + accidente.getFechaAccidente());
+            Label numProcesos = new Label("Número de Procesos: " + accidente.getListaMantenimiento().size());
 
-            accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha);
+            accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha,numProcesos);
 
             Button editarAccidenteBtn = new Button("Editar Accidente");
             editarAccidenteBtn.setOnAction(event -> {
@@ -532,10 +523,6 @@ public class AñadirVehiculoController implements Initializable {
         mostrarAccidentes();
     }
 
-    public void agregarAccidente(Accidente accidente) {
-        accidentes.addFirst(accidente);
-        mostrarAccidentes();
-    }
     
     private void mostrarMantenimientos() {
         contenedorMantenimientos.getChildren().clear();
@@ -631,7 +618,7 @@ public class AñadirVehiculoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         accidentes = new LinkedList<>();
-        
+        mantenimientos.addFirst(new Mantenimiento("Descripcion","ParteWWWaFec"));
         Accidente acci = new Accidente(1,"des","parteafec",LocalDate.of(2024, 7, 9), mantenimientos);
         accidentes.addFirst(acci);
                 
