@@ -108,7 +108,7 @@ public class VehiculoManager {
                 return new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad, vendedor, detallesInt, negociable,mantenimientos, tipoVehiculo, tipocarro);
             case MOTO:
                 int cilindraje = Integer.parseInt(linea[16]);
-                return new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad,detallesInt,vendedor, negociable,mantenimientos,tipoVehiculo, cilindraje);
+                return new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, id, capacidad,vendedor,detallesInt, negociable,mantenimientos,tipoVehiculo, cilindraje);
             case PESADO:
                 double pesoMax = Double.parseDouble(linea[16]);
                 double pesoMin = Double.parseDouble(linea[17]);

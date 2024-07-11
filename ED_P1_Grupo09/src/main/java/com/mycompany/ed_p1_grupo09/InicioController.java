@@ -123,7 +123,7 @@ public class InicioController {
     }
     
     @FXML private void añadirVehiculos() throws IOException {
-        System.out.println("Añadir VEHICULOSSSS");
+        App.setRoot("añadirVehiculo");
     }
     
     @FXML private void registrarse() throws IOException {
