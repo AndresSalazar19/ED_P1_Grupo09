@@ -27,6 +27,7 @@
     import javafx.scene.control.CheckBox;
     import javafx.scene.control.Label;
     import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
     import javafx.scene.layout.HBox;
     import javafx.scene.layout.Priority;
     import javafx.stage.Modality;
@@ -115,7 +116,11 @@ public class AñadirVehiculoController implements Initializable {
     private Label climatizadoLabel;
     @FXML
     private Label tipoMotorLabel;
-          
+    @FXML
+    private VBox imagenesVBox;
+    @FXML
+    private ScrollPane imagenesScrollPane;     
+    
     private Usuario usuario;
 
     private int kilometraje;
@@ -168,10 +173,51 @@ public class AñadirVehiculoController implements Initializable {
                 Image image = new Image(file.toURI().toString());
                 imagenes.addLast(image);
                 System.out.println("Imagen añadida: " + file.getName());
+                mostrarImagenes(); // Llamar a mostrarImagenes después de agregar una imagen
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
+
+    private void mostrarImagenes() {
+        imagenesVBox.getChildren().clear(); // Limpiar el VBox antes de agregar las imágenes
+
+        for (int i = 0; i < imagenes.size(); i++) {
+            Image image = imagenes.get(i);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100); // Ajusta el tamaño según sea necesario
+            imageView.setFitHeight(100);
+
+            Button eliminarButton = new Button("Eliminar");
+            int index = i;
+            eliminarButton.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmar Eliminación");
+                alert.setHeaderText(null);
+                alert.setContentText("¿Está seguro que desea eliminar esta imagen?");
+
+                ButtonType buttonTypeYes = new ButtonType("Sí");
+                ButtonType buttonTypeNo = new ButtonType("No");
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == buttonTypeYes) {
+                    imagenes.remove(index);
+                    mostrarImagenes();
+                }
+            });
+
+            HBox imageContainer = new HBox(10, imageView, eliminarButton); // Agrega un espacio entre la imagen y el botón
+            imageContainer.setAlignment(Pos.CENTER_LEFT);
+            imagenesVBox.getChildren().add(imageContainer);
+        }
+
+        imagenesScrollPane.setContent(imagenesVBox); // Establece el contenido del ScrollPane
+        imagenesScrollPane.setFitToWidth(true); // Ajusta el ScrollPane para que se ajuste al ancho del VBox
+    }
+
+
 
     @FXML
     private void getDetInternos() {
@@ -239,65 +285,98 @@ public class AñadirVehiculoController implements Initializable {
 
     @FXML
     private void guardarDetallesVehi() {
-        System.out.println(accidentes);
-        System.out.println(mantenimientos);
-        System.out.println(detallesInt);
-        /*
-    }
-        try {
-            // Obtener valores de los campos FXML
-            kilometraje = Integer.parseInt(kmTF.getText());
-            modelo = modeloTF.getText();
-            ciudad = ciudadTF.getText();
-            precio = Double.parseDouble(precioTF.getText());
-            year = Integer.parseInt(añoTF.getText());
-            capacidad = Integer.parseInt(capacidadTF.getText());
-            negociable = negociableCB.isSelected();
-            descripcion = DescripcionTF.getText();
-            marca = marcaTF.getText();
-            estado = EstadoCBox.getValue();
+        // Verificar que todos los campos requeridos estén completos
+        if (kmTF.getText().isEmpty() || modeloTF.getText().isEmpty() || ciudadTF.getText().isEmpty() || 
+            precioTF.getText().isEmpty() || añoTF.getText().isEmpty() || capacidadTF.getText().isEmpty() || 
+            DescripcionTF.getText().isEmpty() || marcaTF.getText().isEmpty() || EstadoCBox.getValue() == null || 
+            tipoVehiCBox.getValue() == null || (tipoVehiCBox.getValue() == TipoVehiculo.CARRO && tipoCarroCBox.getValue() == null) || 
+            (tipoVehiCBox.getValue() == TipoVehiculo.PESADO && (pesoMaxTF.getText().isEmpty() || pesoMinTF.getText().isEmpty())) ||
+            (tipoVehiCBox.getValue() == TipoVehiculo.MOTO && cilindrajeTF.getText().isEmpty()) || 
+            (tipoVehiCBox.getValue() == TipoVehiculo.ACUATICO && tipoAcuaticoTF.getText().isEmpty()) || 
+            (tipoVehiCBox.getValue() == TipoVehiculo.AEREO && (tipoAeronaveTF.getText().isEmpty() || pesoMaxDespegueTF.getText().isEmpty() || rangoVueloTF.getText().isEmpty())) || 
+            imagenes.isEmpty() || detallesInt == null) {
 
-            // Inicializar el vehículo nuevo
-            Vehiculo vehiculoNuevo = null;
-            TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Todos los campos deben estar llenos y debe haber al menos una imagen.");
+            alert.showAndWait();
+            return;
+        }
 
-            // Crear el vehículo basado en el tipo seleccionado
-            switch (tipoSeleccionado) {
-                case PESADO:
-                    double pesoMax = Double.parseDouble(pesoMaxTF.getText());
-                    double pesoMin = Double.parseDouble(pesoMinTF.getText());
-                    vehiculoNuevo = new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, pesoMax, pesoMin);
-                    break;
-                case CARRO:
-                    TipoCarro tipoCarro = TipoCarro.valueOf(tipoCarroTF.getText());
-                    vehiculoNuevo = new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoCarro);
-                    break;
-                case ACUATICO:
-                    String tipoAcuatico = tipoAcuaticoTF.getText();
-                    vehiculoNuevo = new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAcuatico);
-                    break;
-                case AEREO:
-                    String tipoAeronave = tipoAeronaveTF.getText();
-                    double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
-                    int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
-                    vehiculoNuevo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
-                    break;
-                case MOTO:
-                    int cilindraje = Integer.parseInt(cilindrajeTF.getText());
-                    vehiculoNuevo = new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, cilindraje);
-                    break;
-            }
+        // Confirmar guardado
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Guardado");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea guardar este vehículo?");
 
-            // Aquí puedes agregar la lógica para guardar `vehiculoNuevo` en donde necesites, por ejemplo en una base de datos o una lista.
-        } catch (NumberFormatException e) {
-            // Manejar errores de formato de número
-            e.printStackTrace();
-        } catch (Exception e) {
+        ButtonType buttonTypeYes = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            try {
+                // Obtener valores de los campos FXML
+                kilometraje = Integer.parseInt(kmTF.getText());
+                modelo = modeloTF.getText();
+                ciudad = ciudadTF.getText();
+                precio = Double.parseDouble(precioTF.getText());
+                year = Integer.parseInt(añoTF.getText());
+                capacidad = Integer.parseInt(capacidadTF.getText());
+                negociable = negociableCB.isSelected();
+                descripcion = DescripcionTF.getText();
+                marca = marcaTF.getText();
+                estado = EstadoCBox.getValue();
+
+                // Inicializar el vehículo nuevo
+                Vehiculo vehiculoNuevo = null;
+                TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
+
+                // Crear el vehículo basado en el tipo seleccionado
+                switch (tipoSeleccionado) {
+                    case PESADO:
+                        double pesoMax = Double.parseDouble(pesoMaxTF.getText());
+                        double pesoMin = Double.parseDouble(pesoMinTF.getText());
+                        vehiculoNuevo = new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, pesoMax, pesoMin);
+                        break;
+                    case CARRO:
+                        TipoCarro tipoCarro = tipoCarroCBox.getValue();
+                        vehiculoNuevo = new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoCarro);
+                        break;
+                    case ACUATICO:
+                        String tipoAcuatico = tipoAcuaticoTF.getText();
+                        vehiculoNuevo = new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAcuatico);
+                        break;
+                    case AEREO:
+                        String tipoAeronave = tipoAeronaveTF.getText();
+                        double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
+                        int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
+                        vehiculoNuevo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
+                        break;
+                    case MOTO:
+                        int cilindraje = Integer.parseInt(cilindrajeTF.getText());
+                        vehiculoNuevo = new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, cilindraje);
+                        break;
+                }
+
+                // Aquí puedes agregar la lógica para guardar `vehiculoNuevo` en donde necesites, por ejemplo en una base de datos o una lista.
+                System.out.println("Vehículo guardado: " + vehiculoNuevo);
+            } catch (NumberFormatException e) {
+                // Manejar errores de formato de número
+                Alert alertNumFormat = new Alert(Alert.AlertType.ERROR);
+                alertNumFormat.setTitle("Error de Formato de Número");
+                alertNumFormat.setHeaderText(null);
+                alertNumFormat.setContentText("Por favor, asegúrese de que todos los campos numéricos tengan valores válidos.");
+                alertNumFormat.showAndWait();
+            } catch (Exception e) {
                 // Manejar otros errores
                 e.printStackTrace();
             }
-        */
         }
+    }
+
+
 
         @FXML
         private void abrirAgregarAccidentePopup() {
@@ -585,6 +664,7 @@ public class AñadirVehiculoController implements Initializable {
 
             mostrarAccidentes();
             mostrarMantenimientos();
+            mostrarImagenes();
             
             if(detallesInt == null){
                 traccionLabel.setVisible(false);
