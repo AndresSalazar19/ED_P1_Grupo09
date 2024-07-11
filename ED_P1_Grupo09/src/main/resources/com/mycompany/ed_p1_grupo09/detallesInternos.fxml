@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="605.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.ed_p1_grupo09.DetallesInternosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="605.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.DetallesInternosController">
     <stylesheets>
         <URL value="@/styles/detallesinternos.css" />
     </stylesheets>
@@ -34,8 +34,8 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <CheckBox fx:id="ClimatizadoCB" layoutX="446.0" layoutY="252.0" mnemonicParsing="false" onAction="#isClimatizado" text="¿Es climatizado?" />
-      <ComboBox fx:id="TipoCombustibleCOMB" layoutX="222.0" layoutY="248.0" onAction="#selectTipoCombustible" prefHeight="25.0" prefWidth="158.0" promptText="Tipo de combustible" />
+      <CheckBox fx:id="ClimatizadoCB" layoutX="446.0" layoutY="252.0" mnemonicParsing="false" text="¿Es climatizado?" />
+      <ComboBox fx:id="TipoCombustibleCOMB" layoutX="222.0" layoutY="248.0" prefHeight="25.0" prefWidth="158.0" promptText="Tipo de combustible" />
       <Button fx:id="volverB" layoutX="43.0" layoutY="329.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
          <font>
             <Font name="System Bold Italic" size="12.0" />
@@ -46,14 +46,14 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="TraccionTF" layoutX="21.0" layoutY="143.0" onAction="#getTraccion" />
-      <TextField fx:id="TransmisionTF" layoutX="226.0" layoutY="143.0" onAction="#getTransmision" />
-      <TextField fx:id="PlacaTF" layoutX="437.0" layoutY="143.0" onAction="#getPlaca" />
+      <TextField fx:id="TraccionTF" layoutX="21.0" layoutY="143.0" />
+      <TextField fx:id="TransmisionTF" layoutX="226.0" layoutY="143.0" />
+      <TextField fx:id="PlacaTF" layoutX="437.0" layoutY="143.0" />
       <Label fx:id="TipoMotorLabel" layoutX="22.0" layoutY="212.0" text="Tipo de motor:">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="TipoMotorTF" layoutX="21.0" layoutY="251.0" onAction="#getTipoMotor" />
+      <TextField fx:id="TipoMotorTF" layoutX="21.0" layoutY="251.0" />
    </children>
 </AnchorPane>

@@ -50,6 +50,8 @@ public class AñadirVehiculoController implements Initializable {
     @FXML
     private ComboBox<TipoVehiculo> tipoVehiCBox;
     @FXML
+    private ComboBox<TipoCarro> tipoCarroCBox;
+    @FXML
     private VBox motoFields;  
     @FXML
     private TextField cilindrajeTF;
@@ -61,8 +63,6 @@ public class AñadirVehiculoController implements Initializable {
     private TextField pesoMinTF;
     @FXML
     private VBox carroFields;
-    @FXML
-    private TextField tipoCarroTF;
     @FXML
     private VBox acuaticoFields;
     @FXML
@@ -103,7 +103,19 @@ public class AñadirVehiculoController implements Initializable {
     private VBox contenedorMantenimientos;
     @FXML
     private ScrollPane scrollPaneMantenimientos;
-
+    @FXML
+    private Label traccionLabel;
+    @FXML
+    private Label transmisionLabel;
+    @FXML
+    private Label combustibleLabel;
+    @FXML
+    private Label placaLabel;
+    @FXML
+    private Label climatizadoLabel;
+    @FXML
+    private Label tipoMotorLabel;
+          
     private Usuario usuario;
 
     private int kilometraje;
@@ -135,6 +147,13 @@ public class AñadirVehiculoController implements Initializable {
         updateFieldsVisibility();
         System.out.println("Tipo de Vehículo seleccionado: " + tipoSeleccionado);
     }
+    
+    @FXML
+    private void selectTipoCarro() {
+    // Implementa la lógica que desees para cuando se seleccione el tipo de carro
+    System.out.println("Tipo de carro seleccionado: " + tipoCarroCBox.getValue());
+}
+
 
 
     @FXML
@@ -162,6 +181,10 @@ public class AñadirVehiculoController implements Initializable {
 
             DetallesInternosController controller = loader.getController();
             controller.setMainController(this);
+
+            if (detallesInt != null) {
+                controller.setDetalles(detallesInt);
+            }
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -218,6 +241,7 @@ public class AñadirVehiculoController implements Initializable {
     private void guardarDetallesVehi() {
         System.out.println(accidentes);
         System.out.println(mantenimientos);
+        System.out.println(detallesInt);
         /*
     }
         try {
@@ -528,12 +552,32 @@ public class AñadirVehiculoController implements Initializable {
         public void actualizarMantenimiento() {
             mostrarMantenimientos();
         }
-
+        public void mostrarDetallesInt(){
+            traccionLabel.setVisible(true);
+            transmisionLabel.setVisible(true);
+            combustibleLabel.setVisible(true);
+            placaLabel.setVisible(true);
+            climatizadoLabel.setVisible(true);
+            tipoMotorLabel.setVisible(true);
+            
+            traccionLabel.setText("Tracción: " + detallesInt.getTraccion());
+            transmisionLabel.setText("Transmisión: " + detallesInt.getTransmision());
+            combustibleLabel.setText("Combustible" + String.valueOf(detallesInt.getCombustible()));
+            placaLabel.setText("Placa" + detallesInt.getPlaca());
+            if(detallesInt.isClimatizado()){
+                climatizadoLabel.setText("Climatizado");
+            } else{
+                climatizadoLabel.setText("No Climatizado");
+            }
+            tipoMotorLabel.setText("Tipo Motor: " + detallesInt.getTipoMotor());
+        }
+        
         @Override
         public void initialize(URL url, ResourceBundle rb) {
             imagenes = new CircularDoublyLinkedList<>();
 
             tipoVehiCBox.getItems().addAll(TipoVehiculo.values());
+            tipoCarroCBox.getItems().addAll(TipoCarro.values());
             tipoVehiCBox.setOnAction(e -> updateFieldsVisibility());
 
             // Inicializar el ComboBox con los valores del enum Estado
@@ -541,6 +585,17 @@ public class AñadirVehiculoController implements Initializable {
 
             mostrarAccidentes();
             mostrarMantenimientos();
+            
+            if(detallesInt == null){
+                traccionLabel.setVisible(false);
+                transmisionLabel.setVisible(false);
+                combustibleLabel.setVisible(false);
+                placaLabel.setVisible(false);
+                climatizadoLabel.setVisible(false);
+                tipoMotorLabel.setVisible(false);
+            } else{
+                mostrarDetallesInt();
+            }
         }
     }
 

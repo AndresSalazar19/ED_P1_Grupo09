@@ -14,7 +14,11 @@ import javafx.stage.Stage;
 import modelo.TipoCombustible;
 
 import java.net.URL;
-import java.util.ResourceBundle;import modelo.DetallesVehiInt;
+import java.util.Optional;
+import java.util.ResourceBundle;import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import modelo.DetallesVehiInt;
 ;
 
 /**
@@ -42,6 +46,7 @@ public class DetallesInternosController implements Initializable {
     private TextField TipoMotorTF;
 
     private AñadirVehiculoController mainController;
+    private DetallesVehiInt detalles;
 
     public void setMainController(AñadirVehiculoController mainController) {
         this.mainController = mainController;
@@ -53,7 +58,17 @@ public class DetallesInternosController implements Initializable {
         TipoCombustibleCOMB.getItems().addAll(TipoCombustible.values());
     }
 
-   @FXML
+    public void setDetalles(DetallesVehiInt detalles) {
+        this.detalles = detalles;
+        TraccionTF.setText(detalles.getTraccion());
+        TransmisionTF.setText(detalles.getTransmision());
+        PlacaTF.setText(detalles.getPlaca());
+        TipoCombustibleCOMB.setValue(detalles.getCombustible());
+        ClimatizadoCB.setSelected(detalles.isClimatizado());
+        TipoMotorTF.setText(detalles.getTipoMotor());
+    }
+
+    @FXML
     private void guardarDetallesInt() {
         String traccion = TraccionTF.getText();
         String transmision = TransmisionTF.getText();
@@ -62,15 +77,48 @@ public class DetallesInternosController implements Initializable {
         boolean climatizado = ClimatizadoCB.isSelected();
         String tipoMotor = TipoMotorTF.getText();
 
-        DetallesVehiInt detalles = new DetallesVehiInt(traccion, transmision, tipoCombustible, placa, climatizado, tipoMotor);
-
-        if (mainController != null) {
-            mainController.setDetallesInternos(detalles);
+        // Verificar que todos los campos estén llenos
+        if (traccion.isEmpty() || transmision.isEmpty() || placa.isEmpty() || tipoCombustible == null || tipoMotor.isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Todos los campos deben estar llenos.");
+            alert.showAndWait();
+            return;
         }
 
-        Stage stage = (Stage) guardarB.getScene().getWindow();
-        stage.close();
+        // Mostrar diálogo de confirmación
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Guardado");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea guardar estos detalles?");
+
+        ButtonType buttonTypeYes = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            if (detalles == null) {
+                detalles = new DetallesVehiInt(traccion, transmision, tipoCombustible, placa, climatizado, tipoMotor);
+            } else {
+                detalles.setTraccion(traccion);
+                detalles.setTransmision(transmision);
+                detalles.setCombustible(tipoCombustible);
+                detalles.setPlaca(placa);
+                detalles.setClimatizado(climatizado);
+                detalles.setTipoMotor(tipoMotor);
+            }
+
+            if (mainController != null) {
+                mainController.setDetallesInternos(detalles);
+            }
+            mainController.mostrarDetallesInt();
+            Stage stage = (Stage) guardarB.getScene().getWindow();
+            stage.close();
+        }
     }
+
     @FXML
     private void volver() {
         Stage stage = (Stage) volverB.getScene().getWindow();

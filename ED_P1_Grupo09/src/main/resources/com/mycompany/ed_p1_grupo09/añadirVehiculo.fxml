@@ -33,45 +33,45 @@
       </Pane>
       
       <!-- Campos comunes -->
-      <Label fx:id="kmLabel" layoutX="223.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Kilometraje:">
+      <Label fx:id="kmLabel" layoutX="223.0" layoutY="146.0" prefHeight="17.0" prefWidth="74.0" text="Kilometraje:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="kmTF" layoutX="223.0" layoutY="195.0" />
-      <Label fx:id="modeloLabel" layoutX="425.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Modelo:">
+      <TextField fx:id="kmTF" layoutX="223.0" layoutY="172.0" />
+      <Label fx:id="modeloLabel" layoutX="425.0" layoutY="146.0" prefHeight="17.0" prefWidth="74.0" text="Modelo:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="modeloTF" layoutX="425.0" layoutY="195.0" />
-      <Label fx:id="ciudadLabel" layoutX="640.0" layoutY="169.0" prefHeight="17.0" prefWidth="74.0" text="Ciudad:">
+      <TextField fx:id="modeloTF" layoutX="425.0" layoutY="172.0" />
+      <Label fx:id="ciudadLabel" layoutX="640.0" layoutY="146.0" prefHeight="17.0" prefWidth="74.0" text="Ciudad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="ciudadTF" layoutX="640.0" layoutY="195.0" />
-      <Label fx:id="precioLabel" layoutX="223.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Precio:">
+      <TextField fx:id="ciudadTF" layoutX="640.0" layoutY="172.0" />
+      <Label fx:id="precioLabel" layoutX="223.0" layoutY="216.0" prefHeight="17.0" prefWidth="74.0" text="Precio:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="precioTF" layoutX="223.0" layoutY="261.0" />
+      <TextField fx:id="precioTF" layoutX="223.0" layoutY="238.0" />
       <Label fx:id="añoLabel" layoutX="425.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Año:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="añoTF" layoutX="425.0" layoutY="261.0" />
-      <Label fx:id="DescripcionLabel" layoutX="366.0" layoutY="300.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
+      <TextField fx:id="añoTF" layoutX="425.0" layoutY="238.0" />
+      <Label fx:id="DescripcionLabel" layoutX="366.0" layoutY="277.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="261.0" />
+      <TextField fx:id="capacidadTF" layoutX="640.0" layoutY="238.0" />
 
       <!-- Campos específicos para PESADO -->
-      <VBox fx:id="pesadoFields" layoutX="177.0" layoutY="366.0" visible="false">
+      <VBox fx:id="pesadoFields" layoutX="134.0" layoutY="359.0" visible="false">
          <Label text="Peso Máximo:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -87,7 +87,7 @@
       </VBox>
 
       <!-- Campos específicos para MOTO -->
-      <VBox fx:id="motoFields" layoutX="177.0" layoutY="366.0" visible="false">
+      <VBox fx:id="motoFields" layoutX="134.0" layoutY="359.0" visible="false">
          <Label fx:id="CilindrajeLabel" text="Cilindraje:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -97,17 +97,17 @@
       </VBox>
 
       <!-- Campos específicos para CARRO -->
-      <VBox fx:id="carroFields" layoutX="177.0" layoutY="366.0" visible="false">
-         <Label fx:id="TipoCarroLabel" text="Tipo de carro:">
+      <VBox fx:id="carroFields" layoutX="134.0" layoutY="359.0" visible="false">
+         <Label fx:id="TipoCarroLabel" prefHeight="17.0" prefWidth="132.0" text="Tipo de carro:">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
          </Label>
-         <TextField fx:id="tipoCarroTF" />
+         <ComboBox fx:id="tipoCarroCBox" onAction="#selectTipoCarro" prefHeight="25.0" prefWidth="133.0" promptText="Tipo" />
       </VBox>
 
       <!-- Campos específicos para ACUATICO -->
-      <VBox fx:id="acuaticoFields" layoutX="177.0" layoutY="366.0" visible="false">
+      <VBox fx:id="acuaticoFields" layoutX="134.0" layoutY="359.0" visible="false">
          <Label fx:id="TipoAcuaLabel" text="Tipo de acuático:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -117,7 +117,7 @@
       </VBox>
 
       <!-- Campos específicos para AEREO -->
-      <VBox fx:id="aereoFields" layoutX="177.0" layoutY="366.0" visible="false">
+      <VBox fx:id="aereoFields" layoutX="134.0" layoutY="359.0" visible="false">
          <Label fx:id="TipoAeroLabel" text="Tipo de aeronave:">
             <font>
                <Font name="System Bold" size="12.0" />
@@ -159,23 +159,23 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="detIntBT" layoutX="425.0" layoutY="375.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
+      <Button fx:id="detIntBT" layoutX="425.0" layoutY="341.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="capacidadLabel" layoutX="640.0" layoutY="239.0" prefHeight="17.0" prefWidth="74.0" text="Capacidad:">
+      <Label fx:id="capacidadLabel" layoutX="640.0" layoutY="216.0" prefHeight="17.0" prefWidth="74.0" text="Capacidad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="DescripcionTF" layoutX="341.0" layoutY="328.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label fx:id="marcaLabel" layoutX="588.0" layoutY="300.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
+      <TextField fx:id="DescripcionTF" layoutX="341.0" layoutY="305.0" prefHeight="25.0" prefWidth="121.0" />
+      <Label fx:id="marcaLabel" layoutX="588.0" layoutY="277.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="marcaTF" layoutX="551.0" layoutY="328.0" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="marcaTF" layoutX="551.0" layoutY="305.0" prefHeight="25.0" prefWidth="121.0" />
       <Label layoutX="604.0" layoutY="531.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
@@ -190,7 +190,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <VBox fx:id="contenedorAccidentes" layoutX="-9.0" prefHeight="175.0" prefWidth="450.0" />
+                  <VBox fx:id="contenedorAccidentes" layoutX="12.0" prefHeight="175.0" prefWidth="429.0" />
                </children>
             </AnchorPane>
         </content>
@@ -204,5 +204,11 @@
             </AnchorPane>
          </content>
       </ScrollPane>
+      <Label fx:id="traccionLabel" layoutX="322.0" layoutY="380.0" prefHeight="17.0" prefWidth="208.0" text="Tracción" />
+      <Label fx:id="transmisionLabel" layoutX="322.0" layoutY="413.0" prefHeight="17.0" prefWidth="208.0" text="Transmisión" />
+      <Label fx:id="combustibleLabel" layoutX="322.0" layoutY="442.0" prefHeight="17.0" prefWidth="196.0" text="Combustible" />
+      <Label fx:id="placaLabel" layoutX="537.0" layoutY="380.0" prefHeight="17.0" prefWidth="155.0" text="Placa" />
+      <Label fx:id="climatizadoLabel" layoutX="537.0" layoutY="405.0" prefHeight="17.0" prefWidth="149.0" text="Climatizado" />
+      <Label fx:id="tipoMotorLabel" layoutX="537.0" layoutY="434.0" prefHeight="17.0" prefWidth="130.0" text="TipoMotor" />
    </children>
 </AnchorPane>
