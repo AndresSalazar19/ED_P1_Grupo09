@@ -69,7 +69,7 @@ public class Accidente {
                 ", descripcion='" + descripcion + '\'' +
                 ", parteafec='" + parteafec + '\'' +
                 ", accifecha='" + accifecha + '\'' +
-                ", listaMantenimiento=" + listaMantenimiento +
+                ", listaProcesos=" + listaMantenimiento +
                 '}';
     }   
 

@@ -115,15 +115,14 @@ public class AñadirVehiculoController implements Initializable {
     private double precio;
     private int year;
     private CircularDoublyLinkedList<Image> imagenes;
-    private LinkedList<Accidente> accidentes;
     private int capacidad;
     private DetallesVehiInt detallesInt;
     private Usuario vendedor;
     private boolean negociable;
     private TipoVehiculo tipoVehiculo;
 
-    private LinkedList<Mantenimiento> mantenimientosVehiculo = new LinkedList<>();
-
+    private LinkedList<Mantenimiento> mantenimientos = new LinkedList<>();
+    private LinkedList<Accidente> accidentes = new LinkedList<>();
 
     // Método para establecer el usuario autenticado
     public void setUsuario(Usuario usuario) {
@@ -217,6 +216,10 @@ public class AñadirVehiculoController implements Initializable {
 
     @FXML
     private void guardarDetallesVehi() {
+        System.out.println(accidentes);
+        System.out.println(mantenimientos);
+        /*
+    }
         try {
             // Obtener valores de los campos FXML
             kilometraje = Integer.parseInt(kmTF.getText());
@@ -239,25 +242,25 @@ public class AñadirVehiculoController implements Initializable {
                 case PESADO:
                     double pesoMax = Double.parseDouble(pesoMaxTF.getText());
                     double pesoMin = Double.parseDouble(pesoMinTF.getText());
-                    vehiculoNuevo = new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientosVehiculo, tipoVehiculo, pesoMax, pesoMin);
+                    vehiculoNuevo = new Pesado(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, pesoMax, pesoMin);
                     break;
                 case CARRO:
                     TipoCarro tipoCarro = TipoCarro.valueOf(tipoCarroTF.getText());
-                    vehiculoNuevo = new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientosVehiculo, tipoVehiculo, tipoCarro);
+                    vehiculoNuevo = new Carro(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoCarro);
                     break;
                 case ACUATICO:
                     String tipoAcuatico = tipoAcuaticoTF.getText();
-                    vehiculoNuevo = new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientosVehiculo, tipoVehiculo, tipoAcuatico);
+                    vehiculoNuevo = new Acuatico(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAcuatico);
                     break;
                 case AEREO:
                     String tipoAeronave = tipoAeronaveTF.getText();
                     double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
                     int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
-                    vehiculoNuevo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientosVehiculo, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
+                    vehiculoNuevo = new Aereo(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, tipoAeronave, pesoMaximoDespegue, rangoVuelo);
                     break;
                 case MOTO:
                     int cilindraje = Integer.parseInt(cilindrajeTF.getText());
-                    vehiculoNuevo = new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientosVehiculo, tipoVehiculo, cilindraje);
+                    vehiculoNuevo = new Moto(kilometraje, modelo, descripcion, marca, estado, ciudad, precio, year, imagenes, accidentes, 1, capacidad, vendedor, detallesInt, negociable, mantenimientos, tipoVehiculo, cilindraje);
                     break;
             }
 
@@ -269,6 +272,7 @@ public class AñadirVehiculoController implements Initializable {
                 // Manejar otros errores
                 e.printStackTrace();
             }
+        */
         }
 
         @FXML
@@ -327,7 +331,7 @@ public class AñadirVehiculoController implements Initializable {
         }
 
         public void agregarMantenimiento(Mantenimiento mantenimiento) {
-            mantenimientosVehiculo.addFirst(mantenimiento);
+            mantenimientos.addFirst(mantenimiento);
             mostrarMantenimientos();
         }
 
@@ -440,13 +444,13 @@ public class AñadirVehiculoController implements Initializable {
         private void mostrarMantenimientos() {
             contenedorMantenimientos.getChildren().clear();
 
-            if (mantenimientosVehiculo.isEmpty()) {
+            if (mantenimientos.isEmpty()) {
                 Label noMantenimientosLabel = new Label("No hay mantenimientos.");
                 contenedorMantenimientos.getChildren().add(noMantenimientosLabel);
                 return;
             }
 
-            for (Mantenimiento mantenimiento : mantenimientosVehiculo) {
+            for (Mantenimiento mantenimiento : mantenimientos) {
                 HBox mantenimientoHbox = new HBox();
                 mantenimientoHbox.setSpacing(10);
                 mantenimientoHbox.setStyle("-fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: gray;");
@@ -479,7 +483,7 @@ public class AñadirVehiculoController implements Initializable {
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == buttonTypeYes) {
-                        mantenimientosVehiculo.remove(mantenimiento);
+                        mantenimientos.remove(mantenimiento);
                         mostrarMantenimientos();
                     }
                 });
@@ -527,7 +531,6 @@ public class AñadirVehiculoController implements Initializable {
 
         @Override
         public void initialize(URL url, ResourceBundle rb) {
-            accidentes = new LinkedList<>();
             imagenes = new CircularDoublyLinkedList<>();
 
             tipoVehiCBox.getItems().addAll(TipoVehiculo.values());

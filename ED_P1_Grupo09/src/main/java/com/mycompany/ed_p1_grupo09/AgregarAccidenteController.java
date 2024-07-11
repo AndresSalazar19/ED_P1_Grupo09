@@ -71,15 +71,15 @@ public class AgregarAccidenteController implements Initializable {
             String descripcion = descripcionAcciTF.getText();
             String parteAfectada = partesAfectadasTF.getText();
             LocalDate fechaAccidente = acciDP.getValue();
-
+            
             if (accidenteActual == null) {
-                Accidente nuevoAccidente = new Accidente(1, descripcion, parteAfectada, fechaAccidente, new LinkedList<Mantenimiento>());
+                Accidente nuevoAccidente = new Accidente(1, descripcion, parteAfectada, fechaAccidente, procesos);
                 mainController.agregarAccidente(nuevoAccidente);
             } else {
                 accidenteActual.setDescripcion(descripcion);
                 accidenteActual.setParteAfectada(parteAfectada);
                 accidenteActual.setFechaAccidente(fechaAccidente);
-                accidenteActual.setListaMantenimiento(new LinkedList<Mantenimiento>());
+                accidenteActual.setListaMantenimiento(procesos);
                 mainController.actualizarAccidente();
             }
 
@@ -90,6 +90,9 @@ public class AgregarAccidenteController implements Initializable {
 
     @FXML
     private void volver() {
+        if (!procesos.isEmpty()){
+            procesos.removeFirst();
+        }
         Stage stage = (Stage) descripcionAcciTF.getScene().getWindow();
         stage.close();
     }
@@ -102,6 +105,7 @@ public class AgregarAccidenteController implements Initializable {
 
             AgregarMantenimientoController controller = loader.getController();
             controller.setAccidenteController(this);
+            controller.setTituloLabel();
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -213,7 +217,9 @@ public class AgregarAccidenteController implements Initializable {
     }
 
     public void agregarProceso(Mantenimiento proceso) {
+        System.out.println("agregando proceso");
         procesos.addFirst(proceso);
+        System.out.println(procesos.size());
         mostrarProcesos();
     }
 

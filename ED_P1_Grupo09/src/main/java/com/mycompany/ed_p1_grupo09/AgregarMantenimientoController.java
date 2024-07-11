@@ -29,6 +29,8 @@ public class AgregarMantenimientoController implements Initializable {
     @FXML
     private Label tituloLabel;
     @FXML
+    private Label tipoM;
+    @FXML
     private TextField descripcionTextField;
     @FXML
     private TextField tipoMantenimientoTextField;
@@ -37,7 +39,12 @@ public class AgregarMantenimientoController implements Initializable {
     private AgregarAccidenteController accidenteController;
     private Mantenimiento mantenimientoActual;
     private Mantenimiento procesoActual;
-
+    
+    public void setTituloLabel(){
+       tituloLabel.setText("Agregar proceso");
+       tipoM.setText("Tipo de proceso:");
+    }
+    
     @FXML
     private void guardar() {
         if (accidenteController == null) {
@@ -77,6 +84,7 @@ public class AgregarMantenimientoController implements Initializable {
                 stage.close();
             }
         } else {
+
             if (descripcionTextField.getText().isEmpty() || tipoMantenimientoTextField.getText().isEmpty()) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -131,14 +139,15 @@ public class AgregarMantenimientoController implements Initializable {
 
     public void setMantenimiento(Mantenimiento mantenimiento) {
         this.mantenimientoActual = mantenimiento;
-        tituloLabel.setText("Editar Mantenimiento");
+        tituloLabel.setText("Editar mantenimiento");
         descripcionTextField.setText(mantenimiento.getDescripcion());
         tipoMantenimientoTextField.setText(mantenimiento.getTipoMantenimiento());
     }
 
     public void setProceso(Mantenimiento proceso) {
         this.procesoActual = proceso;
-        tituloLabel.setText("Editar Proceso");
+        tituloLabel.setText("Editar proceso");
+        tipoM.setText("Tipo de proceso");
         descripcionTextField.setText(proceso.getDescripcion());
         tipoMantenimientoTextField.setText(proceso.getTipoMantenimiento());
     }
