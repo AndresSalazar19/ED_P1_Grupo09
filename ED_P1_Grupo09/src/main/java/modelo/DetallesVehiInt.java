@@ -72,6 +72,7 @@ public class DetallesVehiInt {
     public void setTipoMotor(String tipoMotor) {
         this.tipoMotor = tipoMotor;
     }
+    
     @Override
     public String toString() {
         return "DetallesVehiInt{" +

@@ -199,7 +199,27 @@ public class ArrayList<E> implements List<E> {
         elements = tmp;
         capacity *= 2;
     }
+    
 
+    public boolean addAll(List<? extends E> collection) {
+        if (collection == null || collection.isEmpty()) {
+            return false;
+        }
+
+        // Verificar si hay suficiente capacidad para los nuevos elementos
+        int newSize = effectiveSize + collection.size();
+        while (newSize > capacity) {
+            addCapacity();
+        }
+
+        // Copiar los elementos de la colección al final de la lista
+        for (E element : collection) {
+            elements[effectiveSize++] = element;
+        }
+
+        return true;
+    }
+    
     @Override
     public String toString() {
         if (isEmpty()) {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.IniciarSesionController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Pane prefHeight="37.0" prefWidth="600.0" />
+            <Pane prefHeight="50.0" prefWidth="600.0" />
+         </children>
+      </VBox>
+      <TextField fx:id="correoTextField" layoutX="425.0" layoutY="306.0" />
+      <Button fx:id="volverButton" layoutX="83.0" layoutY="625.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="35.0" text="&lt;-">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="contrasenaTextField" layoutX="425.0" layoutY="408.0" />
+      <Text fx:id="registrarseTextField" layoutX="380.0" layoutY="242.0" onMouseClicked="#registrarse" strokeType="OUTSIDE" strokeWidth="0.0" text="o crea tu cuenta de usuario gratis" wrappingWidth="194.0" />
+      <Label layoutX="314.0" layoutY="412.0" prefHeight="17.0" prefWidth="74.0" text="Contraseña">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="IniciarSesionButton" layoutX="425.0" layoutY="482.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar Sesión" />
+      <Label layoutX="285.0" layoutY="310.0" prefHeight="17.0" prefWidth="133.0" text="Correo electrónico *">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="401.0" layoutY="192.0" prefHeight="37.0" prefWidth="251.0" text="Ingresa a tu cuenta">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logo" blendMode="MULTIPLY" fitHeight="124.0" fitWidth="130.0" layoutX="34.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
+         </image>
+      </ImageView>
+      <ImageView blendMode="MULTIPLY" depthTest="DISABLE" fitHeight="79.0" fitWidth="310.0" layoutX="169.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@../../../imagenes/recursos/Title.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

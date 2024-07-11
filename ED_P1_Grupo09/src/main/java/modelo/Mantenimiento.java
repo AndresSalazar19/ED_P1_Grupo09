@@ -32,4 +32,13 @@ public class Mantenimiento {
     public void setTipoMantenimiento(String tipoMantenimiento) {
         this.tipoMantenimiento = tipoMantenimiento;
     }
+    
+    @Override
+    public String toString() {
+        return "Mantenimiento{" +
+                "descripcion='" + descripcion + '\'' +
+                ", tipoMantenimiento='" + tipoMantenimiento + '\'' +
+                '}';
+    }
+
 }

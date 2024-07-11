@@ -22,6 +22,8 @@ public class Moto extends Vehiculo {
         this.cilindraje = cilindraje;
     }
 
+
+
     public int getCilindraje() {
         return cilindraje;
     }
