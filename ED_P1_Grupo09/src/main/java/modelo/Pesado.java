@@ -41,5 +41,29 @@ public class Pesado extends Vehiculo {
         this.pesoMin = pesoMin;
     }
 
+    @Override
+    public String toString() {
+        return "Pesado{" +
+                "pesoMax=" + pesoMax +
+                ", pesoMin=" + pesoMin +
+                ", kilometraje=" + getKilometraje() +
+                ", modelo='" + getModelo() + '\'' +
+                ", descripcion='" + getDescripcion() + '\'' +
+                ", marca='" + getMarca() + '\'' +
+                ", estado=" + getEstado() +
+                ", ciudad='" + getCiudad() + '\'' +
+                ", precio=" + getPrecio() +
+                ", year=" + getYear() +
+                ", imagenes=" + getImagenes() +
+                ", accidentes=" + getAccidentes() +
+                ", id=" + getId() +
+                ", capacidad=" + getCapacidad() +
+                ", vendedor=" + getVendedor() +
+                ", detallesInt=" + getDetallesInt() +
+                ", negociable=" + isNegociable() +
+                ", mantenimientos=" + getMantenimientos() +
+                ", tipoVehiculo=" + getTipoVehiculo() +
+                '}';
+    }
 
 }

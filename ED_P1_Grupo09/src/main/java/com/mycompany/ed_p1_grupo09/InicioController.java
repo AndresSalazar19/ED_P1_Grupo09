@@ -123,6 +123,11 @@ public class InicioController {
     }
     
     @FXML private void añadirVehiculos() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("añadirVehiculo.fxml"));
+        Parent root = loader.load();
+
+        AñadirVehiculoController añadirController = loader.getController();
+        añadirController.setUsuario(usuarioLogeado);
         App.setRoot("añadirVehiculo");
     }
     

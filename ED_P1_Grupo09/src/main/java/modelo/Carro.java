@@ -29,5 +29,29 @@ public class Carro extends Vehiculo {
         this.tipocarro = tipocarro;
     }
     
+    @Override
+    public String toString() {
+        return "Carro{" +
+                "tipocarro=" + tipocarro +
+                ", kilometraje=" + getKilometraje() +
+                ", modelo='" + getModelo() + '\'' +
+                ", descripcion='" + getDescripcion() + '\'' +
+                ", marca='" + getMarca() + '\'' +
+                ", estado=" + getEstado() +
+                ", ciudad='" + getCiudad() + '\'' +
+                ", precio=" + getPrecio() +
+                ", year=" + getYear() +
+                ", imagenes=" + getImagenes() +
+                ", accidentes=" + getAccidentes() +
+                ", id=" + getId() +
+                ", capacidad=" + getCapacidad() +
+                ", vendedor=" + getVendedor() +
+                ", detallesInt=" + getDetallesInt() +
+                ", negociable=" + isNegociable() +
+                ", mantenimientos=" + getMantenimientos() +
+                ", tipoVehiculo=" + getTipoVehiculo() +
+                '}';
+    }
+
  
 }

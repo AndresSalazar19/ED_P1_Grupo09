@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import modelo.Vehiculo;
 
 /**
  *
@@ -365,6 +366,7 @@ public class LinkedList<E> implements List<E>, Comparator<E> {
 
         return true;
     }
+
 
 }
 

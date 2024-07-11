@@ -5,6 +5,7 @@
 package tda;
 
 import java.util.Comparator;
+import modelo.Vehiculo;
 
 /**
  *
@@ -29,4 +30,6 @@ public interface List<E> extends Iterable<E> {
     E find(Comparator<E> comp, E elemento); // Encuentra un elemento utilizando un comparador
     List<E> findAll(Comparator<E> comp, E elemento); // Encuentra todos los elementos utilizando un comparador
     E removeFirst(); // Elimina y retorna el primer elemento de la lista
+
+
 }
