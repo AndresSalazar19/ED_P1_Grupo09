@@ -11,19 +11,19 @@ import tda.*;
  * @author Ayman El Salous Mnz
  */
 public class Accidente {
-    private final int id;
+    private int id;
     private String descripcion;
     private String parteafec;
     private LocalDate accifecha;
-    private LinkedList<Mantenimiento> listaMantenimiento;
+    private LinkedList<Mantenimiento> listaProcesos;
     
     
-   public Accidente(int id, String descripcion, String parteafec,LocalDate accifecha, LinkedList<Mantenimiento> listaMantenimiento){
+   public Accidente(int id, String descripcion, String parteafec,LocalDate accifecha, LinkedList<Mantenimiento> listaProcesos){
        this.id= id;
        this.descripcion= descripcion;
        this.parteafec = parteafec;
        this.accifecha = accifecha;
-       this.listaMantenimiento =listaMantenimiento;
+       this.listaProcesos =listaProcesos;
    }
 
    public String getDescripcion(){
@@ -50,16 +50,20 @@ public class Accidente {
         this.accifecha = accifecha;
     }
 
-    public LinkedList<Mantenimiento> getListaMantenimiento() {
-        return listaMantenimiento;
+    public LinkedList<Mantenimiento> getListaProcesos() {
+        return listaProcesos;
     }
 
-    public void setListaMantenimiento(LinkedList<Mantenimiento> listaMantenimiento) {
-        this.listaMantenimiento = listaMantenimiento;
+    public void setListaProcesos(LinkedList<Mantenimiento> listaProcesos) {
+        this.listaProcesos = listaProcesos;
     }
    
     public int getId(){
        return id;
+   }
+    
+   public void setId(int id){
+       this.id = id;
    }
    
     @Override
@@ -69,7 +73,7 @@ public class Accidente {
                 ", descripcion='" + descripcion + '\'' +
                 ", parteafec='" + parteafec + '\'' +
                 ", accifecha='" + accifecha + '\'' +
-                ", listaProcesos=" + listaMantenimiento +
+                ", listaProcesos=" + listaProcesos +
                 '}';
     }   
 

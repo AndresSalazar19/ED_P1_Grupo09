@@ -17,6 +17,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.geometry.Insets;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -38,7 +39,7 @@ public class RegistrarseController implements Initializable {
     private TextField correoTextField;
 
     @FXML
-    private TextField contrasenaTextField;
+    private PasswordField contrasenaTextField;
 
     private SistemaLogin sistemaLogin;
 
@@ -76,12 +77,6 @@ public class RegistrarseController implements Initializable {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
-        DialogPane dialog = alert.getDialogPane();
-        dialog.setBackground(new Background(new BackgroundFill(
-                Color.LIGHTBLUE,
-                CornerRadii.EMPTY,
-                Insets.EMPTY
-        )));
         alert.showAndWait();
     }
 

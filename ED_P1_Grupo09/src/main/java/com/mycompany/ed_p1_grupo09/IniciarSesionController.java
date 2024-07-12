@@ -4,32 +4,24 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import modelo.*;
-import tda.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.geometry.Insets;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import modelo.*;
+import tda.*;
 
 /**
  * FXML Controller class
@@ -42,7 +34,7 @@ public class IniciarSesionController implements Initializable {
     private TextField correoTextField;
     
     @FXML
-    private TextField contrasenaTextField;
+    private PasswordField  contrasenaTextField;
      
     private SistemaLogin sistemaLogin;
     private Usuario usuarioLogueado;
@@ -87,12 +79,7 @@ public class IniciarSesionController implements Initializable {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
-        DialogPane dialogo = alert.getDialogPane();
-        dialogo.setBackground(new Background(new BackgroundFill(
-                Color.LIGHTBLUE,
-                CornerRadii.EMPTY,
-                Insets.EMPTY
-        )));
+
 
         alert.showAndWait();
     }

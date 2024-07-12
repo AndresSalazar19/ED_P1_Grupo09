@@ -38,6 +38,8 @@ public class VerDetallesVehiculoController implements Initializable {
     @FXML
     private Button verMantenimientosBtn; 
     @FXML
+    private Label descripcionLabel;
+    @FXML
     private Label tipoVehiculoLabel;
     @FXML
     private Label numeroMantenimientosLabel;
@@ -86,6 +88,7 @@ public class VerDetallesVehiculoController implements Initializable {
     @FXML
     private ScrollPane scrollPaneAccidentes;
 
+    
     private CircularDoublyLinkedList<Image> imagenes = new CircularDoublyLinkedList<>();
     private int currentIndex;
 
@@ -209,6 +212,7 @@ public class VerDetallesVehiculoController implements Initializable {
             ciudadLabel.setText(vehiculo.getCiudad());
             precioLabel.setText(String.valueOf(vehiculo.getPrecio()));
             yearLabel.setText(String.valueOf(vehiculo.getYear()));
+            descripcionLabel.setText(vehiculo.getDescripcion());
 
             negociableLabel.setText(vehiculo.isNegociable() ? "Negociable" : "Fijo");
             estadoLabel.setText(String.valueOf(vehiculo.getEstado()));

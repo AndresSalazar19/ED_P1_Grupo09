@@ -57,13 +57,13 @@ public class VerMantenimientosController implements Initializable {
         contenedorMantenimientos.getChildren().clear(); // Limpiar el contenedor de mantenimientos
 
         if (mostrarAccidente) {
-            if (accidente.getListaMantenimiento().isEmpty()) {
+            if (accidente.getListaProcesos().isEmpty()) {
                 Label noMantenimientosLabel = new Label("No hay procesos.");
                 contenedorMantenimientos.getChildren().add(noMantenimientosLabel);
                 return;
             }
 
-            for (Mantenimiento mantenimiento : accidente.getListaMantenimiento()) {
+            for (Mantenimiento mantenimiento : accidente.getListaProcesos()) {
                 agregarMantenimiento(mantenimiento);
             }
         } else {
