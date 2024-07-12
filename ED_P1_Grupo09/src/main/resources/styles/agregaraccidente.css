@@ -2,6 +2,39 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
+#mainPane{
+    -fx-background-color:#759091;
+}
 
+.button{
+    -fx-cursor: hand;
+    -fx-background-color: #133d32;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.button:pressed{
+    -fx-background-color: cyan;
+    -fx-text-fill: black;   
+}
+
+.label{
+    -fx-text-fill:#efeef9;
+}
+
+#titleLabel{
+    -fx-font-size:14px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic; 
+}
+
+.text-field{
+    -fx-background-color:#efeef9;
+}
+
+.scroll-pane {
+    -fx-background-color: #d3d3d3; 
+    -fx-border-color: #dcdcdc; 
+    -fx-padding: 5px;
 }

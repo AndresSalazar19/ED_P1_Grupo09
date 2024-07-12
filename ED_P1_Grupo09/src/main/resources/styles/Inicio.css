@@ -1,0 +1,83 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 12 jul 2024, 06:20:31
+    Author     : LENOVO
+*/
+
+/* Remove spacing */
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+}
+
+/* You can control the actual button sizes here */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: lightgray, #FAFAFA;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+}
+
+/* Colors on hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-background-insets: 0;
+    -fx-background-color: lightgray;
+}
+
+/* Selected toggle color */
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #58379A;
+    -fx-text-fill: white;
+}
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 12 jul 2024, 04:49:54
+    Author     : LENOVO
+*/
+
+
+#mainVB{
+    -fx-background-color:#c3d1d6;
+}
+
+.text-field{
+    -fx-background-color:#88a4ae;
+}
+
+.button{
+    -fx-cursor: hand;
+    -fx-background-color: #121212;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.button:pressed{
+    -fx-background-color: gray;
+    -fx-text-fill: black;   
+}
+.label{
+    -fx-text-fill:#1a3555;
+    -fx-font-size:13px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic; 
+}
+
+#titleLabel{
+   -fx-font-size:20px;
+}
+

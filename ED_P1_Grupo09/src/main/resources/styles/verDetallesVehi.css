@@ -1,0 +1,66 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 12 jul 2024, 05:42:25
+    Author     : LENOVO
+*/
+
+#mainVB{
+    -fx-background-color: #c3d1d6;
+}
+
+.TextField{
+    -fx-border-color:#dcdcdc;
+}
+
+
+.scroll-pane {
+    -fx-background-color: #d3d3d3; 
+    -fx-border-color: #dcdcdc; 
+    -fx-padding: 5px;
+}
+
+
+.button{
+    -fx-cursor: hand;
+    -fx-background-color: #121212;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.button:pressed{
+    -fx-background-color: cyan;
+    -fx-text-fill: black;   
+}
+
+.label{
+    -fx-text-fill:#1a3555;
+    -fx-font-size:12px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic; 
+}
+
+#titleLabel{
+   -fx-font-size:15px;
+}
+
+.image-view {
+    -fx-opacity: 0.8;
+    
+}
+
+#mainPane{
+    -fx-background-color:#c3d1d6;
+}
+
+.text-field{
+    -fx-background-color:#88a4ae;
+}
+
+#subtLabel{
+    -fx-font-size:14px;
+    -fx-font-weight: bold;
+}
