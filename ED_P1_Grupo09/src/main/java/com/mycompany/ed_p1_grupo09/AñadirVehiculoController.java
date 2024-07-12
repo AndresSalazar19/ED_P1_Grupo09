@@ -274,7 +274,6 @@ public class AñadirVehiculoController implements Initializable {
 
     @FXML
     private void guardarDetallesVehi() {
-
         try {
             // Validar que todos los campos estén llenos
             if (kmTF.getText().isEmpty() || modeloTF.getText().isEmpty() || ciudadTF.getText().isEmpty() || 
@@ -294,6 +293,7 @@ public class AñadirVehiculoController implements Initializable {
             // Cargar la lista de vehículos y obtener el siguiente ID disponible
             List<Vehiculo> vehiculos = VehiculoManager.cargarVehiculos();
             int nextId = VehiculoManager.obtenerNextId(vehiculos);
+
             // Validar tipo de vehículo y sus campos específicos
             TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
             Vehiculo vehiculoNuevo = null;
@@ -359,16 +359,30 @@ public class AñadirVehiculoController implements Initializable {
                     return;
             }
 
+            // Guardar los accidentes nuevos si existen
+            List<Accidente> accidentesList = AccidenteManager.cargarAccidentes();
+            int nextIdAccidente = AccidenteManager.obtenerNextId(accidentesList);
+            LinkedList<Accidente> nuevosAccidentes = vehiculoNuevo.getAccidentes();
+
+            for (Accidente nuevoAccidente : nuevosAccidentes) {
+                if (nuevoAccidente.getId() == 0) { // Asigna un nuevo ID solo si el accidente no tiene ID
+                    nuevoAccidente.setId(nextIdAccidente++);
+                }
+                accidentesList.addLast(nuevoAccidente);
+            }
+
+            AccidenteManager.guardarAccidentes(accidentesList);
+
             // Guardar el vehículo nuevo
             vehiculos.addLast(vehiculoNuevo);
             VehiculoManager.guardarVehiculos(vehiculos);
-            
+
             // Volver a cargar la lista de vehículos en el sistema
             SistemaApp.getInstance().setVehiculos(VehiculoManager.cargarVehiculos());
 
             // Mostrar confirmación y volver a la pantalla anterior
             mostrarAlerta("Éxito", "El vehículo ha sido guardado exitosamente.");
-            
+
             volver();
 
         } catch (NumberFormatException e) {
@@ -377,6 +391,7 @@ public class AñadirVehiculoController implements Initializable {
             e.printStackTrace();
         }
     }
+
     
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -486,7 +501,7 @@ public class AñadirVehiculoController implements Initializable {
                 Label accidenteDescripcion = new Label("Descripción: " + accidente.getDescripcion());
                 Label accidenteParteAfectada = new Label("Parte Afectada: " + accidente.getParteAfectada());
                 Label accidenteFecha = new Label("Fecha: " + accidente.getFechaAccidente());
-                Label numProcesos = new Label("Número de Procesos: " + accidente.getListaMantenimiento().size());
+                Label numProcesos = new Label("Número de Procesos: " + accidente.getListaProcesos().size());
 
                 accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha, numProcesos);
 

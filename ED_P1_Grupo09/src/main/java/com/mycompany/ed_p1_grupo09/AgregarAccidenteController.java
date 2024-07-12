@@ -73,13 +73,13 @@ public class AgregarAccidenteController implements Initializable {
             LocalDate fechaAccidente = acciDP.getValue();
             
             if (accidenteActual == null) {
-                Accidente nuevoAccidente = new Accidente(1, descripcion, parteAfectada, fechaAccidente, procesos);
+                Accidente nuevoAccidente = new Accidente(0, descripcion, parteAfectada, fechaAccidente, procesos);
                 mainController.agregarAccidente(nuevoAccidente);
             } else {
                 accidenteActual.setDescripcion(descripcion);
                 accidenteActual.setParteAfectada(parteAfectada);
                 accidenteActual.setFechaAccidente(fechaAccidente);
-                accidenteActual.setListaMantenimiento(procesos);
+                accidenteActual.setListaProcesos(procesos);
                 mainController.actualizarAccidente();
             }
 
@@ -128,7 +128,7 @@ public class AgregarAccidenteController implements Initializable {
         descripcionAcciTF.setText(accidente.getDescripcion());
         partesAfectadasTF.setText(accidente.getParteAfectada());
         acciDP.setValue(accidente.getFechaAccidente());
-        procesos = accidente.getListaMantenimiento();
+        procesos = accidente.getListaProcesos();
         mostrarProcesos();
     }
     
@@ -229,6 +229,6 @@ public class AgregarAccidenteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization logic if needed
+
     }
 }
