@@ -25,3 +25,8 @@
     -fx-background-color: #c0c0c0;
 }
 
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-font-family: 'Arial', sans-serif;
+}
