@@ -2,6 +2,23 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
+#mainPane{
+    -fx-background-color:darkseagreen;
+}
 
+.button{
+   -fx-background-color:#121212;
+   -fx-text-fill: white;
+   -fx-cursor: hand;
+   -fx-background-radius: 50;
+}
+
+.button:pressed{
+    -fx-background-color: cyan;
+    -fx-text-fill: black;   
+}
+
+
+.text-field{
+    -fx-background-color:#efeef9;
 }

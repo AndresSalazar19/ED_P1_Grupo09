@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AgregarAccidenteController">
-    <stylesheets>
-        <URL value="@/styles/agregaraccidente.css" />
-    </stylesheets>
+<AnchorPane id="mainPane" fx:id="mainPane" prefHeight="450.0" prefWidth="500.0" styleClass="mainFxmlClass" stylesheets="@../../../styles/agregaraccidente.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AgregarAccidenteController">
    <children>
       <DatePicker fx:id="acciDP" layoutX="22.0" layoutY="69.0" />
       <Label layoutX="29.0" layoutY="46.0" prefHeight="17.0" prefWidth="110.0" text="Fecha del accidente">
@@ -30,7 +30,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="tituloLabel" layoutX="13.0" layoutY="13.0" prefHeight="17.0" prefWidth="149.0" text="Agregar Accidente:">
+      <Label id="titleLabel" fx:id="tituloLabel" layoutX="13.0" layoutY="13.0" prefHeight="20.0" prefWidth="156.0" text="Agregar Accidente:">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -42,25 +42,80 @@
       </Label>
       <TextField fx:id="partesAfectadasTF" layoutX="176.0" layoutY="149.0" />
       <TextField fx:id="descripcionAcciTF" layoutX="318.0" layoutY="69.0" />
-      <Button layoutX="22.0" layoutY="200.0" mnemonicParsing="false" onAction="#volver" text="&lt;-" />
-      <Button fx:id="guardarAcci" layoutX="423.0" layoutY="188.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
+      <Button fx:id="guardarAcci" layoutX="412.0" layoutY="415.0" mnemonicParsing="false" onAction="#guardarAccidente" text="Guardar">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
+         <effect>
+            <DropShadow height="23.93" radius="12.1975" spread="0.14" width="26.86">
+               <input>
+                  <InnerShadow height="6.345" radius="1.9387499999999998" width="3.41">
+                     <input>
+                        <Reflection fraction="0.15" />
+                     </input>
+                     <color>
+                        <Color fx:constant="GREEN" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color fx:constant="GREEN" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Button fx:id="añadirProcesosButton" layoutX="194.0" layoutY="200.0" mnemonicParsing="false" onAction="#añadirProceso" text="Agregar procesos">
+      <Button fx:id="añadirProcesosButton" layoutX="194.0" layoutY="195.0" mnemonicParsing="false" onAction="#añadirProceso" text="Agregar procesos">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
+         <effect>
+            <DropShadow spread="0.12">
+               <input>
+                  <InnerShadow>
+                     <input>
+                        <Reflection fraction="0.18" />
+                     </input>
+                     <color>
+                        <Color fx:constant="GREEN" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color fx:constant="GREEN" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
       <ScrollPane fx:id="scrollPaneProcesos" layoutX="25.0" layoutY="237.0" prefHeight="170.0" prefWidth="450.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane id="paneAcci" minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="200.0">
                <children>
                   <VBox fx:id="contenedorProcesos" layoutX="11.0" layoutY="1.0" prefHeight="170.0" prefWidth="450.0" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
+      <Button layoutX="25.0" layoutY="415.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow spread="0.11">
+               <input>
+                  <InnerShadow choke="0.06" height="0.0" radius="1.8199999999999998" width="9.28">
+                     <input>
+                        <Reflection fraction="0.1" />
+                     </input>
+                     <color>
+                        <Color fx:constant="BLUE" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color fx:constant="BLUE" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

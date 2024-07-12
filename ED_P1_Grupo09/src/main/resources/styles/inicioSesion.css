@@ -1,0 +1,46 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 12 jul 2024, 04:49:54
+    Author     : LENOVO
+*/
+
+
+#mainPane{
+    -fx-background-color:#c3d1d6;
+}
+
+.text-field{
+    -fx-background-color:#88a4ae;
+}
+
+.button{
+    -fx-cursor: hand;
+    -fx-background-color: #121212;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.button:pressed{
+    -fx-background-color: gray;
+    -fx-text-fill: black;   
+}
+.label{
+    -fx-text-fill:#1a3555;
+    -fx-font-size:13px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic; 
+}
+
+#titleLabel{
+   -fx-font-size:20px;
+}
+
+#hiperVR{
+   -fx-font-style: italic; 
+   -fx-font-size:12px;
+   -fx-underline: true;
+}

@@ -13,17 +13,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.VerDetallesVehiculoController">
+<VBox id="mainVB" alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" stylesheets="@../../../styles/verDetallesVehi.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.VerDetallesVehiculoController">
    <children>
       <Pane prefHeight="760.0" prefWidth="1146.0">
          <children>
-            <Button fx:id="volverButton" layoutX="42.0" layoutY="633.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="35.0" text="&lt;-">
+            <Button fx:id="volverButton" layoutX="42.0" layoutY="633.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="31.0" text="&lt;-">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="getNextButton" layoutX="263.0" layoutY="506.0" mnemonicParsing="false" onAction="#getNext" text="Next" />
-            <Button fx:id="getPreviousButton" layoutX="110.0" layoutY="506.0" mnemonicParsing="false" onAction="#getPrevious" text="Previous" />
+            <Button fx:id="getNextButton" layoutX="304.0" layoutY="506.0" mnemonicParsing="false" onAction="#getNext" text="Siguiente" />
+            <Button fx:id="getPreviousButton" layoutX="116.0" layoutY="506.0" mnemonicParsing="false" onAction="#getPrevious" prefHeight="25.0" prefWidth="64.0" text="Anterior" />
             <ImageView fx:id="logo" blendMode="MULTIPLY" fitHeight="124.0" fitWidth="130.0" layoutX="24.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
@@ -37,7 +37,7 @@
             <HBox fx:id="contenedorImagenes" layoutX="49.0" layoutY="193.0" prefHeight="300.0" prefWidth="400.0" />
             <Pane layoutX="490.0" layoutY="211.0" prefHeight="254.0" prefWidth="446.0">
                <children>
-                  <Text layoutX="181.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles interior" />
+                  <Text id="subtLabel" layoutX="173.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles interiores" />
                   <Label fx:id="traccionLabel" layoutX="55.0" layoutY="57.0" text="Tracción" />
                   <Label fx:id="transmisionLabel" layoutX="55.0" layoutY="83.0" text="Transmisión" />
                   <Label fx:id="tipoCombustibleLabel" layoutX="55.0" layoutY="111.0" text="Tipo de combustible" />
@@ -48,15 +48,15 @@
                   <Label fx:id="extraLabel2" layoutX="34.0" layoutY="211.0" text="extraLabel2" />
                </children>
             </Pane>
-            <Text layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
-            <Label fx:id="modeloLabel" layoutX="113.0" layoutY="132.0" text="Label" />
-            <Label fx:id="yearLabel" layoutX="38.0" layoutY="154.0" text="Año" />
-            <Label fx:id="kilometrajeLabel" layoutX="111.0" layoutY="154.0" text="Kilometraje" />
-            <Label fx:id="ciudadLabel" layoutX="189.0" layoutY="154.0" text="Ciudad" />
-            <Label fx:id="precioLabel" layoutX="392.0" layoutY="130.0" prefHeight="17.0" prefWidth="108.0" text="Precio" />
+            <Text id="subtLabel" layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />
+            <Label fx:id="modeloLabel" layoutX="112.0" layoutY="134.0" text="Label" />
+            <Label fx:id="yearLabel" layoutX="48.0" layoutY="160.0" text="Año" />
+            <Label fx:id="kilometrajeLabel" layoutX="102.0" layoutY="160.0" text="Kilometraje" />
+            <Label fx:id="ciudadLabel" layoutX="189.0" layoutY="160.0" text="Ciudad" />
+            <Label fx:id="precioLabel" layoutX="390.0" layoutY="130.0" prefHeight="17.0" prefWidth="108.0" text="Precio" />
             <Text layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
-            <Label fx:id="estadoLabel" layoutX="286.0" layoutY="154.0" text="Estado" />
-            <Label fx:id="negociableLabel" layoutX="378.0" layoutY="151.0" text="Negociable" />
+            <Label fx:id="estadoLabel" layoutX="276.0" layoutY="160.0" text="Estado" />
+            <Label fx:id="negociableLabel" layoutX="350.0" layoutY="160.0" text="Negociable" />
             <Pane layoutX="487.0" layoutY="485.0" prefHeight="228.0" prefWidth="446.0">
                <children>
                   <ScrollPane fx:id="scrollPaneAccidentes" layoutY="36.0" prefHeight="192.0" prefWidth="446.0">
@@ -68,18 +68,18 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Text layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accidentes" />
+                  <Text id="subtLabel" layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accidentes" />
                </children>
             </Pane>
-            <Text layoutX="624.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo:" wrappingWidth="40.826171875" />
-            <Label fx:id="tipoVehiculoLabel" layoutX="702.0" layoutY="45.0" prefHeight="17.0" prefWidth="108.0" text="Tipo de Vehiculo" />
-            <Button fx:id="verMantenimientosBtn" layoutX="749.0" layoutY="138.0" mnemonicParsing="false" onAction="#verMantenimientos" text="Ver mantenimientos" />
-            <Text layoutX="512.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de mantenimientos" />
-            <Label fx:id="numeroMantenimientosLabel" layoutX="682.0" layoutY="142.0" text="Label" />
+            <Text id="subtLabel" layoutX="624.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo:" wrappingWidth="40.826171875" />
+            <Label fx:id="tipoVehiculoLabel" layoutX="701.0" layoutY="45.0" prefHeight="17.0" prefWidth="108.0" text="Tipo de Vehiculo" />
+            <Button fx:id="verMantenimientosBtn" layoutX="749.0" layoutY="137.0" mnemonicParsing="false" onAction="#verMantenimientos" text="Ver mantenimientos" />
+            <Text id="subtLabel" layoutX="512.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de mantenimientos" />
+            <Label fx:id="numeroMantenimientosLabel" layoutX="702.0" layoutY="142.0" text="Label" />
             <Button fx:id="favoritoButton" layoutX="458.0" layoutY="193.0" mnemonicParsing="false" onAction="#seleccionarFavorito" prefHeight="25.0" prefWidth="44.0" text="❤" />
             <Button fx:id="editarVehiculoButton" layoutX="457.0" layoutY="193.0" mnemonicParsing="false" onAction="#editarVehiculo" text="Editar" />
-            <Button fx:id="flechaDerechaButton" layoutX="926.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlSiguiente" text="-&gt;" />
-            <Button fx:id="flechaIzquierdaButton" layoutX="-2.0" layoutY="355.0" mnemonicParsing="false" onAction="#irAlAnterior" text="&lt;-" />
+            <Button fx:id="flechaDerechaButton" layoutX="921.0" layoutY="331.0" mnemonicParsing="false" onAction="#irAlSiguiente" text="-&gt;" />
+            <Button fx:id="flechaIzquierdaButton" layoutX="6.0" layoutY="341.0" mnemonicParsing="false" onAction="#irAlAnterior" text="&lt;-" />
          </children>
       </Pane>
    </children>

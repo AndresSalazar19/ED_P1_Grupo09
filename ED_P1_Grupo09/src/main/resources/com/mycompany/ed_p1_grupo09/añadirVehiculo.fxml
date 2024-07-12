@@ -6,23 +6,24 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AñadirVehiculoController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../styles/añadirvehiculo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.AñadirVehiculoController">
    <children>
       <!-- Encabezado -->
       <Pane layoutX="200.0" layoutY="95.0" prefHeight="37.0" prefWidth="544.0">
          <children>
-            <Label layoutX="10.0" prefHeight="37.0" prefWidth="130.0" text=" Añadir vehículo:">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
             <ComboBox fx:id="tipoVehiCBox" layoutX="156.0" layoutY="6.0" onAction="#selectTipoVehi" prefHeight="25.0" prefWidth="149.0" promptText="Tipo" />
-            <ComboBox fx:id="EstadoCBox" layoutX="368.0" layoutY="11.0" onAction="#selectEstado" prefHeight="25.0" prefWidth="130.0" promptText="Estado" />
+            <ComboBox fx:id="EstadoCBox" layoutX="362.0" layoutY="6.0" onAction="#selectEstado" prefHeight="25.0" prefWidth="149.0" promptText="Estado" />
          </children>
       </Pane>
       
@@ -57,7 +58,7 @@
          </font>
       </Label>
       <TextField fx:id="añoTF" layoutX="316.0" layoutY="239.0" />
-      <Label fx:id="DescripcionLabel" layoutX="257.0" layoutY="278.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
+      <Label fx:id="DescripcionLabel" layoutX="316.0" layoutY="281.0" prefHeight="17.0" prefWidth="74.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -133,17 +134,48 @@
       </VBox>
 
       <!-- Botones de acción -->
-      <Button fx:id="guardarButton" layoutX="893.0" layoutY="49.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
+      <Button fx:id="guardarButton" layoutX="897.0" layoutY="61.0" mnemonicParsing="false" onAction="#guardarDetallesVehi" text="Guardar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow height="44.08" radius="21.63" spread="0.06" width="44.44">
+               <input>
+                  <InnerShadow>
+                     <input>
+                        <Reflection fraction="0.05" />
+                     </input>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color green="0.501960813999176" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Button fx:id="volverButton" layoutX="68.0" layoutY="388.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
+      <Button fx:id="volverButton" layoutX="30.0" layoutY="676.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow spread="0.04">
+               <input>
+                  <InnerShadow height="16.12" radius="3.5300000000000002" width="0.0">
+                     <input>
+                        <Reflection fraction="0.11" />
+                     </input>
+                     <color>
+                        <Color blue="1.0" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Label layoutX="140.0" layoutY="531.0" prefHeight="17.0" prefWidth="196.0" text="¿Su vehículo ha tenido algún accidente?">
+      <Label layoutX="120.0" layoutY="531.0" prefHeight="17.0" prefWidth="235.0" text="¿Su vehículo ha tenido algún accidente?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
          </font>
@@ -152,25 +184,59 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow height="12.21" radius="3.4050000000000002" width="3.41">
+               <input>
+                  <InnerShadow choke="0.03" height="22.465" radius="9.63375" width="18.07">
+                     <input>
+                        <Reflection fraction="0.04" />
+                     </input>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color red="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Button fx:id="detIntBT" layoutX="425.0" layoutY="341.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
+      <Button fx:id="detIntBT" layoutX="410.0" layoutY="352.0" mnemonicParsing="false" onAction="#getDetInternos" prefHeight="25.0" prefWidth="121.0" text="Detalles Internos">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow spread="0.09">
+               <input>
+                  <InnerShadow choke="0.06" height="26.86" radius="12.93" width="26.86">
+                     <input>
+                        <Reflection fraction="0.09" />
+                     </input>
+                     <color>
+                        <Color red="0.501960813999176" blue="0.501960813999176" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color red="0.501960813999176" blue="0.501960813999176" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
       <Label fx:id="capacidadLabel" layoutX="531.0" layoutY="217.0" prefHeight="17.0" prefWidth="74.0" text="Capacidad:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="DescripcionTF" layoutX="232.0" layoutY="306.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label fx:id="marcaLabel" layoutX="479.0" layoutY="278.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
+      <TextField fx:id="DescripcionTF" layoutX="316.0" layoutY="306.0" prefHeight="25.0" prefWidth="182.0" />
+      <Label fx:id="marcaLabel" layoutX="530.0" layoutY="281.0" prefHeight="17.0" prefWidth="46.0" text="Marca:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="marcaTF" layoutX="442.0" layoutY="306.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label layoutX="604.0" layoutY="531.0" prefHeight="17.0" prefWidth="221.0" text="¿Su vehículo ha tenido algún mantenimiento?">
+      <TextField fx:id="marcaTF" layoutX="528.0" layoutY="306.0" prefHeight="25.0" prefWidth="182.0" />
+      <Label layoutX="604.0" layoutY="531.0" prefHeight="17.0" prefWidth="269.0" text="¿Su vehículo ha tenido algún mantenimiento?">
          <font>
             <Font name="System Bold Italic" size="10.0" />
          </font>
@@ -179,45 +245,82 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow height="19.54" radius="8.9025" width="18.07">
+               <input>
+                  <InnerShadow choke="0.07">
+                     <input>
+                        <Reflection fraction="0.11" />
+                     </input>
+                     <color>
+                        <Color green="0.501960813999176" />
+                     </color>
+                  </InnerShadow>
+               </input>
+               <color>
+                  <Color green="0.501960813999176" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <ScrollPane fx:id="scrollPaneAccidentes" layoutX="35.0" layoutY="601.0" prefHeight="175.0" prefWidth="450.0">
+      <ScrollPane fx:id="scrollPaneAccidentes" layoutX="88.0" layoutY="601.0" prefHeight="175.0" prefWidth="343.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="176.0" prefWidth="162.0">
                <children>
-                  <VBox fx:id="contenedorAccidentes" layoutX="12.0" prefHeight="175.0" prefWidth="429.0" />
+                  <VBox fx:id="contenedorAccidentes" layoutX="1.0" prefHeight="175.0" prefWidth="343.0" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ScrollPane fx:id="scrollPaneMantenimientos" layoutX="513.0" layoutY="603.0" prefHeight="170.0" prefWidth="450.0">
+      <ScrollPane fx:id="scrollPaneMantenimientos" layoutX="588.0" layoutY="603.0" prefHeight="170.0" prefWidth="334.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="179.0">
                <children>
-                  <VBox fx:id="contenedorMantenimientos" layoutX="11.0" layoutY="1.0" prefHeight="170.0" prefWidth="450.0" />
+                  <VBox fx:id="contenedorMantenimientos" layoutX="3.0" layoutY="-1.0" prefHeight="170.0" prefWidth="328.0" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Label fx:id="traccionLabel" layoutX="322.0" layoutY="380.0" prefHeight="17.0" prefWidth="208.0" text="Tracción" />
-      <Label fx:id="transmisionLabel" layoutX="322.0" layoutY="413.0" prefHeight="17.0" prefWidth="208.0" text="Transmisión" />
-      <Label fx:id="combustibleLabel" layoutX="322.0" layoutY="442.0" prefHeight="17.0" prefWidth="196.0" text="Combustible" />
-      <Label fx:id="placaLabel" layoutX="537.0" layoutY="380.0" prefHeight="17.0" prefWidth="155.0" text="Placa" />
-      <Label fx:id="climatizadoLabel" layoutX="537.0" layoutY="405.0" prefHeight="17.0" prefWidth="149.0" text="Climatizado" />
-      <Label fx:id="tipoMotorLabel" layoutX="537.0" layoutY="434.0" prefHeight="17.0" prefWidth="130.0" text="TipoMotor" />
+      <Label fx:id="traccionLabel" layoutX="327.0" layoutY="389.0" prefHeight="17.0" prefWidth="208.0" text="Tracción" />
+      <Label fx:id="transmisionLabel" layoutX="327.0" layoutY="435.0" prefHeight="17.0" prefWidth="208.0" text="Transmisión" />
+      <Label fx:id="combustibleLabel" layoutX="328.0" layoutY="477.0" prefHeight="17.0" prefWidth="196.0" text="Combustible" />
+      <Label fx:id="placaLabel" layoutX="542.0" layoutY="389.0" prefHeight="17.0" prefWidth="155.0" text="Placa" />
+      <Label fx:id="climatizadoLabel" layoutX="541.0" layoutY="435.0" prefHeight="17.0" prefWidth="149.0" text="Climatizado" />
+      <Label fx:id="tipoMotorLabel" layoutX="539.0" layoutY="477.0" prefHeight="17.0" prefWidth="130.0" text="Tipo Motor" />
       <ScrollPane fx:id="imagenesScrollPane" layoutX="716.0" layoutY="148.0" prefHeight="252.0" prefWidth="235.0">
          <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="255.0" prefWidth="235.0">
                <children>
-                  <VBox fx:id="imagenesVBox" layoutX="14.0" prefHeight="242.0" prefWidth="208.0" />
+                  <VBox fx:id="imagenesVBox" layoutX="-5.0" prefHeight="242.0" prefWidth="246.0" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Button fx:id="addImagenesButton" layoutX="781.0" layoutY="106.0" mnemonicParsing="false" onAction="#addImagenes" text="Añadir imágenes">
+      <Button fx:id="addImagenesButton" layoutX="774.0" layoutY="114.0" mnemonicParsing="false" onAction="#addImagenes" text="Agregar imágenes">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
+         <effect>
+            <DropShadow height="20.5" radius="10.6075" spread="0.19" width="23.93">
+               <color>
+                  <Color fx:constant="POWDERBLUE" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <CheckBox fx:id="negociableCB" layoutX="114.0" layoutY="278.0" mnemonicParsing="false" onAction="#getNegociable" text="¿Negociable?" />
+      <CheckBox fx:id="negociableCB" layoutX="119.0" layoutY="310.0" mnemonicParsing="false" onAction="#getNegociable" text="¿Negociable?">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></CheckBox>
+      <Label fx:id="titleLabel" layoutX="109.0" layoutY="95.0" prefHeight="37.0" prefWidth="130.0" text=" Añadir vehículo:">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <ImageView id="luffyg5" fx:id="luffyg5" fitHeight="99.0" fitWidth="149.0" layoutX="4.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

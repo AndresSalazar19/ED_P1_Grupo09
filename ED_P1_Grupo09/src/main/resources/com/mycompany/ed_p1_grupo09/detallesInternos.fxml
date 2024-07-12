@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="605.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.DetallesInternosController">
-    <stylesheets>
-        <URL value="@/styles/detallesinternos.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="605.0" styleClass="mainFxmlClass" stylesheets="@../../../styles/detallesinternos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ed_p1_grupo09.DetallesInternosController">
    <children>
-      <Label layoutX="14.0" layoutY="20.0" text="Detalles internos:">
+      <Label layoutX="11.0" layoutY="41.0" text="Detalles internos:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
@@ -34,17 +34,34 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <CheckBox fx:id="ClimatizadoCB" layoutX="446.0" layoutY="252.0" mnemonicParsing="false" text="¿Es climatizado?" />
+      <CheckBox fx:id="ClimatizadoCB" layoutX="446.0" layoutY="252.0" mnemonicParsing="false" text="¿Es climatizado?">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></CheckBox>
       <ComboBox fx:id="TipoCombustibleCOMB" layoutX="222.0" layoutY="248.0" prefHeight="25.0" prefWidth="158.0" promptText="Tipo de combustible" />
-      <Button fx:id="volverB" layoutX="43.0" layoutY="329.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
+      <Button fx:id="volverB" layoutX="22.0" layoutY="342.0" mnemonicParsing="false" onAction="#volver" text="&lt;-">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
+         <effect>
+            <DropShadow spread="0.28">
+               <color>
+                  <Color fx:constant="BLUE" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
-      <Button fx:id="guardarB" layoutX="490.0" layoutY="329.0" mnemonicParsing="false" onAction="#guardarDetallesInt" text="Guardar">
+      <Button fx:id="guardarB" layoutX="512.0" layoutY="342.0" mnemonicParsing="false" onAction="#guardarDetallesInt" text="Guardar">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
+         <effect>
+            <DropShadow radius="7.0675" spread="0.2" width="9.27">
+               <color>
+                  <Color fx:constant="GREEN" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
       <TextField fx:id="TraccionTF" layoutX="21.0" layoutY="143.0" />
       <TextField fx:id="TransmisionTF" layoutX="226.0" layoutY="143.0" />
@@ -55,5 +72,10 @@
          </font>
       </Label>
       <TextField fx:id="TipoMotorTF" layoutX="21.0" layoutY="251.0" />
+      <ImageView id="logo" fitHeight="99.0" fitWidth="107.0" layoutX="500.0" layoutY="2.0" opacity="0.61">
+         <image>
+            <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

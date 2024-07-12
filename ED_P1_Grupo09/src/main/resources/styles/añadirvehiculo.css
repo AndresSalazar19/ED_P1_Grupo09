@@ -1,14 +1,24 @@
 /*
- * Empty Stylesheet file.
- */
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 11 jul 2024, 01:34:39
+    Author     : LENOVO
+*/
 
-#AnchorPane{
-  -fx-background-color: #88a4ae;
+
+.TextField{
+    -fx-border-color:#dcdcdc;
 }
 
-.text-field{
-    -fx-background-color:#ede6f8;
+
+.scroll-pane {
+    -fx-background-color: #d3d3d3; 
+    -fx-border-color: #dcdcdc; 
+    -fx-padding: 5px;
 }
+
 
 .button{
     -fx-cursor: hand;
@@ -21,6 +31,30 @@
 .button:pressed{
     -fx-background-color: cyan;
     -fx-text-fill: black;   
+}
+
+.label{
+    -fx-text-fill:#1a3555;
+    -fx-font-size:12px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic; 
+}
+
+#titleLabel{
+   -fx-font-size:15px;
+}
+
+.image-view {
+    -fx-opacity: 0.8;
+    
+}
+
+#mainPane{
+    -fx-background-color:#c3d1d6;
+}
+
+.text-field{
+    -fx-background-color:#88a4ae;
 }
 
 * {
@@ -106,3 +140,4 @@
 .combo-box-base:disabled {
     -fx-opacity: .4;
 }
+
