@@ -16,7 +16,7 @@
          <children>
             <Button fx:id="iniciarSesionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="712.0" layoutY="56.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar sesión" />
             <Button fx:id="registrarseButton" layoutX="829.0" layoutY="56.0" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
-            <Pagination fx:id="pagination" layoutX="84.0" layoutY="244.0" prefHeight="479.0" prefWidth="758.0" />
+            <Pagination fx:id="pagination" layoutX="95.0" layoutY="267.0" prefHeight="479.0" prefWidth="758.0" />
             <ImageView fx:id="logo" blendMode="MULTIPLY" fitHeight="124.0" fitWidth="130.0" layoutX="17.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../../imagenes/recursos/GearMaxLogo.png" />
@@ -27,22 +27,24 @@
                   <Image url="@../../../imagenes/recursos/Title.png" />
                </image>
             </ImageView>
-            <Pane layoutX="114.0" layoutY="124.0" prefHeight="117.0" prefWidth="776.0">
+            <Pane layoutX="29.0" layoutY="134.0" prefHeight="117.0" prefWidth="928.0">
                <children>
                   <ComboBox fx:id="tipoVehiculoComboBox" layoutX="116.0" layoutY="2.0" prefWidth="150.0" promptText="Tipo de vehículo" />
                   <ComboBox fx:id="modeloComboBox" editable="true" layoutX="462.0" layoutY="2.0" prefWidth="150.0" promptText="Modelos" />
-                  <ComboBox fx:id="anoHastaComboBox" editable="true" layoutX="543.0" layoutY="47.0" prefWidth="150.0" promptText="Año hasta" />
-                  <ComboBox fx:id="anoDesdeComboBox" editable="true" layoutX="349.0" layoutY="46.0" prefWidth="150.0" promptText="Año desde" />
+                  <ComboBox fx:id="anoHastaComboBox" editable="true" layoutX="512.0" layoutY="47.0" prefWidth="150.0" promptText="Año hasta" />
+                  <ComboBox fx:id="anoDesdeComboBox" editable="true" layoutX="339.0" layoutY="46.0" prefWidth="150.0" promptText="Año desde" />
                   <ComboBox fx:id="precioHastaComboBox" editable="true" layoutX="172.0" layoutY="47.0" prefWidth="150.0" promptText="Precio hasta" />
                   <ComboBox fx:id="precioDesdeComboBox" editable="true" layoutY="47.0" prefWidth="150.0" promptText="Precio desde" />
-                  <Button layoutX="363.0" layoutY="91.0" mnemonicParsing="false" onAction="#aplicarFiltro" text="Buscar" />
+                  <Button layoutX="414.0" layoutY="91.0" mnemonicParsing="false" onAction="#aplicarFiltro" text="Buscar" />
                   <ComboBox fx:id="marcaComboBox" editable="true" layoutX="289.0" layoutY="2.0" prefWidth="150.0" promptText="Marcas" />
                   <ComboBox fx:id="ordenarPorComboBox" layoutX="626.0" layoutY="2.0" prefWidth="150.0" promptText="Ordenar por" />
-                  <Button fx:id="favoritoButton" layoutX="20.0" layoutY="4.0" mnemonicParsing="false" onAction="#filtrarFavoritos" prefHeight="25.0" prefWidth="44.0" text="❤" />
+                  <ComboBox fx:id="kilometrajeDesdeComboBox" editable="true" layoutX="741.0" layoutY="30.0" prefWidth="150.0" promptText="Kilometraje desde" />
+                  <ComboBox fx:id="kilometrajeHastaComboBox" editable="true" layoutX="741.0" layoutY="62.0" prefWidth="150.0" promptText="Kilometraje hasta" />
+                  <ComboBox fx:id="tipoCarroComboBox" layoutY="79.0" prefWidth="150.0" promptText="Tipo de Carro" visible="false" />
                </children>
             </Pane>
             <Button fx:id="cerrarSesionButton" layoutX="742.0" layoutY="56.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
-            <Label fx:id="bienvenidaLabel" layoutX="32.0" layoutY="135.0" text="Label" />
+            <Label fx:id="bienvenidaLabel" layoutX="474.0" layoutY="17.0" text="Label" />
             <Button fx:id="misVehiculosButton" layoutX="608.0" layoutY="56.0" mnemonicParsing="false" onAction="#mostrarMisVehiculos" text="Mis vehículos" />
             <Button fx:id="añadirVehiculoButton" layoutX="465.0" layoutY="56.0" mnemonicParsing="false" onAction="#añadirVehiculos" text="Añadir Vehiculos" />
          </children>

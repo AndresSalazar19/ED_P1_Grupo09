@@ -51,11 +51,13 @@ public class InicioController {
     @FXML private ComboBox<String> anoDesdeComboBox;
     @FXML private ComboBox<String> anoHastaComboBox;
     @FXML private ComboBox<String> ordenarPorComboBox;
+    @FXML private ComboBox<String> kilometrajeDesdeComboBox;
+    @FXML private ComboBox<String> kilometrajeHastaComboBox;
+    @FXML private ComboBox<String> tipoCarroComboBox;    
     @FXML private Button iniciarSesionButton;
     @FXML private Button registrarseButton;
     @FXML private Button cerrarSesionButton;
     @FXML private Button misVehiculosButton;
-    @FXML private Button favoritoButton;
     @FXML private Button añadirVehiculoButton;
     @FXML private Label bienvenidaLabel;
 
@@ -69,7 +71,6 @@ public class InicioController {
             registrarseButton.setVisible(false);
             cerrarSesionButton.setVisible(true);
             misVehiculosButton.setVisible(true);
-            favoritoButton.setVisible(true);
             añadirVehiculoButton.setVisible(true);
             bienvenidaLabel.setText("Bienvenido, " + usuarioLogeado.getNombre());
             bienvenidaLabel.setVisible(true);
@@ -78,7 +79,6 @@ public class InicioController {
             registrarseButton.setVisible(true);
             cerrarSesionButton.setVisible(false);
             misVehiculosButton.setVisible(false);
-            favoritoButton.setVisible(false);
             añadirVehiculoButton.setVisible(false);
             bienvenidaLabel.setVisible(false);
         }
@@ -119,14 +119,7 @@ public class InicioController {
         mostrar = false;
     }
     
-    @FXML private void filtrarFavoritos() throws IOException {
-        System.out.println("VEHICULOSSS FAV FILTRADOS");
-        vehiculos = usuarioLogeado.getVehiculosFavoritos();
-        mostrar = true;
-        aplicarFiltro();
-        mostrar = false;
-    }
-    
+
     @FXML private void añadirVehiculos() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("añadirVehiculo.fxml"));
         Parent root = loader.load();
@@ -164,6 +157,9 @@ public class InicioController {
         String precioHasta = precioHastaComboBox.getValue();
         String anoDesde = anoDesdeComboBox.getValue();
         String anoHasta = anoHastaComboBox.getValue();
+        String kilometrajeDesde = kilometrajeDesdeComboBox.getValue();
+        String kilometrajeHasta = kilometrajeHastaComboBox.getValue();
+        String tipoCarro = tipoCarroComboBox.getValue();
 
         boolean matches = true;
         if (tipo != null && !tipo.equals("Todos")) {
@@ -187,8 +183,22 @@ public class InicioController {
         if (anoHasta != null && !anoHasta.isEmpty()) {
             matches &= vehiculo.getYear() <= Integer.parseInt(anoHasta);
         }
+        if (kilometrajeDesde != null && !kilometrajeDesde.isEmpty()) {
+            matches &= vehiculo.getKilometraje() >= Integer.parseInt(kilometrajeDesde);
+        }
+        if (kilometrajeHasta != null && !kilometrajeHasta.isEmpty()) {
+            matches &= vehiculo.getKilometraje() <= Integer.parseInt(kilometrajeHasta);
+        }
+        if (tipoCarro != null && !tipoCarro.isEmpty()) {
+            if (vehiculo instanceof Carro) {
+                matches &= ((Carro) vehiculo).getTipoCarro().toString().equalsIgnoreCase(tipoCarro);
+            } else {
+                matches = false;
+            }
+        }
         return matches;
     }
+
 
     private void ordenarVehiculos() {
         String ordenarPor = ordenarPorComboBox.getValue();
@@ -316,40 +326,60 @@ public class InicioController {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void initialize() throws IOException {
-        System.out.println("Iniciando");
-        SistemaApp sis = SistemaApp.getInstance();
-        vehiculos = sis.getVehiculos();
-        vehiculosFiltrados = new DoublyLinkedList<>();
+@FXML
+private void initialize() throws IOException {
+    System.out.println("Iniciando");
+    SistemaApp sis = SistemaApp.getInstance();
+    vehiculos = sis.getVehiculos();
+    vehiculosFiltrados = new DoublyLinkedList<>();
                 
-        tipoVehiculoComboBox.getItems().addAll("Todos", "Carro", "Moto", "Acuatico", "Aereo", "Pesado");
-        ordenarPorComboBox.getItems().addAll("Precio Ascendente", "Precio Descendente", "Año Ascendente", "Año Descendente");
+    tipoVehiculoComboBox.getItems().addAll("Todos", "Carro", "Moto", "Acuatico", "Aereo", "Pesado");
+    ordenarPorComboBox.getItems().addAll("Precio Ascendente", "Precio Descendente", "Año Ascendente", "Año Descendente");
 
-        marcaComboBox.setEditable(true);
-        modeloComboBox.setEditable(true);
-        precioDesdeComboBox.setEditable(true);
-        precioHastaComboBox.setEditable(true);
-        anoDesdeComboBox.setEditable(true);
-        anoHastaComboBox.setEditable(true);
+    marcaComboBox.setEditable(true);
+    modeloComboBox.setEditable(true);
+    precioDesdeComboBox.setEditable(true);
+    precioHastaComboBox.setEditable(true);
+    anoDesdeComboBox.setEditable(true);
+    anoHastaComboBox.setEditable(true);
+    kilometrajeDesdeComboBox.setEditable(true);
+    kilometrajeHastaComboBox.setEditable(true);
+        
+    // Añadir listeners para agregar valores personalizados
+    marcaComboBox.setOnAction(event -> agregarValorPersonalizado(marcaComboBox));
+    modeloComboBox.setOnAction(event -> agregarValorPersonalizado(modeloComboBox));
+    precioDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(precioDesdeComboBox));
+    precioHastaComboBox.setOnAction(event -> agregarValorPersonalizado(precioHastaComboBox));
+    anoDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(anoDesdeComboBox));
+    anoHastaComboBox.setOnAction(event -> agregarValorPersonalizado(anoHastaComboBox));
+    kilometrajeDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(kilometrajeDesdeComboBox));
+    kilometrajeHastaComboBox.setOnAction(event -> agregarValorPersonalizado(kilometrajeHastaComboBox));
+        
+    kilometrajeDesdeComboBox.getItems().addAll("0", "10000", "20000", "30000", "40000", "50000");
+    kilometrajeHastaComboBox.getItems().addAll("10000", "20000", "30000", "40000", "50000", "100000");
+        
+    // Añadir valores de ejemplo para tipo de carro
+    tipoCarroComboBox.getItems().addAll("SEDAN", "CONVERTIBLE", "LIMOSINA", "CUATROXCUATRO", "ELECTRICO", "OTRO");
 
-        // Añadir listeners para agregar valores personalizados
-        marcaComboBox.setOnAction(event -> agregarValorPersonalizado(marcaComboBox));
-        modeloComboBox.setOnAction(event -> agregarValorPersonalizado(modeloComboBox));
-        precioDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(precioDesdeComboBox));
-        precioHastaComboBox.setOnAction(event -> agregarValorPersonalizado(precioHastaComboBox));
-        anoDesdeComboBox.setOnAction(event -> agregarValorPersonalizado(anoDesdeComboBox));
-        anoHastaComboBox.setOnAction(event -> agregarValorPersonalizado(anoHastaComboBox));
-
-        // Inicialmente, mostrar todos los vehículos
-        aplicarFiltro();
-        actualizarEstadoUsuario();
-        if (usuarioLogeado != null) {
-            System.out.println("Usuario logueado: " + usuarioLogeado.getId());
-            sis.cargarVehiculosAUsuario(usuarioLogeado);
+    // Listener para mostrar/ocultar el ComboBox de tipo de carro
+    tipoVehiculoComboBox.setOnAction(event -> {
+        if ("Carro".equals(tipoVehiculoComboBox.getValue())) {
+            tipoCarroComboBox.setVisible(true);
         } else {
-            System.out.println("No hay usuario logueado.");
+            tipoCarroComboBox.setVisible(false);
+            tipoCarroComboBox.setValue(null); // Reset the value if not filtering by Carro
         }
+    });
+    
+    // Inicialmente, mostrar todos los vehículos
+    aplicarFiltro();
+    actualizarEstadoUsuario();
+    if (usuarioLogeado != null) {
+        System.out.println("Usuario logueado: " + usuarioLogeado.getId());
+        sis.cargarVehiculosAUsuario(usuarioLogeado);
+    } else {
+        System.out.println("No hay usuario logueado.");
+    }
     }
 }
+

@@ -78,8 +78,6 @@ public class VerDetallesVehiculoController implements Initializable {
     @FXML
     private Label extraLabel2; // Etiqueta adicional para detalles específicos
     @FXML
-    private Button favoritoButton;
-    @FXML
     private Button editarVehiculoButton;
     @FXML
     private Button eliminarVehiculoButton;
@@ -175,11 +173,7 @@ public class VerDetallesVehiculoController implements Initializable {
         }
     }
 
-    @FXML
-    private void seleccionarFavorito() throws IOException {
-        System.out.println("SUPERRRR");
-        
-    }
+
 
     
     @FXML
@@ -269,15 +263,13 @@ public class VerDetallesVehiculoController implements Initializable {
                 if (usuario.getId() == vehiculo.getVendedor().getId()) {
                     editarVehiculoButton.setVisible(true);
                     eliminarVehiculoButton.setVisible(true);
-                    favoritoButton.setVisible(false);
+
                 } else {
-                    favoritoButton.setVisible(true);
                     editarVehiculoButton.setVisible(false);
                     eliminarVehiculoButton.setVisible(false);
 
                 }
             } else {
-                favoritoButton.setVisible(false);
                 editarVehiculoButton.setVisible(false);
                 eliminarVehiculoButton.setVisible(false);
 
