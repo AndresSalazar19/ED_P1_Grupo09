@@ -81,6 +81,8 @@
             <Button fx:id="editarVehiculoButton" layoutX="457.0" layoutY="193.0" mnemonicParsing="false" onAction="#editarVehiculo" text="Editar" />
             <Button fx:id="flechaDerechaButton" layoutX="921.0" layoutY="331.0" mnemonicParsing="false" onAction="#irAlSiguiente" text="-&gt;" />
             <Button fx:id="flechaIzquierdaButton" layoutX="6.0" layoutY="341.0" mnemonicParsing="false" onAction="#irAlAnterior" text="&lt;-" />
+            <Label fx:id="marcaLabel" layoutX="215.0" layoutY="131.0" text="Label" />
+            <Button fx:id="eliminarVehiculoButton" layoutX="454.0" layoutY="243.0" mnemonicParsing="false" onAction="#eliminarVehiculo" text="Eliminar Vehiculo" />
          </children>
       </Pane>
    </children>
