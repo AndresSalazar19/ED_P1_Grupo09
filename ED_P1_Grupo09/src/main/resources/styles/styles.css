@@ -2,7 +2,7 @@
 .root {
     -fx-font-family: 'Arial', sans-serif;
     -fx-background-color: #f0f0f0;
-    -fx-padding: 10;
+    -fx-padding: 15;
 }
 
 
@@ -48,8 +48,8 @@
 .table-view {
     -fx-background-color: #ffffff;
     -fx-border-color: #dcdcdc;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
+    -fx-table-cell-border-color: transparent /*#dcdcdc*/;
+    -fx-table-header-border-color: transparent /*#dcdcdc*/;
 }
 
 .table-view .column-header {
@@ -122,5 +122,37 @@
 .pagination {
     -fx-pref-width: 400px; 
     -fx-pref-height: 30px; 
+    -fx-alignment: center;
+}
+/* Si quieres elimina esto*/
+.combo-box {
+    -fx-background-color: #c6c6c6; 
+    -fx-border-radius: 2px; 
+    -fx-border-color: #333333;
+    -fx-background-radius: 2px; 
+    -fx-padding: 2px; 
+}
+/* Estilo de las celdas */
+.list-cell {
+    -fx-background-color: #f2f2f2; 
+    -fx-text-fill: #333333; 
+    -fx-padding: 2px; 
+}
+.list-cell:hover {
+    -fx-background-color: #e0f0ff; 
+}
+/* Estilo de la flecha*/
+.combo-box .arrow-button {
+    -fx-background-radius: 3px; 
+}
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #333333; 
+}
+/* Estilo del texto del ComboBox */
+.combo-box .list-cell:selected {
+    -fx-text-fill: #333333; 
+}
+.combo-box .list-cell:filled:selected {
+    -fx-text-fill: #333333;
 }
 

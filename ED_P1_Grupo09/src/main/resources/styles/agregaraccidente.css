@@ -2,6 +2,28 @@
  * Empty Stylesheet file.
  */
 
+/* General Styles */
 .mainFxmlClass {
-
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 15;
 }
+
+/* Button Styles */
+.button {
+    -fx-background-color: #0077c0; /* Azul característico de Mazda */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #005aa7; /* Azul oscuro para el hover */
+}
+
+.button:disabled {
+    -fx-background-color: #c0c0c0;
+}
+
