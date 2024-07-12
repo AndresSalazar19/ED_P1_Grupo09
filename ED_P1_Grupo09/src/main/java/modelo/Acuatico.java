@@ -21,7 +21,7 @@ public class Acuatico extends Vehiculo{
         this.tipoacua = tipoacua;
     }
 
-    public String getTipoacua() {
+    public String getTipoAcua() {
         return tipoacua;
     }
 

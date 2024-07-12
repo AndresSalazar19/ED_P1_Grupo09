@@ -19,8 +19,8 @@ public class AccidenteManager {
     private static final String accidenteArchivos = "src/main/java/archivos/accidenteArchivos.csv";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public static List<Accidente> cargarAccidentes() throws IOException {
-        DoublyLinkedList<Accidente> accidentes = new DoublyLinkedList<>();
+    public static LinkedList<Accidente> cargarAccidentes() throws IOException {
+        LinkedList<Accidente> accidentes = new LinkedList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(accidenteArchivos))) {
             String linea;
@@ -36,6 +36,7 @@ public class AccidenteManager {
     public static void guardarAccidentes(List<Accidente> accidentes) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(accidenteArchivos))) {
             for (Accidente accidente : accidentes) {
+                System.out.println(accidente);
                 String linea = crearLineaDesdeAccidente(accidente);
                 bw.write(linea);
                 bw.newLine();
@@ -56,8 +57,8 @@ public class AccidenteManager {
     private static String crearLineaDesdeAccidente(Accidente accidente) {
         StringBuilder sb = new StringBuilder();
         sb.append(accidente.getId()).append(",");
-        sb.append("\"").append(accidente.getDescripcion()).append("\",");
-        sb.append("\"").append(accidente.getParteAfectada()).append("\",");
+        sb.append(accidente.getDescripcion()).append(",");
+        sb.append(accidente.getParteAfectada()).append(",");
         sb.append(accidente.getFechaAccidente().format(formatter)).append(",");
         sb.append(crearLineaDesdeMantenimientos(accidente.getListaProcesos()));
         return sb.toString();
@@ -105,4 +106,6 @@ public class AccidenteManager {
         }
         return maxId + 1;
     }
+
+    
 }

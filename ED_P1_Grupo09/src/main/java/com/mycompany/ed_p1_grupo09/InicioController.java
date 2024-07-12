@@ -7,6 +7,7 @@ package com.mycompany.ed_p1_grupo09;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.PriorityQueue;
 import javafx.fxml.FXML;
@@ -120,6 +121,10 @@ public class InicioController {
     
     @FXML private void filtrarFavoritos() throws IOException {
         System.out.println("VEHICULOSSS FAV FILTRADOS");
+        vehiculos = usuarioLogeado.getVehiculosFavoritos();
+        mostrar = true;
+        aplicarFiltro();
+        mostrar = false;
     }
     
     @FXML private void añadirVehiculos() throws IOException {
@@ -292,6 +297,25 @@ public class InicioController {
             comboBox.getItems().add(valorActual);
         }
     }
+    
+    @FXML
+    public void actualizarVehiculos() {
+        System.out.println("ACTUALIZANDOO");
+        try {
+            SistemaApp sis = SistemaApp.getInstance();
+            sis.setVehiculos(null);
+            
+            vehiculos = sis.getVehiculos();
+            System.out.println("tamaño" + vehiculos.size());
+            vehiculosFiltrados.clear();
+            for(Vehiculo vehiculo: vehiculos){
+                vehiculosFiltrados.addFirst(vehiculo);
+            }
+            aplicarFiltro();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void initialize() throws IOException {
@@ -299,9 +323,7 @@ public class InicioController {
         SistemaApp sis = SistemaApp.getInstance();
         vehiculos = sis.getVehiculos();
         vehiculosFiltrados = new DoublyLinkedList<>();
-        
-        System.out.println(VehiculoManager.obtenerNextId(vehiculos));
-        
+                
         tipoVehiculoComboBox.getItems().addAll("Todos", "Carro", "Moto", "Acuatico", "Aereo", "Pesado");
         ordenarPorComboBox.getItems().addAll("Precio Ascendente", "Precio Descendente", "Año Ascendente", "Año Descendente");
 
@@ -326,7 +348,6 @@ public class InicioController {
         if (usuarioLogeado != null) {
             System.out.println("Usuario logueado: " + usuarioLogeado.getId());
             sis.cargarVehiculosAUsuario(usuarioLogeado);
-            System.out.println(usuarioLogeado.getMisVehiculos());
         } else {
             System.out.println("No hay usuario logueado.");
         }

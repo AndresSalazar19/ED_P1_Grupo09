@@ -4,21 +4,23 @@
  */
 package com.mycompany.ed_p1_grupo09;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import modelo.ImageLoader;
 import modelo.*;
@@ -47,6 +49,8 @@ public class VerDetallesVehiculoController implements Initializable {
     private Label kilometrajeLabel;
     @FXML
     private Label modeloLabel;
+    @FXML
+    private Label marcaLabel;
     @FXML
     private Label ciudadLabel;
     @FXML
@@ -77,6 +81,8 @@ public class VerDetallesVehiculoController implements Initializable {
     private Button favoritoButton;
     @FXML
     private Button editarVehiculoButton;
+    @FXML
+    private Button eliminarVehiculoButton;
     @FXML
     private Button flechaIzquierdaButton;
     @FXML
@@ -170,45 +176,124 @@ public class VerDetallesVehiculoController implements Initializable {
     }
 
     @FXML
-    private void seleccionarFavorito(){
+    private void seleccionarFavorito() throws IOException {
         System.out.println("SUPERRRR");
+        
     }
+
+    
+    @FXML
+    private void eliminarVehiculo() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Eliminación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro que desea eliminar este vehículo?");
+
+        ButtonType buttonTypeYes = new ButtonType("Sí");
+        ButtonType buttonTypeNo = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            try {
+                // Cargar la lista de vehículos
+                LinkedList<Vehiculo> vehiculos = VehiculoManager.cargarVehiculos();
+
+                // Eliminar el vehículo de la lista
+                vehiculos.removeVehicle(vehiculo);
+
+                // Guardar la lista actualizada de vehículos
+                VehiculoManager.guardarVehiculos(vehiculos);
+
+                // Cargar la lista de accidentes
+                LinkedList<Accidente> accidentesList = AccidenteManager.cargarAccidentes();
+
+                // Eliminar los accidentes asociados al vehículo
+                LinkedList<Accidente> accidentesDelVehiculo = vehiculo.getAccidentes();
+                for (Accidente accidente : accidentesDelVehiculo) {
+                    accidentesList.removeAccidente(accidente);
+                }
+
+                // Guardar la lista actualizada de accidentes
+                AccidenteManager.guardarAccidentes(accidentesList);
+
+                // Mostrar confirmación de eliminación
+                mostrarAlerta("Éxito", "El vehículo ha sido eliminado exitosamente.");
+                
+                // Obtener el controlador de InicioController y actualizar la lista de vehículos
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Inicio.fxml"));
+                Parent root = loader.load();
+                
+                
+                InicioController controller = loader.getController();
+                controller.actualizarVehiculos();
+                // Volver a la pantalla anterior
+                App.setRoot("Inicio");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "Hubo un error al eliminar el vehículo.");
+            }
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
 
     @FXML
     private void editarVehiculo(){
-        System.out.println("Raime Hakke");
+        try {
+            AñadirVehiculoController.setVehiculoActual(vehiculo);
+            AñadirVehiculoController.setUsuario(usuario);
+            App.setRoot("añadirVehiculo");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (listaVehiculos != null) {
             currentNode = listaVehiculos.getNode(vehiculo);
-            System.out.println(currentNode);
             actualizarFlechas();
             mostrarDetalles(vehiculo);
             if (usuario != null) {
                 if (usuario.getId() == vehiculo.getVendedor().getId()) {
                     editarVehiculoButton.setVisible(true);
+                    eliminarVehiculoButton.setVisible(true);
                     favoritoButton.setVisible(false);
                 } else {
                     favoritoButton.setVisible(true);
                     editarVehiculoButton.setVisible(false);
+                    eliminarVehiculoButton.setVisible(false);
+
                 }
             } else {
                 favoritoButton.setVisible(false);
                 editarVehiculoButton.setVisible(false);
+                eliminarVehiculoButton.setVisible(false);
+
             }
 
         }
     }
 
 
-    private void mostrarDetalles(Vehiculo vehiculo) {
+    public void mostrarDetalles(Vehiculo vehiculo) {
         if (vehiculo != null) {
             tipoVehiculoLabel.setText(String.valueOf(vehiculo.getTipoVehiculo()));
             numeroMantenimientosLabel.setText(String.valueOf(vehiculo.getMantenimientos().size()));
             kilometrajeLabel.setText(String.valueOf(vehiculo.getKilometraje()));
             modeloLabel.setText(vehiculo.getModelo());
+            marcaLabel.setText(vehiculo.getMarca());
             ciudadLabel.setText(vehiculo.getCiudad());
             precioLabel.setText(String.valueOf(vehiculo.getPrecio()));
             yearLabel.setText(String.valueOf(vehiculo.getYear()));
@@ -238,7 +323,7 @@ public class VerDetallesVehiculoController implements Initializable {
                     extraLabel2.setText("Peso Mínimo: " + ((Pesado) vehiculo).getPesoMin());
                     break;
                 case ACUATICO:
-                    extraLabel1.setText("Tipo de Acuático: " + ((Acuatico) vehiculo).getTipoacua());
+                    extraLabel1.setText("Tipo de Acuático: " + ((Acuatico) vehiculo).getTipoAcua());
                     extraLabel2.setText("");
                     break;
                 case AEREO:
@@ -273,7 +358,7 @@ public class VerDetallesVehiculoController implements Initializable {
         App.setRoot("verMantenimientos");
     }
 
-    private void mostrarAccidentes() {
+    public void mostrarAccidentes() {
         contenedorAccidentes.getChildren().clear();
 
         if (vehiculo.getAccidentes().isEmpty()) {
@@ -294,8 +379,9 @@ public class VerDetallesVehiculoController implements Initializable {
             Label accidenteDescripcion = new Label("Descripción: " + accidente.getDescripcion());
             Label accidenteParteAfectada = new Label("Parte Afectada: " + accidente.getParteAfectada());
             Label accidenteFecha = new Label("Fecha: " + accidente.getFechaAccidente());
+            Label numProcesos = new Label("Número de Procesos: " + accidente.getListaProcesos().size());
 
-            accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha);
+            accidenteBox.getChildren().addAll(accidenteDescripcion, accidenteParteAfectada, accidenteFecha,numProcesos);
 
             Button verMantenimientosBtn = new Button("Ver Procesos");
             verMantenimientosBtn.setOnAction(event -> {

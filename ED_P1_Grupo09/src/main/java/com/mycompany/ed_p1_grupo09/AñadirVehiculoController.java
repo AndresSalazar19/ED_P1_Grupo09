@@ -1,8 +1,6 @@
     package com.mycompany.ed_p1_grupo09;
 
-    import javafx.collections.FXCollections;
-    import javafx.collections.ObservableList;
-    import javafx.event.ActionEvent;
+
     import javafx.fxml.FXML;
     import javafx.fxml.Initializable;
     import javafx.scene.control.Button;
@@ -15,9 +13,9 @@
     import java.io.File;
     import java.io.IOException;
     import java.net.URL;
-    import java.time.LocalDate;
     import java.util.Optional;
     import java.util.ResourceBundle;
+    import javafx.collections.FXCollections;
     import javafx.fxml.FXMLLoader;
     import javafx.geometry.Pos;
     import javafx.scene.Parent;
@@ -35,7 +33,8 @@ import javafx.scene.image.ImageView;
     import modelo.*;
 
 public class AñadirVehiculoController implements Initializable {
-
+    @FXML
+    private Label tituloLabel;
     @FXML
     private TextField kmTF;
     @FXML
@@ -125,15 +124,89 @@ public class AñadirVehiculoController implements Initializable {
     private CircularDoublyLinkedList<Image> imagenes;
     private DetallesVehiInt detallesInt;
     private static Usuario vendedor;
+    private static Vehiculo vehiculoActual; // El vehículo que se va a editar
+    private static Vehiculo vehiculoEditado; // El vehículo que se va a editar
 
 
     private LinkedList<Mantenimiento> mantenimientos = new LinkedList<>();
     private LinkedList<Accidente> accidentes = new LinkedList<>();
+    private LinkedList<Accidente> accidentesEliminados = new LinkedList<>();
 
     // Método para establecer el usuario autenticado
     public static void setUsuario(Usuario vendedor) {
        AñadirVehiculoController.vendedor = vendedor;
     }
+    
+    // Método para establecer el vehículo actual para editar
+    public static void setVehiculoActual(Vehiculo vehiculo) {
+        AñadirVehiculoController.vehiculoActual = vehiculo;
+        System.out.println(vehiculo);
+    }
+    
+    // Método para cargar datos del vehículo en el formulario
+    private void cargarDatosVehiculo() {
+        if (vehiculoActual != null) {
+            kmTF.setText(String.valueOf(vehiculoActual.getKilometraje()));
+            modeloTF.setText(vehiculoActual.getModelo());
+            ciudadTF.setText(vehiculoActual.getCiudad());
+            precioTF.setText(String.valueOf(vehiculoActual.getPrecio()));
+            añoTF.setText(String.valueOf(vehiculoActual.getYear()));
+            capacidadTF.setText(String.valueOf(vehiculoActual.getCapacidad()));
+            tipoVehiCBox.setValue(vehiculoActual.getTipoVehiculo());
+            EstadoCBox.setValue(vehiculoActual.getEstado());
+            DescripcionTF.setText(vehiculoActual.getDescripcion());
+            marcaTF.setText(vehiculoActual.getMarca());
+            detallesInt = vehiculoActual.getDetallesInt();
+            negociableCB.setSelected(vehiculoActual.isNegociable());
+            imagenes = vehiculoActual.getImagenes();
+            mantenimientos = vehiculoActual.getMantenimientos();
+            accidentes = vehiculoActual.getAccidentes();
+
+            // Mostrar imágenes
+            mostrarImagenes();
+
+            // Mostrar mantenimientos
+            mostrarMantenimientos();
+
+            // Mostrar accidentes
+            mostrarAccidentes();
+
+            // Mostrar detalles internos
+            mostrarDetallesInt();
+
+            // Mostrar campos adicionales según el tipo de vehículo
+            updateFieldsVisibility();
+
+            // Cambiar el título del formulario
+            tituloLabel.setText("Editar Vehículo");
+
+            // Mostrar campos específicos según el tipo de vehículo
+            switch (vehiculoActual.getTipoVehiculo()) {
+                case CARRO:
+                    tipoCarroCBox.setValue(((Carro) vehiculoActual).getTipoCarro());
+                    break;
+                case MOTO:
+                    cilindrajeTF.setText(String.valueOf(((Moto) vehiculoActual).getCilindraje()));
+                    break;
+                case PESADO:
+                    pesoMaxTF.setText(String.valueOf(((Pesado) vehiculoActual).getPesoMax()));
+                    pesoMinTF.setText(String.valueOf(((Pesado) vehiculoActual).getPesoMin()));
+                    break;
+                case ACUATICO:
+                    tipoAcuaticoTF.setText(((Acuatico) vehiculoActual).getTipoAcua());
+                    break;
+                case AEREO:
+                    tipoAeronaveTF.setText(((Aereo) vehiculoActual).getTipoAeronave());
+                    pesoMaxDespegueTF.setText(String.valueOf(((Aereo) vehiculoActual).getPesoMaximoDespegue()));
+                    rangoVueloTF.setText(String.valueOf(((Aereo) vehiculoActual).getRangoVuelo()));
+                    break;
+                default:
+                    // No additional fields for other types
+                    break;
+            }
+        }
+    }
+
     
     @FXML
     private void selectTipoVehi() {
@@ -162,6 +235,7 @@ public class AñadirVehiculoController implements Initializable {
                 Image image = new Image(file.toURI().toString());
                 imagenes.addLast(image);
                 System.out.println("Imagen añadida: " + file.getName());
+                System.out.println(imagenes.size());
                 mostrarImagenes(); // Llamar a mostrarImagenes después de agregar una imagen
             } catch (Exception e) {
                 e.printStackTrace();
@@ -238,8 +312,23 @@ public class AñadirVehiculoController implements Initializable {
 
     @FXML
     private void volver() throws IOException {
-        App.setRoot("inicio");
+        if (vehiculoActual != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("verDetallesVehiculo.fxml"));
+            Parent root = loader.load();
+            VerDetallesVehiculoController controller = loader.getController();
+            System.out.println(vehiculoEditado.getDescripcion());
+            controller.setVehiculo(vehiculoEditado);
+
+            for (Accidente accidente : accidentesEliminados) {
+                accidentes.addFirst(accidente);
+            }
+            vehiculoActual = null;
+            App.setRoot("verDetallesVehiculo");
+        } else {
+            App.setRoot("inicio");
+        }
     }
+
 
     @FXML
     private void updateFieldsVisibility() {
@@ -272,125 +361,155 @@ public class AñadirVehiculoController implements Initializable {
         }
     }
 
-    @FXML
-    private void guardarDetallesVehi() {
-        try {
-            // Validar que todos los campos estén llenos
-            if (kmTF.getText().isEmpty() || modeloTF.getText().isEmpty() || ciudadTF.getText().isEmpty() || 
-                precioTF.getText().isEmpty() || añoTF.getText().isEmpty() || capacidadTF.getText().isEmpty() || 
-                tipoVehiCBox.getValue() == null || EstadoCBox.getValue() == null || imagenes.isEmpty() ||
-                DescripcionTF.getText().isEmpty() || marcaTF.getText().isEmpty() || detallesInt == null) {
-                mostrarAlerta("Error", "Todos los campos deben estar llenos y debe haber al menos una imagen.");
-                return;
-            }
-
-            // Validar los campos numéricos
-            int kilometraje = Integer.parseInt(kmTF.getText());
-            double precio = Double.parseDouble(precioTF.getText());
-            int year = Integer.parseInt(añoTF.getText());
-            int capacidad = Integer.parseInt(capacidadTF.getText());
-
-            // Cargar la lista de vehículos y obtener el siguiente ID disponible
-            List<Vehiculo> vehiculos = VehiculoManager.cargarVehiculos();
-            int nextId = VehiculoManager.obtenerNextId(vehiculos);
-
-            // Validar tipo de vehículo y sus campos específicos
-            TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
-            Vehiculo vehiculoNuevo = null;
-
-            switch (tipoSeleccionado) {
-                case PESADO:
-                    if (pesoMaxTF.getText().isEmpty() || pesoMinTF.getText().isEmpty()) {
-                        mostrarAlerta("Error", "Debe llenar todos los campos específicos para vehículos pesados.");
-                        return;
-                    }
-                    double pesoMax = Double.parseDouble(pesoMaxTF.getText());
-                    double pesoMin = Double.parseDouble(pesoMinTF.getText());
-                    vehiculoNuevo = new Pesado(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(), 
-                                                EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes, 
-                                                accidentes, nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(), 
-                                                mantenimientos, tipoSeleccionado, pesoMax, pesoMin);
-                    break;
-                case CARRO:
-                    if (tipoCarroCBox.getValue() == null) {
-                        mostrarAlerta("Error", "Debe seleccionar el tipo de carro.");
-                        return;
-                    }
-                    vehiculoNuevo = new Carro(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(), 
-                                                EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes, 
-                                                accidentes, nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(), 
-                                                mantenimientos, tipoSeleccionado, tipoCarroCBox.getValue());
-                    break;
-                case ACUATICO:
-                    if (tipoAcuaticoTF.getText().isEmpty()) {
-                        mostrarAlerta("Error", "Debe llenar el campo específico para vehículos acuáticos.");
-                        return;
-                    }
-                    vehiculoNuevo = new Acuatico(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(), 
-                                                EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes, 
-                                                accidentes, nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(), 
-                                                mantenimientos, tipoSeleccionado, tipoAcuaticoTF.getText());
-                    break;
-                case AEREO:
-                    if (tipoAeronaveTF.getText().isEmpty() || pesoMaxDespegueTF.getText().isEmpty() || rangoVueloTF.getText().isEmpty()) {
-                        mostrarAlerta("Error", "Debe llenar todos los campos específicos para vehículos aéreos.");
-                        return;
-                    }
-                    double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
-                    int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
-                    vehiculoNuevo = new Aereo(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(), 
-                                                EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes, 
-                                                accidentes, nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(), 
-                                                mantenimientos, tipoSeleccionado, tipoAeronaveTF.getText(), pesoMaximoDespegue, rangoVuelo);
-                    break;
-                case MOTO:
-                    if (cilindrajeTF.getText().isEmpty()) {
-                        mostrarAlerta("Error", "Debe llenar el campo específico para motocicletas.");
-                        return;
-                    }
-                    int cilindraje = Integer.parseInt(cilindrajeTF.getText());
-                    vehiculoNuevo = new Moto(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(), 
-                                                EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes, 
-                                                accidentes, nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(), 
-                                                mantenimientos, tipoSeleccionado, cilindraje);
-                    break;
-                default:
-                    mostrarAlerta("Error", "Tipo de vehículo desconocido.");
-                    return;
-            }
-
-            // Guardar los accidentes nuevos si existen
-            List<Accidente> accidentesList = AccidenteManager.cargarAccidentes();
-            int nextIdAccidente = AccidenteManager.obtenerNextId(accidentesList);
-            LinkedList<Accidente> nuevosAccidentes = vehiculoNuevo.getAccidentes();
-
-            for (Accidente nuevoAccidente : nuevosAccidentes) {
-                if (nuevoAccidente.getId() == 0) { // Asigna un nuevo ID solo si el accidente no tiene ID
-                    nuevoAccidente.setId(nextIdAccidente++);
-                }
-                accidentesList.addLast(nuevoAccidente);
-            }
-
-            AccidenteManager.guardarAccidentes(accidentesList);
-
-            // Guardar el vehículo nuevo
-            vehiculos.addLast(vehiculoNuevo);
-            VehiculoManager.guardarVehiculos(vehiculos);
-
-            // Volver a cargar la lista de vehículos en el sistema
-            SistemaApp.getInstance().setVehiculos(VehiculoManager.cargarVehiculos());
-
-            // Mostrar confirmación y volver a la pantalla anterior
-            mostrarAlerta("Éxito", "El vehículo ha sido guardado exitosamente.");
-
-            volver();
-
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "Por favor, ingrese valores numéricos válidos en los campos correspondientes.");
-        } catch (IOException e) {
-            e.printStackTrace();
+@FXML
+private void guardarDetallesVehi() {
+    try {
+        // Validar que todos los campos estén llenos
+        if (kmTF.getText().isEmpty() || modeloTF.getText().isEmpty() || ciudadTF.getText().isEmpty() ||
+            precioTF.getText().isEmpty() || añoTF.getText().isEmpty() || capacidadTF.getText().isEmpty() ||
+            tipoVehiCBox.getValue() == null || EstadoCBox.getValue() == null || imagenes.isEmpty() ||
+            DescripcionTF.getText().isEmpty() || marcaTF.getText().isEmpty() || detallesInt == null) {
+            mostrarAlerta("Error", "Todos los campos deben estar llenos y debe haber al menos una imagen.");
+            return;
         }
+
+        // Validar los campos numéricos
+        int kilometraje = Integer.parseInt(kmTF.getText());
+        double precio = Double.parseDouble(precioTF.getText());
+        int year = Integer.parseInt(añoTF.getText());
+        int capacidad = Integer.parseInt(capacidadTF.getText());
+
+        // Cargar la lista de vehículos
+        LinkedList<Vehiculo> vehiculos = VehiculoManager.cargarVehiculos();
+        int nextId = VehiculoManager.obtenerNextId(vehiculos);
+
+        // Validar tipo de vehículo y sus campos específicos
+        TipoVehiculo tipoSeleccionado = tipoVehiCBox.getValue();
+        Vehiculo vehiculoNuevo = null;
+        
+        if(vehiculoActual != null){
+            ImageLoader.crearCarpeta(vehiculoActual.getId(),imagenes);
+            System.out.println("Cargado" + imagenes.size());
+        } else{
+            ImageLoader.crearCarpeta(nextId, imagenes);
+        }
+        
+        switch (tipoSeleccionado) {
+            case PESADO:
+                if (pesoMaxTF.getText().isEmpty() || pesoMinTF.getText().isEmpty()) {
+                    mostrarAlerta("Error", "Debe llenar todos los campos específicos para vehículos pesados.");
+                    return;
+                }
+                double pesoMax = Double.parseDouble(pesoMaxTF.getText());
+                double pesoMin = Double.parseDouble(pesoMinTF.getText());
+                vehiculoNuevo = new Pesado(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(),
+                                            EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes,
+                                            accidentes, vehiculoActual != null ? vehiculoActual.getId() : nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(),
+                                            mantenimientos, tipoSeleccionado, pesoMax, pesoMin);
+                break;
+            case CARRO:
+                if (tipoCarroCBox.getValue() == null) {
+                    mostrarAlerta("Error", "Debe seleccionar el tipo de carro.");
+                    return;
+                }
+                vehiculoNuevo = new Carro(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(),
+                                            EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes,
+                                            accidentes, vehiculoActual != null ? vehiculoActual.getId() : nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(),
+                                            mantenimientos, tipoSeleccionado, tipoCarroCBox.getValue());
+                break;
+            case ACUATICO:
+                if (tipoAcuaticoTF.getText().isEmpty()) {
+                    mostrarAlerta("Error", "Debe llenar el campo específico para vehículos acuáticos.");
+                    return;
+                }
+                vehiculoNuevo = new Acuatico(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(),
+                                            EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes,
+                                            accidentes, vehiculoActual != null ? vehiculoActual.getId() : nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(),
+                                            mantenimientos, tipoSeleccionado, tipoAcuaticoTF.getText());
+                break;
+            case AEREO:
+                if (tipoAeronaveTF.getText().isEmpty() || pesoMaxDespegueTF.getText().isEmpty() || rangoVueloTF.getText().isEmpty()) {
+                    mostrarAlerta("Error", "Debe llenar todos los campos específicos para vehículos aéreos.");
+                    return;
+                }
+                double pesoMaximoDespegue = Double.parseDouble(pesoMaxDespegueTF.getText());
+                int rangoVuelo = Integer.parseInt(rangoVueloTF.getText());
+                vehiculoNuevo = new Aereo(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(),
+                                            EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes,
+                                            accidentes, vehiculoActual != null ? vehiculoActual.getId() : nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(),
+                                            mantenimientos, tipoSeleccionado, tipoAeronaveTF.getText(), pesoMaximoDespegue, rangoVuelo);
+                break;
+            case MOTO:
+                if (cilindrajeTF.getText().isEmpty()) {
+                    mostrarAlerta("Error", "Debe llenar el campo específico para motocicletas.");
+                    return;
+                }
+                int cilindraje = Integer.parseInt(cilindrajeTF.getText());
+                vehiculoNuevo = new Moto(kilometraje, modeloTF.getText(), DescripcionTF.getText(), marcaTF.getText(),
+                                            EstadoCBox.getValue(), ciudadTF.getText(), precio, year, imagenes,
+                                            accidentes, vehiculoActual != null ? vehiculoActual.getId() : nextId, capacidad, vendedor, detallesInt, negociableCB.isSelected(),
+                                            mantenimientos, tipoSeleccionado, cilindraje);
+                break;
+            default:
+                mostrarAlerta("Error", "Tipo de vehículo desconocido.");
+                return;
+        }
+
+        // Cargar la lista de accidentes
+        LinkedList<Accidente> accidentesList = AccidenteManager.cargarAccidentes();
+        int nextIdAccidente = AccidenteManager.obtenerNextId(accidentesList);
+
+        // Remover accidentes anteriores del vehículo actual
+        if (vehiculoActual != null) {
+            LinkedList<Accidente> accidentesActuales = vehiculoActual.getAccidentes();
+            for (Accidente accidente : accidentesActuales) {
+                accidentesList.removeAccidente(accidente);
+            }
+        }
+
+        // Agregar los nuevos accidentes
+        LinkedList<Accidente> nuevosAccidentes = vehiculoNuevo.getAccidentes();
+        for (Accidente nuevoAccidente : nuevosAccidentes) {
+            if (nuevoAccidente.getId() == 0) { // Asigna un nuevo ID solo si el accidente no tiene ID
+                nuevoAccidente.setId(nextIdAccidente++);
+            }
+            accidentesList.addLast(nuevoAccidente);
+        }
+
+        // Eliminar los accidentes marcados para eliminación
+        for (Accidente accidenteEliminado : accidentesEliminados) {
+            accidentesList.removeAccidente(accidenteEliminado);
+        }
+
+        // Guardar los accidentes actualizados
+        AccidenteManager.guardarAccidentes(accidentesList);
+
+        // Si es una edición, eliminar el vehículo existente antes de añadir el nuevo
+        if (vehiculoActual != null) {
+            vehiculos.removeVehicle(vehiculoActual);
+        }
+
+        // Guardar el vehículo nuevo
+        vehiculos.addLast(vehiculoNuevo);
+        VehiculoManager.guardarVehiculos(vehiculos);
+        vehiculoEditado = vehiculoNuevo;
+
+        // Volver a cargar la lista de vehículos en el sistema
+        SistemaApp.getInstance().setVehiculos(VehiculoManager.cargarVehiculos());
+
+        // Mostrar confirmación y volver a la pantalla anterior
+        mostrarAlerta("Éxito", "El vehículo ha sido guardado exitosamente.");
+
+        volver();
+
+    } catch (NumberFormatException e) {
+        mostrarAlerta("Error", "Por favor, ingrese valores numéricos válidos en los campos correspondientes.");
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
+
 
     
     private void mostrarAlerta(String titulo, String mensaje) {
@@ -525,8 +644,10 @@ public class AñadirVehiculoController implements Initializable {
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == buttonTypeYes) {
                         accidentes.remove(accidente);
+                        accidentesEliminados.addFirst(accidente); // Agregar a la lista de eliminados
                         mostrarAccidentes();
                     }
+
                 });
 
                 HBox btnContainer = new HBox(editarAccidenteBtn, eliminarAccidenteBtn);
@@ -702,6 +823,12 @@ public class AñadirVehiculoController implements Initializable {
             } else{
                 mostrarDetallesInt();
             }
+            
+            // Cargar datos del vehículo si está disponible
+            if (vehiculoActual != null) {
+                cargarDatosVehiculo();
+            }       
+
         }
     }
 

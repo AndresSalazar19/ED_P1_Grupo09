@@ -52,8 +52,8 @@ public class VehiculoManager {
     }
         
     
-    public static List<Vehiculo> cargarVehiculos() throws IOException {
-        DoublyLinkedList<Vehiculo> vehiculos = new DoublyLinkedList<>();
+    public static LinkedList<Vehiculo> cargarVehiculos() throws IOException {
+        LinkedList<Vehiculo> vehiculos = new LinkedList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(vehiculoArchivos))) {
             String linea;
@@ -264,7 +264,7 @@ public class VehiculoManager {
         sb.append(vehiculo.getTipoVehiculo());
 
         if (vehiculo instanceof Acuatico) {
-            sb.append(",").append(((Acuatico) vehiculo).getTipoacua());
+            sb.append(",").append(((Acuatico) vehiculo).getTipoAcua());
             sb.append(",,");
         } else if (vehiculo instanceof Aereo) {
             sb.append(",").append(((Aereo) vehiculo).getTipoAeronave());

@@ -282,4 +282,31 @@ public class DoublyLinkedList<E> implements List<E> {
         size--;
         return removedElement;
     }
+    
+    public boolean removeVehicle(E element) {
+    if (element == null || last == null) {
+        return false;
+    }
+    DoublyNodeList<E> current = last.getNext();
+    for (int i = 0; i < size; i++) {
+        if (current.getContent().equals(element)) {
+            // Found the element to remove
+            if (size == 1) {
+                last = null;
+            } else {
+                current.getPrevious().setNext(current.getNext());
+                current.getNext().setPrevious(current.getPrevious());
+                if (current == last) {
+                    last = current.getPrevious();
+                }
+            }
+            size--;
+            return true;
+        }
+        current = current.getNext();
+        }
+        return false;
+    }
+
+    
 }

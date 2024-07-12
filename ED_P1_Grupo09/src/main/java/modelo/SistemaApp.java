@@ -9,42 +9,69 @@ import tda.*;
  *
  * @author asala
  */
+
+
 public class SistemaApp {
     private static SistemaApp instance;
-    private List<Vehiculo> vehiculos;
-    
-    private SistemaApp() throws IOException{
+    private LinkedList<Vehiculo> vehiculos;
+    private LinkedList<Usuario> usuarios;
+
+    private SistemaApp() throws IOException {
         this.vehiculos = VehiculoManager.cargarVehiculos();
     }
-    
-    public void cargarVehiculosAUsuario(Usuario usuario){
-        DoublyLinkedList<Vehiculo> vehiculosUsuario = new DoublyLinkedList<>();
-        for(Vehiculo vehiculo: vehiculos){
-            if(vehiculo.getVendedor().getId() == usuario.getId()){
-                vehiculosUsuario.addFirst(vehiculo);
-            }
-        }
-        System.out.println("EAS" + vehiculosUsuario.size());
-        usuario.setMisVehiculos(vehiculosUsuario);
-    }
-    
+
     public static SistemaApp getInstance() throws IOException {
         if (instance == null) {
             instance = new SistemaApp();
         }
         return instance;
     }
-    
-    public List<Vehiculo> getVehiculos() throws IOException{
-        if(vehiculos == null){
+
+    public LinkedList<Vehiculo> getVehiculos() throws IOException {
+        if (vehiculos == null) {
             this.vehiculos = VehiculoManager.cargarVehiculos();
             setVehiculos(vehiculos);
         }
         return vehiculos;
     }
-    
-        public void setVehiculos(List<Vehiculo> vehiculos){
+
+    public void setVehiculos(LinkedList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
-   
+
+    public LinkedList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(LinkedList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public void cargarVehiculosAUsuario(Usuario usuario) {
+        DoublyLinkedList<Vehiculo> vehiculosUsuario = new DoublyLinkedList<>();
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getVendedor().getId() == usuario.getId()) {
+                vehiculosUsuario.addFirst(vehiculo);
+            }
+        }
+        usuario.setMisVehiculos(vehiculosUsuario);
+    }
+
+    public void guardarVehiculos() throws IOException {
+        VehiculoManager.guardarVehiculos(vehiculos);
+    }
+
+
+
+    public void agregarVehiculo(Vehiculo vehiculo) throws IOException {
+        vehiculos.addFirst(vehiculo);
+        guardarVehiculos();
+    }
+
+    public void eliminarVehiculo(Vehiculo vehiculo) throws IOException {
+        vehiculos.removeVehicle(vehiculo);
+        guardarVehiculos();
+    }
+
+
 }

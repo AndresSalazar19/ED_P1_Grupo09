@@ -10,6 +10,7 @@ package tda;
  * @param <E>
  */
 
+
 public class NodeList<E> {
     private E content;
     private NodeList<E> next;
@@ -35,3 +36,4 @@ public class NodeList<E> {
         this.next = next;
     }
 }
+
