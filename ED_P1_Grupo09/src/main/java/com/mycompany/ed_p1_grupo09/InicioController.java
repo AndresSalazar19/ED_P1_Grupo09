@@ -295,10 +295,13 @@ public class InicioController {
 
     @FXML
     private void initialize() throws IOException {
+        System.out.println("Iniciando");
         SistemaApp sis = SistemaApp.getInstance();
         vehiculos = sis.getVehiculos();
         vehiculosFiltrados = new DoublyLinkedList<>();
-
+        
+        System.out.println(VehiculoManager.obtenerNextId(vehiculos));
+        
         tipoVehiculoComboBox.getItems().addAll("Todos", "Carro", "Moto", "Acuatico", "Aereo", "Pesado");
         ordenarPorComboBox.getItems().addAll("Precio Ascendente", "Precio Descendente", "Año Ascendente", "Año Descendente");
 

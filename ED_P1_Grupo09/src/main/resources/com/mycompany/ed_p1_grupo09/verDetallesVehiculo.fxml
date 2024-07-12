@@ -46,6 +46,7 @@
                   <Label fx:id="tipoMotorLabel" layoutX="315.0" layoutY="112.0" text="Tipo de motor" />
                   <Label fx:id="extraLabel1" layoutX="34.0" layoutY="194.0" text="extraLabel1" />
                   <Label fx:id="extraLabel2" layoutX="34.0" layoutY="211.0" text="extraLabel2" />
+                  <Label fx:id="descripcionLabel" layoutX="64.0" layoutY="142.0" prefHeight="43.0" prefWidth="310.0" text="Descripcion" />
                </children>
             </Pane>
             <Text layoutX="38.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo:" />

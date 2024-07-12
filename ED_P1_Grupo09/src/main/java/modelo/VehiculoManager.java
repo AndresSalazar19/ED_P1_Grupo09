@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.scene.image.Image;
 import tda.*;
 /**
@@ -20,7 +22,36 @@ public class VehiculoManager {
     private static final String vehiculoArchivos = "src/main/java/archivos/vehiculoArchivos.csv";
     private static final String accidenteArchivos = "src/main/java/archivos/accidenteArchivos.csv";
     private static final String usuarioArchivos = "src/main/java/archivos/usuarioArchivos.csv";
+    
+    public static int obtenerNextId(List<Vehiculo> vehiculos) {
+        if (vehiculos.isEmpty()) {
+            return 1; // Si la lista está vacía, devolver 1
+        }
+                
+        Set<Integer> ids = new HashSet<>();
+        int maxId = 0;
 
+        // Recopilar todos los IDs y encontrar el ID máximo
+        for (Vehiculo vehiculo : vehiculos) {
+            int id = vehiculo.getId();
+            ids.add(id);
+            if (id > maxId) {
+                maxId = id;
+            }
+        }
+
+        // Buscar el menor número que falta en la lista de IDs
+        for (int i = 1; i <= maxId; i++) {
+            if (!ids.contains(i)) {
+                return i;
+            }
+        }
+
+        // Si no hay huecos, devolver el siguiente número después del ID máximo
+        return maxId + 1;
+    }
+        
+    
     public static List<Vehiculo> cargarVehiculos() throws IOException {
         DoublyLinkedList<Vehiculo> vehiculos = new DoublyLinkedList<>();
 
@@ -118,22 +149,28 @@ public class VehiculoManager {
         }
     }
 
-    private static CircularDoublyLinkedList<Image> cargarImagenes(String imagenesStr) {
-        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + imagenesStr);
+    private static CircularDoublyLinkedList<Image> cargarImagenes(String id) {
+        CircularDoublyLinkedList<Image> imagenes = ImageLoader.loadImagesFromFolder("src/main/resources/imagenes/vehiculos/" + id);
         return imagenes;
     }
 
+    private static void crearImagenes(Vehiculo vehiculo){
+        int id = vehiculo.getId();
+        CircularDoublyLinkedList<Image> imagenes = vehiculo.getImagenes();
+        ImageLoader.crearCarpeta(id, imagenes);
+    }
+    
     private static LinkedList<Accidente> cargarAccidentes(String accidentesStr) throws IOException {
     LinkedList<Accidente> accidentes = new LinkedList<>();
     if (accidentesStr.replace("[", "").replace("]", "").isEmpty()) {
         return accidentes;
+    } else{
+        String[] idAccidentes = accidentesStr.replace("[", "").replace("]", "").split(";");
+        for (String idAccidente : idAccidentes) {
+            accidentes.addFirst(cargarAccidente(Integer.parseInt(idAccidente)));
+        }
+        return accidentes;
     }
-    
-    String[] idAccidentes = accidentesStr.replace("[", "").replace("]", "").split(";");
-    for (String idAccidente : idAccidentes) {
-        accidentes.addFirst(cargarAccidente(Integer.parseInt(idAccidente)));
-    }
-    return accidentes;
 }
 
 
@@ -210,15 +247,15 @@ public class VehiculoManager {
         sb.append(vehiculo.getCiudad()).append(",");
         sb.append(vehiculo.getPrecio()).append(",");
         sb.append(vehiculo.getYear()).append(",");
-        sb.append(crearLineaDesdeImagenes(vehiculo.getImagenes())).append(",");
+        crearImagenes(vehiculo);
         sb.append(crearLineaDesdeAccidentes(vehiculo.getAccidentes())).append(",");
         sb.append(vehiculo.getCapacidad()).append(",");
         sb.append("(")
-          .append(vehiculo.getDetallesInt().getTraccion()).append(",")
-          .append(vehiculo.getDetallesInt().getTransmision()).append(",")
-          .append(vehiculo.getDetallesInt().getCombustible()).append(",")
-          .append(vehiculo.getDetallesInt().getPlaca()).append(",")
-          .append(vehiculo.getDetallesInt().isClimatizado()).append(",")
+          .append(vehiculo.getDetallesInt().getTraccion()).append("~")
+          .append(vehiculo.getDetallesInt().getTransmision()).append("~")
+          .append(vehiculo.getDetallesInt().getCombustible()).append("~")
+          .append(vehiculo.getDetallesInt().getPlaca()).append("~")
+          .append(vehiculo.getDetallesInt().isClimatizado()).append("~")
           .append(vehiculo.getDetallesInt().getTipoMotor())
           .append("),");
         sb.append(vehiculo.getVendedor().getId()).append(",");
@@ -228,14 +265,17 @@ public class VehiculoManager {
 
         if (vehiculo instanceof Acuatico) {
             sb.append(",").append(((Acuatico) vehiculo).getTipoacua());
+            sb.append(",,");
         } else if (vehiculo instanceof Aereo) {
             sb.append(",").append(((Aereo) vehiculo).getTipoAeronave());
             sb.append(",").append(((Aereo) vehiculo).getPesoMaximoDespegue());
             sb.append(",").append(((Aereo) vehiculo).getRangoVuelo());
         } else if (vehiculo instanceof Carro) {
             sb.append(",").append(String.valueOf(((Carro) vehiculo).getTipoCarro()));
+            sb.append(",,");
         } else if (vehiculo instanceof Moto) {
             sb.append(",").append(((Moto) vehiculo).getCilindraje());
+            sb.append(",,");
         } else if (vehiculo instanceof Pesado) {
             sb.append(",").append(((Pesado) vehiculo).getPesoMax());
             sb.append(",").append(((Pesado) vehiculo).getPesoMin());
@@ -244,17 +284,13 @@ public class VehiculoManager {
         return sb.toString();
     }
 
-    private static String crearLineaDesdeImagenes(CircularDoublyLinkedList<Image> imagenes) {
-        // Implementa la lógica para crear la línea de imágenes
-        return "img1.jpg;img2.jpg"; // Ejemplo
-    }
 
     private static String crearLineaDesdeAccidentes(LinkedList<Accidente> accidentes) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (Accidente accidente : accidentes) {
             if (sb.length() > 1) {
-                sb.append(",");
+                sb.append(";");
             }
             sb.append(accidente.getId());
         }
@@ -270,7 +306,7 @@ public class VehiculoManager {
                 sb.append(";");
             }
             sb.append("(")
-              .append(mantenimiento.getDescripcion()).append(",")
+              .append(mantenimiento.getDescripcion()).append("~")
               .append(mantenimiento.getTipoMantenimiento())
               .append(")");
         }
